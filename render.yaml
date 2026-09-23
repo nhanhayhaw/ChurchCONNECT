@@ -1,8 +1,8 @@
 # Render Blueprint for the ChurchConnect API.
 #
 # Dashboard -> New -> Blueprint -> pick this repository. Render reads this file
-# and creates the API web service with its persistent disk and its secrets.
-# You are prompted once for DATABASE_URL; everything else is filled in here.
+# and creates the API web service with its secrets. You are prompted once for
+# DATABASE_URL; everything else is filled in here.
 #
 # The React client is NOT defined here: it lives on Vercel, with
 # client/vercel.json forwarding /api/* to this service.
@@ -11,18 +11,23 @@ services:
     name: churchconnect-api
     runtime: node
     region: frankfurt
-    # Free web services on Render cannot have a disk and sleep after 15 minutes,
-    # which stops the nightly absence scan. Starter is the smallest plan that works.
-    plan: starter
+    # FREE PLAN: no card required. The service sleeps after 15 idle minutes
+    # (the first request afterwards takes ~50 s) and cannot have a persistent
+    # disk, so uploaded member photos vanish on each restart or deploy.
+    # Everything else lives in Supabase and is safe.
+    #
+    # To go live properly, change to `plan: starter` and add back the disk:
+    #   disk:
+    #     name: uploads
+    #     mountPath: /opt/render/project/src/server/uploads
+    #     sizeGB: 1
+    # then set UPLOAD_DIR below to that mountPath. Render will ask for a card.
+    plan: free
     rootDir: server
     buildCommand: npm ci && npm run build
     # migrate:prod is safe to run on every deploy; applied migrations are skipped.
     startCommand: npm run migrate:prod && npm start
     healthCheckPath: /api/health
-    disk:
-      name: uploads
-      mountPath: /opt/render/project/src/server/uploads
-      sizeGB: 1
     envVars:
       - key: NODE_ENV
         value: production
@@ -38,7 +43,7 @@ services:
       - key: JWT_REFRESH_SECRET
         generateValue: true
       - key: UPLOAD_DIR
-        value: /opt/render/project/src/server/uploads
+        value: ./uploads
       - key: TZ
         value: Africa/Accra
       - key: ENABLE_JOBS
