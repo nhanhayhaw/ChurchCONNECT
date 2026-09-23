@@ -24,7 +24,9 @@ services:
     # then set UPLOAD_DIR below to that mountPath. Render will ask for a card.
     plan: free
     rootDir: server
-    buildCommand: npm ci && npm run build
+    # --include=dev: Render builds with NODE_ENV=production, which makes npm ci
+    # skip devDependencies - and tsc plus every @types/* package live there.
+    buildCommand: npm ci --include=dev && npm run build
     # migrate:prod is safe to run on every deploy; applied migrations are skipped.
     startCommand: npm run migrate:prod && npm start
     healthCheckPath: /api/health
