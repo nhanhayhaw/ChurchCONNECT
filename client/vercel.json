@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "https://churchconnect-api.onrender.com/api/$1" },
+    { "source": "/api/(.*)", "destination": "https://churchconnect-api-omoa.onrender.com/api/$1" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }
