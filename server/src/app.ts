@@ -38,7 +38,7 @@ export function createApp() {
   // Behind exactly one reverse proxy in production (nginx / a platform router).
   // Trusting a specific hop rather than `true` keeps X-Forwarded-For spoofing
   // from defeating the rate limiter.
-  app.set('trust proxy', env.isProd ? 1 : false);
+  app.set('trust proxy', env.isProd ? env.TRUST_PROXY : false);
   app.disable('x-powered-by');
 
   app.use(

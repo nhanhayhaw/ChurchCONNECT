@@ -31,6 +31,12 @@ const schema = z.object({
   // taking attendance from many devices on the church Wi-Fi.
   API_RATE_LIMIT_PER_MINUTE: z.coerce.number().int().positive().default(300),
 
+  // How many reverse proxies sit in front of the API in production. 1 for a
+  // platform router alone (Render, Railway); 2 when a CDN rewrite such as
+  // Vercel's /api/* proxy sits in front of that. Wrong and every visitor
+  // shares one rate-limit bucket, or X-Forwarded-For can be spoofed.
+  TRUST_PROXY: z.coerce.number().int().min(0).default(1),
+
   UPLOAD_DIR: z.string().default('./uploads'),
   MAX_UPLOAD_BYTES: z.coerce.number().int().positive().default(3 * 1024 * 1024),
 

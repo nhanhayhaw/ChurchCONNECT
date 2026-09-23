@@ -1,0 +1,49 @@
+# Render Blueprint for the ChurchConnect API.
+#
+# Dashboard -> New -> Blueprint -> pick this repository. Render reads this file
+# and creates the API web service with its persistent disk and its secrets.
+# You are prompted once for DATABASE_URL; everything else is filled in here.
+#
+# The React client is NOT defined here: it lives on Vercel, with
+# client/vercel.json forwarding /api/* to this service.
+services:
+  - type: web
+    name: churchconnect-api
+    runtime: node
+    region: frankfurt
+    # Free web services on Render cannot have a disk and sleep after 15 minutes,
+    # which stops the nightly absence scan. Starter is the smallest plan that works.
+    plan: starter
+    rootDir: server
+    buildCommand: npm ci && npm run build
+    # migrate:prod is safe to run on every deploy; applied migrations are skipped.
+    startCommand: npm run migrate:prod && npm start
+    healthCheckPath: /api/health
+    disk:
+      name: uploads
+      mountPath: /opt/render/project/src/server/uploads
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        # Supabase -> Connect -> Session pooler, port 5432, password percent-encoded.
+        sync: false
+      - key: PGSSL
+        value: "true"
+      - key: CLIENT_ORIGIN
+        value: https://church-connect-omega.vercel.app
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: UPLOAD_DIR
+        value: /opt/render/project/src/server/uploads
+      - key: TZ
+        value: Africa/Accra
+      - key: ENABLE_JOBS
+        value: "true"
+      # Requests arrive through Vercel's rewrite proxy and then Render's own
+      # proxy: two hops. See TRUST_PROXY in server/src/config/env.ts.
+      - key: TRUST_PROXY
+        value: "2"
