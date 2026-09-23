@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  /* A single, consistent focus ring everywhere. Never removed - keyboard
+     users must always be able to see where they are. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-navy-500 ring-offset-2 ring-offset-white dark:ring-offset-navy-950;
+  }
+
+  /* Numeric columns line up when digits are tabular. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-slate-300 dark:bg-navy-700;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400 dark:bg-navy-600;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Components
+   -------------------------------------------------------------------------- */
+@layer components {
+  .cc-card {
+    @apply rounded-xl border border-slate-200 bg-white shadow-card
+           dark:border-navy-800 dark:bg-navy-900;
+  }
+
+  .cc-input {
+    @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900
+           placeholder:text-slate-400 transition
+           focus:border-navy-500 focus:outline-none focus:ring-2 focus:ring-navy-500/20
+           disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500
+           dark:border-navy-700 dark:bg-navy-950 dark:text-slate-100 dark:placeholder:text-slate-500
+           dark:focus:border-navy-500;
+  }
+
+  .cc-input-error {
+    @apply border-red-400 focus:border-red-500 focus:ring-red-500/20
+           dark:border-red-500/60;
+  }
+
+  .cc-label {
+    @apply mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300;
+  }
+
+  .cc-hint {
+    @apply mt-1 text-xs text-slate-500 dark:text-slate-400;
+  }
+
+  .cc-error {
+    @apply mt-1 flex items-center gap-1 text-xs font-medium text-red-600 dark:text-red-400;
+  }
+
+  /* Table shell used by every list screen. */
+  .cc-table {
+    @apply w-full border-collapse text-left text-sm;
+  }
+  .cc-table thead th {
+    @apply whitespace-nowrap border-b border-slate-200 bg-slate-50 px-4 py-3
+           text-2xs font-semibold uppercase tracking-wider text-slate-500
+           dark:border-navy-800 dark:bg-navy-950/60 dark:text-slate-400;
+  }
+  .cc-table tbody td {
+    @apply border-b border-slate-100 px-4 py-3 align-middle text-slate-700
+           dark:border-navy-800/70 dark:text-slate-300;
+  }
+  .cc-table tbody tr:hover {
+    @apply bg-slate-50/70 dark:bg-navy-800/40;
+  }
+  .cc-table tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  .cc-skeleton {
+    @apply relative overflow-hidden rounded bg-slate-200 dark:bg-navy-800;
+  }
+  .cc-skeleton::after {
+    content: '';
+    @apply absolute inset-0 -translate-x-full;
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0,
+      rgba(255, 255, 255, 0.35) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    animation: shimmer 1.6s infinite;
+  }
+  .dark .cc-skeleton::after {
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0,
+      rgba(255, 255, 255, 0.06) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Print: reports and member profiles should print cleanly. */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+  }
+  .cc-card {
+    box-shadow: none !important;
+    border-color: #d1d5db !important;
+    break-inside: avoid;
+  }
+}

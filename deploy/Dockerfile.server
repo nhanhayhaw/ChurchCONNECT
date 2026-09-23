@@ -1,0 +1,71 @@
+# syntax=docker/dockerfile:1
+#
+# RT AG Connect API image.
+#
+# Build context is the REPOSITORY ROOT, not ./server, so that compose can build
+# both images from one context:
+#     docker compose build
+#
+# Debian slim rather than Alpine on purpose. `argon2` and `sharp` both ship
+# prebuilt native binaries; the glibc builds are the well-trodden ones. Alpine
+# (musl) either downloads different prebuilds or falls back to compiling from
+# source, which turns a 40-second build into a five-minute one and introduces a
+# class of "works on my laptop" failures that are miserable to debug on a VPS.
+
+# ---------------------------------------------------------------------------
+# 1. Compile TypeScript
+# ---------------------------------------------------------------------------
+FROM node:22-bookworm-slim AS build
+WORKDIR /app
+
+COPY server/package.json server/package-lock.json ./
+RUN npm ci
+
+COPY server/tsconfig.json ./
+COPY server/src ./src
+COPY server/scripts ./scripts
+
+# Also copies the .sql migrations into dist/ - see scripts/copy-migrations.mjs.
+RUN npm run build
+
+# ---------------------------------------------------------------------------
+# 2. Production dependencies only
+# ---------------------------------------------------------------------------
+FROM node:22-bookworm-slim AS deps
+WORKDIR /app
+
+COPY server/package.json server/package-lock.json ./
+
+# npm 11+ blocks package install scripts by default. argon2 and sharp both need
+# theirs, and the approvals are recorded in package.json under "allowScripts".
+# If this step ever produces a server that cannot hash a password, that field
+# is the first thing to check.
+RUN npm ci --omit=dev
+
+# ---------------------------------------------------------------------------
+# 3. Runtime
+# ---------------------------------------------------------------------------
+FROM node:22-bookworm-slim AS runtime
+ENV NODE_ENV=production
+WORKDIR /app
+
+# Run as an unprivileged user. If the process is ever compromised through an
+# image upload or a dependency, it should not own the filesystem.
+RUN groupadd --system churchconnect \
+ && useradd --system --gid churchconnect --home /app churchconnect \
+ && mkdir -p /app/uploads/members \
+ && chown -R churchconnect:churchconnect /app
+
+COPY --from=deps  --chown=churchconnect:churchconnect /app/node_modules ./node_modules
+COPY --from=build --chown=churchconnect:churchconnect /app/dist ./dist
+COPY --chown=churchconnect:churchconnect server/package.json ./
+
+USER churchconnect
+EXPOSE 4000
+
+# The container is unhealthy the moment the API stops answering, which is what
+# lets compose and any orchestrator restart it without human intervention.
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+  CMD node -e "fetch('http://127.0.0.1:4000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+
+CMD ["node", "dist/index.js"]

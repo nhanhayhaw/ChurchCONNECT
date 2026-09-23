@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ChurchConnect">
+  <rect width="64" height="64" rx="14" fill="#0F2A4A"/>
+  <!-- Cross formed from two rounded bars -->
+  <rect x="28.5" y="14" width="7" height="36" rx="3.5" fill="#B8892B"/>
+  <rect x="18" y="24.5" width="28" height="7" rx="3.5" fill="#B8892B"/>
+  <!-- Arc suggesting gathered people -->
+  <path d="M14 46c4.5-6.5 11-10 18-10s13.5 3.5 18 10" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" opacity="0.85"/>
+</svg>

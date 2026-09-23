@@ -1,0 +1,26 @@
+# Build context is the repository root, so this file governs every image.
+node_modules
+**/node_modules
+**/dist
+**/build
+.git
+.gitignore
+
+# Secrets must never enter an image layer.
+**/.env
+**/.env.local
+**/.env.*.local
+deploy/.env
+
+# Member photographs are user data, not build input.
+server/uploads
+
+docs
+tools
+*.md
+!README.md
+**/*.log
+.vscode
+.idea
+.DS_Store
+Thumbs.db

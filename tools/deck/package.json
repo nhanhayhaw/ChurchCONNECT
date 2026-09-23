@@ -1,0 +1,13 @@
+{
+  "name": "churchconnect-deck",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Generates the leadership PowerPoint deck from docs/PRESENTATION.md content",
+  "scripts": {
+    "build": "node build-deck.mjs"
+  },
+  "dependencies": {
+    "pptxgenjs": "^3.12.0"
+  }
+}

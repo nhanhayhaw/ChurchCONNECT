@@ -1,0 +1,87 @@
+# RT AG Connect - production stack for one church.
+#
+#   cd deploy
+#   cp .env.example .env      # then fill it in
+#   docker compose up -d --build
+#   docker compose run --rm app npm run migrate:prod
+#
+# Three services:
+#   db   PostgreSQL, never exposed to the internet
+#   app  the Node API, never exposed to the internet
+#   web  Caddy - the only service with published ports
+#
+# That topology matters: the database and the API are reachable only on the
+# internal Docker network, so the single public entry point is Caddy over HTTPS.
+
+name: churchconnect
+
+services:
+  db:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      # Deterministic collation, so ORDER BY on member names cannot change
+      # meaning if the base image's locale data is updated underneath us.
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./backups:/backups
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    # No `ports:` entry. The database is deliberately unreachable from outside.
+
+  app:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.server
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      # Composed here rather than duplicated in .env, so the password lives in
+      # exactly one place.
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      CLIENT_ORIGIN: https://${DOMAIN}
+      UPLOAD_DIR: /app/uploads
+      PGSSL: "false"        # traffic never leaves the Docker network
+    volumes:
+      # Member photographs. Losing this volume loses every photo, so it is in
+      # the backup procedure alongside the database.
+      - uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.web
+    restart: unless-stopped
+    environment:
+      DOMAIN: ${DOMAIN}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # Caddy stores issued certificates here. Without this volume it would
+      # request new certificates on every restart and hit Let's Encrypt rate
+      # limits within a day.
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - app
+
+volumes:
+  db-data:
+  uploads:
+  caddy-data:
+  caddy-config:

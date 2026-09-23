@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Environment - NEVER commit real secrets
+.env
+.env.local
+.env.*.local
+
+# Uploaded member photographs contain personal data
+server/uploads/
+!server/uploads/.gitkeep
+
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# Editors
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini

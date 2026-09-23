@@ -1,0 +1,34 @@
+# syntax=docker/dockerfile:1
+#
+# RT AG Connect web image: the built React client, served by Caddy.
+#
+# Caddy rather than nginx because it obtains and renews Let's Encrypt
+# certificates automatically from two lines of configuration. On a small church
+# deployment that removes certbot, its cron renewal, and the failure mode where
+# nobody notices a certificate expired until a Sunday morning.
+#
+# Note the client needs no build-time configuration: it calls the API on
+# relative `/api` paths, so the same image works for any domain. That is what
+# makes one image reusable across every church you host.
+
+# ---------------------------------------------------------------------------
+# 1. Build the client
+# ---------------------------------------------------------------------------
+FROM node:22-bookworm-slim AS build
+WORKDIR /app
+
+COPY client/package.json client/package-lock.json ./
+RUN npm ci
+
+COPY client/ ./
+RUN npm run build
+
+# ---------------------------------------------------------------------------
+# 2. Serve
+# ---------------------------------------------------------------------------
+FROM caddy:2-alpine
+
+COPY deploy/Caddyfile /etc/caddy/Caddyfile
+COPY --from=build /app/dist /srv
+
+EXPOSE 80 443
