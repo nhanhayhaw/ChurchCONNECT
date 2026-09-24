@@ -108,9 +108,16 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* Form */}
-      <div className="flex w-full items-center justify-center px-6 py-12 lg:w-1/2">
-        <div className="w-full max-w-sm">
+      {/* Form. Sits on a #E1E1E1 ground with the sanctuary photograph faded
+          behind it; the opacity value below is the one number to tune. The
+          card keeps the inputs on a solid surface whatever the photo shows. */}
+      <div className="relative flex w-full items-center justify-center bg-[#E1E1E1] px-6 py-12 dark:bg-navy-950 lg:w-1/2">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-25 dark:opacity-15"
+          style={{ backgroundImage: "url('/login-bg.jpg')" }}
+          aria-hidden
+        />
+        <div className="relative w-full max-w-sm rounded-2xl bg-white/90 p-8 shadow-lg backdrop-blur-sm dark:bg-navy-900/90">
           <div className="mb-8 flex items-center gap-3 lg:hidden">
             <img src="/logo.png" alt="" className="h-11 w-11 object-contain" aria-hidden />
             <div>
