@@ -75,17 +75,17 @@ export default function LoginPage() {
     <div className="flex min-h-screen bg-white dark:bg-navy-950">
       {/* Brand panel - hidden on small screens where it would push the form
           below the fold. */}
-      <div className="relative hidden w-1/2 flex-col justify-between bg-navy-900 p-12 lg:flex">
+      <div className="relative hidden w-1/2 flex-col justify-between bg-navy-950 p-12 lg:flex">
         {/* Sanctuary photograph, blended into the navy rather than laid over it:
             luminosity keeps the panel's hue and lets only the photo's light
             through, and the gradient beneath keeps the text end of the panel
-            dark. opacity-30 is the one number to tune. */}
+            dark. opacity-25 is the one number to tune. */}
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-luminosity"
+          className="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-luminosity"
           style={{ backgroundImage: "url('/login-bg.jpg')" }}
           aria-hidden
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-navy-900/20 via-navy-900/50 to-navy-900" aria-hidden />
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-950/45 via-navy-950/75 to-navy-950" aria-hidden />
         <div
           className="absolute inset-0 opacity-[0.07]"
           style={{
