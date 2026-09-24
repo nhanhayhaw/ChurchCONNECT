@@ -190,7 +190,7 @@ async function seed(): Promise<void> {
     }
     await client.query(
       `UPDATE system_settings SET value = $1::jsonb WHERE key = 'church_name'`,
-      [JSON.stringify('Grace Covenant Assembly')],
+      [JSON.stringify('Redemption Temple AG')],
     );
 
     // --- departments & groups --------------------------------------------
