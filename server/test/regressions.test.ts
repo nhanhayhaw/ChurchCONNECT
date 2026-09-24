@@ -25,6 +25,9 @@ if (!dbUrl || !/_(qa|test)(\?.*)?$/.test(dbUrl)) {
   throw new Error(`Refusing to run tests against "${dbUrl}": the database name must end in _qa or _test.`);
 }
 process.env.DATABASE_URL = dbUrl;
+// A disposable database is nearly always local, where PostgreSQL has no TLS.
+// Do not inherit PGSSL=true from a .env that points at a hosted production DB.
+if (/@(localhost|127\.0\.0\.1)[:/]/.test(dbUrl) && !process.env.TEST_PGSSL) process.env.PGSSL = 'false';
 process.env.NODE_ENV = 'test';
 process.env.ENABLE_JOBS = 'false';
 process.env.API_RATE_LIMIT_PER_MINUTE = '1000000';

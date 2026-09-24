@@ -37,6 +37,14 @@ const schema = z.object({
   // shares one rate-limit bucket, or X-Forwarded-For can be spoofed.
   TRUST_PROXY: z.coerce.number().int().min(0).default(1),
 
+  // Upper bound on simultaneous database connections from THIS process. A
+  // hosted pooler caps connections per project - Supabase free tier allows 15
+  // in session mode, shared by every client - and exceeding it fails requests
+  // outright with EMAXCONNSESSION rather than queueing. The dashboard fans
+  // out about a dozen queries at once, so keep this comfortably below the
+  // cap, leaving room for a migration run or a developer session alongside.
+  DB_POOL_MAX: z.coerce.number().int().min(1).max(100).default(20),
+
   UPLOAD_DIR: z.string().default('./uploads'),
   MAX_UPLOAD_BYTES: z.coerce.number().int().positive().default(3 * 1024 * 1024),
 

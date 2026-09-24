@@ -24,7 +24,7 @@ types.setTypeParser(1700, (value: string) => Number(value));
 export const pool = new Pool({
   connectionString: env.DATABASE_URL,
   ssl: env.pgSsl ? { rejectUnauthorized: false } : undefined,
-  max: 20,
+  max: env.DB_POOL_MAX,
   idleTimeoutMillis: 30_000,
   connectionTimeoutMillis: 10_000,
   // Nothing in this application legitimately runs for a minute. Without these

@@ -54,3 +54,7 @@ services:
       # proxy: two hops. See TRUST_PROXY in server/src/config/env.ts.
       - key: TRUST_PROXY
         value: "2"
+      # Supabase free tier: 15 pooled connections per project in total. 8 leaves
+      # room for a migration run or a local developer session at the same time.
+      - key: DB_POOL_MAX
+        value: "8"
