@@ -184,3 +184,38 @@ export async function downloadFile(path: string, filename: string): Promise<void
   // in some browsers.
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
+
+/**
+ * Load a session-protected image and return an object URL for an <img>.
+ *
+ * The photo route requires the Bearer token, and a browser never sends
+ * headers with a plain <img src>. So the bytes are fetched here with the
+ * header, exactly as downloadFile does, and handed to the element as a
+ * blob: URL. Results are cached by path: a members list renders one avatar
+ * per row and must not refetch the same photo per render.
+ */
+const imageCache = new Map<string, Promise<string>>();
+
+export function fetchImageObjectUrl(path: string): Promise<string> {
+  const cached = imageCache.get(path);
+  if (cached) return cached;
+
+  const load = (async () => {
+    const attempt = () =>
+      fetch(path, {
+        credentials: 'include',
+        headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
+      });
+
+    let response = await attempt();
+    if (response.status === 401 && (await refreshSession())) response = await attempt();
+    if (!response.ok) throw await parseError(response);
+
+    return URL.createObjectURL(await response.blob());
+  })();
+
+  imageCache.set(path, load);
+  // A failed load must not poison the cache: the photo may exist next time.
+  load.catch(() => imageCache.delete(path));
+  return load;
+}

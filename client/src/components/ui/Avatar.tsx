@@ -5,9 +5,10 @@
  * no photograph still gets a stable, recognisable tile rather than a grey
  * placeholder identical to everyone else's.
  */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { initials } from '@/utils/format';
+import { useAuthedImage } from '@/hooks/useAuthedImage';
 
 const FALLBACK_COLOURS = [
   'bg-navy-100 text-navy-800 dark:bg-navy-800 dark:text-navy-100',
@@ -46,8 +47,13 @@ export function Avatar({
   className?: string;
   ring?: boolean;
 }) {
+  // Photos live behind the API session check, so the URL is resolved through
+  // an authenticated fetch; a plain <img src> would get a 401 and never render.
+  const resolved = useAuthedImage(src);
   const [failed, setFailed] = useState(false);
-  const showImage = src && !failed;
+  // A replaced photo gets a new URL; a stale failure must not hide it.
+  useEffect(() => setFailed(false), [src]);
+  const showImage = resolved && !failed;
 
   return (
     <span
@@ -62,7 +68,7 @@ export function Avatar({
     >
       {showImage ? (
         <img
-          src={src}
+          src={resolved}
           alt={name}
           loading="lazy"
           className="h-full w-full object-cover"
