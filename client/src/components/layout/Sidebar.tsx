@@ -118,7 +118,7 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
         {/* Brand */}
         <div className="flex h-16 shrink-0 items-center justify-between gap-2 border-b border-navy-800 px-4">
           <NavLink to="/" className="flex min-w-0 items-center gap-2.5" onClick={onClose}>
-            <img src="/logo.svg" alt="" className="h-9 w-9 shrink-0 rounded-lg" aria-hidden />
+            <img src="/logo.png" alt="" className="h-9 w-9 shrink-0 object-contain" aria-hidden />
             <span className="min-w-0">
               <span className="block truncate text-sm font-semibold tracking-wide text-white">
                 RT AG CONNECT

@@ -142,7 +142,7 @@ export function ForgotPasswordPage() {
     <div className="flex min-h-screen items-center justify-center bg-slate-50 px-6 py-12 dark:bg-navy-950">
       <div className="w-full max-w-md">
         <div className="mb-8 flex items-center gap-3">
-          <img src="/logo.svg" alt="" className="h-11 w-11 rounded-xl" aria-hidden />
+          <img src="/logo.png" alt="" className="h-11 w-11 object-contain" aria-hidden />
           <div>
             <p className="text-sm font-semibold tracking-widest text-navy-900 dark:text-white">RT AG CONNECT</p>
             <p className="text-xs text-slate-500 dark:text-slate-400">Password recovery</p>

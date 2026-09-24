@@ -86,7 +86,7 @@ export default function LoginPage() {
         />
 
         <div className="relative flex items-center gap-3">
-          <img src="/logo.svg" alt="" className="h-11 w-11 rounded-xl" aria-hidden />
+          <img src="/logo.png" alt="" className="h-11 w-11 object-contain" aria-hidden />
           <div>
             <p className="text-sm font-semibold tracking-widest text-white">RT AG CONNECT</p>
             <p className="text-xs text-navy-300">Membership &amp; Follow-Up Management</p>
@@ -112,7 +112,7 @@ export default function LoginPage() {
       <div className="flex w-full items-center justify-center px-6 py-12 lg:w-1/2">
         <div className="w-full max-w-sm">
           <div className="mb-8 flex items-center gap-3 lg:hidden">
-            <img src="/logo.svg" alt="" className="h-11 w-11 rounded-xl" aria-hidden />
+            <img src="/logo.png" alt="" className="h-11 w-11 object-contain" aria-hidden />
             <div>
               <p className="text-sm font-semibold tracking-widest text-navy-900 dark:text-white">RT AG CONNECT</p>
               <p className="text-xs text-slate-500 dark:text-slate-400">{branding.tagline}</p>
