@@ -170,6 +170,7 @@ churchconnect/
 | [`docs/PRESENTATION.md`](docs/PRESENTATION.md) | The written guide behind that deck — slide-by-slide content, a five-minute live demo script, and answers to the questions leadership will ask. |
 | [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) | **Putting it online** — step by step from a Namecheap domain to working HTTPS, on a managed platform or your own server. Read the first section before buying hosting. |
 | [`docs/SUPABASE-SETUP.md`](docs/SUPABASE-SETUP.md) | **Using Supabase as the database** — picking the right connection string, creating the schema, and closing the public REST API that would otherwise publish your member register. |
+| [`docs/QA-SCAN-2026-09-24.md`](docs/QA-SCAN-2026-09-24.md) | **Latest full-system scan** — what was run against the live Vercel + Render + Supabase deployment, the connection-pool defect it found and fixed, and what remains open. |
 | [`docs/EMAIL.md`](docs/EMAIL.md) | **Turning on self-service password reset** — provider choice, SMTP settings, and the SPF/DKIM/DMARC records that keep mail out of spam. |
 | [`docs/OPERATIONS.md`](docs/OPERATIONS.md) | **Running it live** — backups, the restore drill, updates, incident procedures. Written to be read under pressure. |
 | [`docs/GOING-COMMERCIAL.md`](docs/GOING-COMMERCIAL.md) | **Selling to multiple churches** — the single/multi-tenant decision, what must be built before charging anyone, pricing, onboarding, support and Ghanaian data-protection duties. |
