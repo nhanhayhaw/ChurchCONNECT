@@ -12,7 +12,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Save, ArrowLeft, Upload, Trash2, ImageOff, ChevronRight } from 'lucide-react';
+import { Save, ArrowLeft, Upload, Camera, Trash2, ImageOff, ChevronRight } from 'lucide-react';
 import { api, ApiError } from '@/api/client';
 import { useToast } from '@/context/ToastContext';
 import {
@@ -21,6 +21,7 @@ import {
 } from '@/components/ui';
 import { todayIso } from '@/utils/format';
 import type { MemberDetail } from '@/types';
+import { CameraCapture } from '@/components/members/CameraCapture';
 
 const GENDERS = [
   { value: 'male', label: 'Male' },
@@ -207,25 +208,31 @@ export default function MemberFormPage() {
   };
 
   // --- photo --------------------------------------------------------------
-  const onPhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
 
+  // Shared by the file picker and the camera dialog: both hand over a File,
+  // and both must pass the same checks before it becomes the pending upload.
+  const acceptPhoto = (file: File): boolean => {
     if (!['image/jpeg', 'image/png'].includes(file.type)) {
       toast.error('Unsupported image type', 'Please choose a JPG, JPEG or PNG file.');
-      event.target.value = '';
-      return;
+      return false;
     }
     if (file.size > MAX_PHOTO_BYTES) {
       toast.error('That image is too large', 'Please choose a photo under 3 MB.');
-      event.target.value = '';
-      return;
+      return false;
     }
-
     if (photoPreview) URL.revokeObjectURL(photoPreview);
     setPhotoFile(file);
     setPhotoPreview(URL.createObjectURL(file));
     setRemoveExistingPhoto(false);
+    return true;
+  };
+
+  const onPhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    // Clear the input on rejection so choosing the same file again re-fires.
+    if (!acceptPhoto(file)) event.target.value = '';
   };
 
   const uploadPhoto = async (memberId: number) => {
@@ -302,6 +309,9 @@ export default function MemberFormPage() {
   const displayName = `${form.firstName} ${form.lastName}`.trim() || 'New member';
 
   return (
+    <>
+    {/* Outside the <form> so nothing in the dialog can submit it. */}
+    <CameraCapture isOpen={isCameraOpen} onClose={() => setIsCameraOpen(false)} onCapture={acceptPhoto} />
     <form ref={formRef} onSubmit={onSubmit} noValidate>
       <PageHeader
         breadcrumb={
@@ -335,7 +345,7 @@ export default function MemberFormPage() {
           <div className="border-b border-slate-200 bg-slate-50/60 px-5 py-3.5 dark:border-navy-800 dark:bg-navy-950/40">
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Profile photograph</h3>
             <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
-              JPG, JPEG or PNG, up to 3 MB. The image is resized and re-encoded on upload.
+              JPG, JPEG or PNG up to 3 MB, or take one with a connected camera. The image is resized and re-encoded on upload.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-5 p-5">
@@ -346,6 +356,10 @@ export default function MemberFormPage() {
                 {displayPhoto ? 'Replace photograph' : 'Upload photograph'}
                 <input type="file" accept="image/jpeg,image/png" className="sr-only" onChange={onPhotoChange} />
               </label>
+
+              <Button variant="outline" leftIcon={<Camera className="h-4 w-4" />} onClick={() => setIsCameraOpen(true)}>
+                Take photo
+              </Button>
 
               {displayPhoto && (
                 <Button
@@ -445,5 +459,6 @@ export default function MemberFormPage() {
         </div>
       </div>
     </form>
+    </>
   );
 }
