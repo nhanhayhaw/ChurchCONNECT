@@ -76,6 +76,16 @@ export default function LoginPage() {
       {/* Brand panel - hidden on small screens where it would push the form
           below the fold. */}
       <div className="relative hidden w-1/2 flex-col justify-between bg-navy-900 p-12 lg:flex">
+        {/* Sanctuary photograph, blended into the navy rather than laid over it:
+            luminosity keeps the panel's hue and lets only the photo's light
+            through, and the gradient beneath keeps the text end of the panel
+            dark. opacity-30 is the one number to tune. */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-luminosity"
+          style={{ backgroundImage: "url('/login-bg.jpg')" }}
+          aria-hidden
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-900/20 via-navy-900/50 to-navy-900" aria-hidden />
         <div
           className="absolute inset-0 opacity-[0.07]"
           style={{
@@ -108,16 +118,9 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* Form. Sits on a #E1E1E1 ground with the sanctuary photograph faded
-          behind it; the opacity value below is the one number to tune. The
-          card keeps the inputs on a solid surface whatever the photo shows. */}
-      <div className="relative flex w-full items-center justify-center bg-[#E1E1E1] px-6 py-12 dark:bg-navy-950 lg:w-1/2">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-25 dark:opacity-15"
-          style={{ backgroundImage: "url('/login-bg.jpg')" }}
-          aria-hidden
-        />
-        <div className="relative w-full max-w-sm rounded-2xl bg-white/90 p-8 shadow-lg backdrop-blur-sm dark:bg-navy-900/90">
+      {/* Form */}
+      <div className="flex w-full items-center justify-center px-6 py-12 lg:w-1/2">
+        <div className="w-full max-w-sm">
           <div className="mb-8 flex items-center gap-3 lg:hidden">
             <img src="/logo.png" alt="" className="h-11 w-11 object-contain" aria-hidden />
             <div>
