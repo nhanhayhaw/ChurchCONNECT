@@ -79,7 +79,10 @@ export function createApp() {
   // rather than only the process: a 200 from an instance that has lost its
   // database would keep a load balancer routing traffic into failures.
   app.get('/api/health', async (_req, res) => {
-    const base = { service: 'churchconnect-api', time: new Date().toISOString() };
+    // The running commit, so an operator can tell whether a deploy has landed.
+    // Render exposes it as RENDER_GIT_COMMIT; other hosts use GIT_COMMIT.
+    const commit = (process.env.RENDER_GIT_COMMIT ?? process.env.GIT_COMMIT ?? '').slice(0, 7) || null;
+    const base = { service: 'churchconnect-api', commit, time: new Date().toISOString() };
     try {
       await Promise.race([
         pool.query('SELECT 1'),
