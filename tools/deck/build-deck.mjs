@@ -8,16 +8,26 @@
  * The "what to say" text from the guide becomes PowerPoint speaker notes, so
  * the deck is self-contained: whoever presents it does not need the markdown.
  *
- * Screenshots cannot be captured programmatically, so every screen slide gets a
- * clearly marked placeholder telling the presenter exactly which capture to drop
- * in. That is deliberate - an unmarked empty box would ship looking finished.
+ * Screen slides use real captures from the live system (tools/deck/screenshots,
+ * demonstration data, fictional names). If a capture file is missing the slide
+ * gets a clearly marked placeholder instead - an unmarked empty box would ship
+ * looking finished.
  */
 import PptxGenJS from 'pptxgenjs';
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const OUTPUT = path.resolve(here, '../../docs/ChurchConnect-Leadership-Presentation.pptx');
+const LOGO = path.resolve(here, '../../client/public/logo.png');
+// Screens captured from the live system with the demonstration data. A slide
+// whose capture is missing falls back to a marked placeholder, never to an
+// empty box.
+const SHOTS = path.resolve(here, 'screenshots');
+
+const CHURCH = 'Redemption Temple AG';
+const BRIEFING_DATE = 'Board briefing · September 2026';
 
 // --- Design tokens ---------------------------------------------------------
 // The same navy and gold the application uses, so the deck and the software
@@ -72,18 +82,38 @@ function contentSlide(title, kicker) {
     fontFace: FONT, fontSize: 30, color: NAVY, bold: true,
   });
 
-  // The single gold accent per slide.
-  slide.addShape(pptx.ShapeType.rect, {
-    x: 0.7, y: kicker ? 1.52 : 1.4, w: 1.1, h: 0.055, fill: { color: GOLD }, line: { color: GOLD },
-  });
-
-  // Quiet footer.
-  slide.addText('RT AG Connect', {
-    x: 0.7, y: 6.92, w: 4, h: 0.3,
+  // Quiet footer: the church on the left, the crest on the right.
+  slide.addText(`${CHURCH}  ·  RT AG Connect`, {
+    x: 0.7, y: 6.92, w: 6, h: 0.3,
     fontFace: FONT, fontSize: 9, color: MUTED,
   });
+  slide.addImage({ path: LOGO, x: 12.25, y: 6.82, w: 0.42, h: 0.42 });
 
   return slide;
+}
+
+/**
+ * A screen captured from the live system, framed on a white card. Falls back
+ * to the marked placeholder if the capture file is absent so a missing image
+ * is never mistaken for a finished slide.
+ */
+function screenshot(slide, { x, y, w, h, file, label, capture }) {
+  const p = path.join(SHOTS, file);
+  if (!fs.existsSync(p)) {
+    screenshotPlaceholder(slide, { x, y, w, h, label, capture });
+    return;
+  }
+  slide.addShape(pptx.ShapeType.rect, {
+    x, y, w, h,
+    fill: { color: WHITE }, line: { color: RULE, width: 1 },
+    shadow: { type: 'outer', color: '0F172A', blur: 6, offset: 2, angle: 90, opacity: 0.18 },
+  });
+  const inset = 0.05;
+  slide.addImage({
+    path: p,
+    x: x + inset, y: y + inset, w: w - 2 * inset, h: h - 2 * inset,
+    sizing: { type: 'cover', w: w - 2 * inset, h: h - 2 * inset },
+  });
 }
 
 /** A full-bleed navy slide for the title and the big statements. */
@@ -179,9 +209,9 @@ function notes(slide, text) {
 {
   const s = statementSlide();
 
-  // Soft accent block, bottom-right.
+  // Lighter panel on the right carries the crest; the text sits on the left.
   s.addShape(pptx.ShapeType.rect, { x: 8.6, y: 0, w: 4.733, h: SLIDE_H, fill: { color: NAVY_LIGHT }, line: { color: NAVY_LIGHT } });
-  s.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 0.28, h: SLIDE_H, fill: { color: GOLD }, line: { color: GOLD } });
+  s.addImage({ path: LOGO, x: 9.72, y: 2.45, w: 2.5, h: 2.5 });
 
   s.addText('RT AG CONNECT', {
     x: 0.95, y: 2.25, w: 8, h: 0.9,
@@ -191,12 +221,11 @@ function notes(slide, text) {
     x: 0.95, y: 3.25, w: 7.6, h: 1.0,
     fontFace: FONT, fontSize: 19, color: 'C5D3E4', lineSpacing: 26,
   });
-  s.addShape(pptx.ShapeType.rect, { x: 0.95, y: 4.45, w: 1.4, h: 0.055, fill: { color: GOLD }, line: { color: GOLD } });
   s.addText('A Smart Digital Platform for Effective\nChurch Membership Management', {
-    x: 0.95, y: 4.7, w: 7.6, h: 0.8,
+    x: 0.95, y: 4.6, w: 7.6, h: 0.8,
     fontFace: FONT, fontSize: 14, color: GOLD_LIGHT, italic: true, lineSpacing: 20,
   });
-  s.addText('[ Church name ]   ·   [ Date ]', {
+  s.addText(`${CHURCH}   ·   ${BRIEFING_DATE}`, {
     x: 0.95, y: 6.25, w: 7.6, h: 0.4,
     fontFace: FONT, fontSize: 13, color: '9BB2CD',
   });
@@ -208,8 +237,8 @@ Introduce it in ONE sentence and resist explaining anything yet:
 
 Then move straight to the next slide. Do not open with features.
 
-BEFORE PRESENTING: replace the church name and date on this slide, and replace
-every sample figure in the deck (they are marked) with your own.
+The system is already built and online; the screens in this deck are real
+captures with demonstration data (fictional names). Say so if asked.
   `);
 }
 
@@ -218,7 +247,6 @@ every sample figure in the deck (they are marked) with your own.
 // ===========================================================================
 {
   const s = statementSlide();
-  s.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 0.28, h: SLIDE_H, fill: { color: GOLD }, line: { color: GOLD } });
 
   s.addText('A member stops coming.', {
     x: 1.2, y: 2.5, w: 11, h: 0.85,
@@ -346,9 +374,9 @@ Then move on.
 // ===========================================================================
 {
   const s = contentSlide('Everything leadership needs, on one screen', 'The dashboard');
-  screenshotPlaceholder(s, {
+  screenshot(s, {
     x: 0.7, y: 1.95, w: 8.1, h: 4.45,
-    label: 'Dashboard',
+    file: 'dashboard.png', label: 'Dashboard',
     capture: 'Capture the top statistics and the attendance trend chart',
   });
 
@@ -385,9 +413,9 @@ and attendance by service type. Mention them; do not tour them.
 // ===========================================================================
 {
   const s = contentSlide('One complete record per member', 'Member management');
-  screenshotPlaceholder(s, {
+  screenshot(s, {
     x: 0.7, y: 1.95, w: 7.3, h: 4.45,
-    label: 'Member profile',
+    file: 'member-profile.png', label: 'Member profile',
     capture: 'Open any member and capture the full profile page',
   });
 
@@ -424,9 +452,9 @@ so you can see what happened to it and when.
 // ===========================================================================
 {
   const s = contentSlide('Choose the service. Mark the register. Save.', 'Recording attendance');
-  screenshotPlaceholder(s, {
+  screenshot(s, {
     x: 0.7, y: 1.95, w: 7.3, h: 4.45,
-    label: 'Attendance register',
+    file: 'register.png', label: 'Attendance register',
     capture: 'Capture mid-marking, with some members already marked',
   });
 
@@ -518,7 +546,6 @@ Do not click away until someone has had a chance to react.
 // ===========================================================================
 {
   const s = statementSlide();
-  s.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 0.28, h: SLIDE_H, fill: { color: GOLD }, line: { color: GOLD } });
 
   s.addText('The system never decides that\nsomeone has left the church.', {
     x: 1.2, y: 2.0, w: 11, h: 1.7,
@@ -557,9 +584,9 @@ who already told us.
 // ===========================================================================
 {
   const s = contentSlide('What an alert looks like', 'Attendance alerts');
-  screenshotPlaceholder(s, {
+  screenshot(s, {
     x: 0.7, y: 1.95, w: 7.0, h: 4.45,
-    label: 'Follow-Up › Alerts',
+    file: 'alerts.png', label: 'Follow-Up › Alerts',
     capture: 'THE most important screenshot in the deck',
   });
 
@@ -603,9 +630,9 @@ John Mensah is a fictional example, not a member of this church.
 // ===========================================================================
 {
   const s = contentSlide('Follow-up is a conversation, not a tick-box', 'Follow-up management');
-  screenshotPlaceholder(s, {
+  screenshot(s, {
     x: 0.7, y: 1.95, w: 7.0, h: 3.1,
-    label: 'A follow-up case',
+    file: 'follow-up.png', label: 'A follow-up case',
     capture: 'Show the note history',
   });
 
@@ -621,7 +648,6 @@ John Mensah is a fictional example, not a member of this church.
 
   // The worked example quote.
   s.addShape(pptx.ShapeType.rect, { x: 0.7, y: 5.25, w: 7.0, h: 1.15, fill: { color: 'EEF2F7' }, line: { color: 'EEF2F7' } });
-  s.addShape(pptx.ShapeType.rect, { x: 0.7, y: 5.25, w: 0.07, h: 1.15, fill: { color: GOLD }, line: { color: GOLD } });
   s.addText('“Member was contacted and stated that he travelled for work.\nExpected to return next Sunday.”', {
     x: 0.95, y: 5.4, w: 6.6, h: 0.85, fontFace: FONT, fontSize: 13, color: NAVY, italic: true, lineSpacing: 20,
   });
@@ -653,9 +679,9 @@ Then the safeguard:
 // ===========================================================================
 {
   const s = contentSlide('Nobody is forgotten', 'Birthdays');
-  screenshotPlaceholder(s, {
+  screenshot(s, {
     x: 0.7, y: 1.95, w: 7.3, h: 4.45,
-    label: 'Birthdays',
+    file: 'birthdays.png', label: 'Birthdays',
     capture: 'Capture the birthday cards with photographs',
   });
 
@@ -829,7 +855,6 @@ That reframing usually converts the last sceptic in the room.
   ], { y: 2.1, fontSize: 17, spaceAfter: 15 });
 
   s.addShape(pptx.ShapeType.rect, { x: 0.7, y: 5.1, w: 11.93, h: 1.1, fill: { color: 'EEF2F7' }, line: { color: 'EEF2F7' } });
-  s.addShape(pptx.ShapeType.rect, { x: 0.7, y: 5.1, w: 0.07, h: 1.1, fill: { color: NAVY }, line: { color: NAVY } });
   s.addText('Before going live we will confirm our handling meets Ghana’s Data Protection Act, 2012 (Act 843).', {
     x: 1.0, y: 5.4, w: 11.3, h: 0.5, fontFace: FONT, fontSize: 14, color: NAVY,
   });
@@ -848,6 +873,48 @@ DWELL ON THE AUDIT LOG. It is the point that reassures leaders most:
    protects our members - and it protects our workers from suspicion."
 
 The Data Protection Act line signals that we have thought past the software.
+  `);
+}
+
+// ===========================================================================
+// SLIDE 17b - Where our data lives
+// ===========================================================================
+{
+  const s = contentSlide('Where our data lives', 'The system is online today');
+
+  const cards = [
+    { t: 'The website', d: `What staff open in a browser. Served over a secure (HTTPS) connection, the same protection a bank's site uses.`, k: 'church-connect-omega.vercel.app' },
+    { t: 'The application', d: 'The part that enforces who may see what and records every action. Runs in a data centre in Frankfurt.', k: 'Render' },
+    { t: 'The database', d: 'Member records, attendance and follow-ups. Hosted in Dublin, in the EU, with daily backups kept for seven days.', k: 'Supabase' },
+  ];
+  cards.forEach((c, i) => {
+    const x = 0.7 + i * 4.05;
+    s.addShape(pptx.ShapeType.roundRect, {
+      x, y: 2.0, w: 3.85, h: 3.2, rectRadius: 0.12,
+      fill: { color: WHITE }, line: { color: RULE, width: 1 },
+    });
+    s.addShape(pptx.ShapeType.ellipse, { x: x + 0.3, y: 2.3, w: 0.55, h: 0.55, fill: { color: NAVY }, line: { color: NAVY } });
+    s.addText(String(i + 1), { x: x + 0.3, y: 2.3, w: 0.55, h: 0.55, fontFace: FONT, fontSize: 16, bold: true, color: WHITE, align: 'center', valign: 'middle', margin: 0 });
+    s.addText(c.t, { x: x + 0.3, y: 3.05, w: 3.25, h: 0.4, fontFace: FONT, fontSize: 17, bold: true, color: NAVY, margin: 0 });
+    s.addText(c.d, { x: x + 0.3, y: 3.5, w: 3.25, h: 1.2, fontFace: FONT, fontSize: 12.5, color: INK, valign: 'top', margin: 0 });
+    s.addText(c.k, { x: x + 0.3, y: 4.72, w: 3.25, h: 0.3, fontFace: FONT, fontSize: 11, color: GOLD, bold: true, margin: 0 });
+  });
+
+  s.addShape(pptx.ShapeType.rect, { x: 0.7, y: 5.5, w: 11.93, h: 1.0, fill: { color: 'EEF2F7' }, line: { color: 'EEF2F7' } });
+  s.addText('Only the application can reach the database. Nothing about our members is reachable from the public internet, and the member register has been checked against direct access.', {
+    x: 1.0, y: 5.62, w: 11.3, h: 0.78, fontFace: FONT, fontSize: 13, color: NAVY, valign: 'middle',
+  });
+
+  notes(s, `
+This slide answers the question someone will otherwise ask at the worst moment:
+"where is all this information actually kept?"
+
+Three pieces, three reputable hosting companies, all in Europe. The database is
+backed up every day. Nothing is on anyone's laptop.
+
+If asked about cost: the website and database are on free tiers today; the
+application server costs a few dollars a month once we want it to stay awake
+around the clock. This is a fraction of what one printed register costs a year.
   `);
 }
 
@@ -894,7 +961,7 @@ good candidate.
   const s = contentSlide('What we are asking for', 'Decisions needed today');
 
   const asks = [
-    'Approval to proceed',
+    'Approval to adopt the system — it is built, online and ready',
     'A decision on our absence thresholds — is 2 / 3 / 4 services right for us?',
     'Names for the roles: who administers, who follows up',
     'Agreement to record attendance BY NAME, every Sunday',
@@ -945,18 +1012,17 @@ Get names against points 2 and 3 before leaving the room if you can.
     s,
     ['Phase', 'What happens', 'Rough time'],
     [
-      ['1', 'Set up; enter departments and groups', 'Week 1'],
-      ['2', 'Enter existing members', 'Weeks 2–4'],
-      ['3', 'Train the administrator and ushers', 'Week 4'],
-      ['4', 'Record attendance every Sunday', 'From week 5'],
-      [{ text: '5', bold: true }, { text: 'First alerts appear; train leaders on follow-up', bold: true, color: NAVY }, { text: 'Week 7', bold: true }],
-      ['6', 'First full report to council', 'Week 9'],
+      [{ text: '✓', color: GREEN, bold: true }, { text: 'System set up and online; departments and groups entered', color: MUTED }, { text: 'Done', color: GREEN, bold: true }],
+      ['1', 'Enter existing members', 'Weeks 1–3'],
+      ['2', 'Train the administrator and ushers', 'Week 3'],
+      ['3', 'Record attendance every Sunday', 'From week 4'],
+      [{ text: '4', bold: true }, { text: 'First alerts appear; train leaders on follow-up', bold: true, color: NAVY }, { text: 'Week 6', bold: true }],
+      ['5', 'First full report to the board', 'Week 8'],
     ],
     { y: 2.1, colW: [1.3, 8.13, 2.5], rowH: 0.5 },
   );
 
   s.addShape(pptx.ShapeType.rect, { x: 0.7, y: 5.5, w: 11.93, h: 1.0, fill: { color: 'EEF2F7' }, line: { color: 'EEF2F7' } });
-  s.addShape(pptx.ShapeType.rect, { x: 0.7, y: 5.5, w: 0.07, h: 1.0, fill: { color: GOLD }, line: { color: GOLD } });
   s.addText('Alerts cannot appear until there are a few weeks of attendance to compare. Expect roughly two months to the first genuinely useful alert.', {
     x: 1.0, y: 5.72, w: 11.3, h: 0.6, fontFace: FONT, fontSize: 13, color: NAVY,
   });
@@ -981,7 +1047,6 @@ so about 20 hours for 500 members - two or three people over a fortnight.
 // ===========================================================================
 {
   const s = statementSlide();
-  s.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 0.28, h: SLIDE_H, fill: { color: GOLD }, line: { color: GOLD } });
 
   s.addText('BEFORE', { x: 1.2, y: 1.75, w: 11, h: 0.35, fontFace: FONT, fontSize: 13, bold: true, color: '6A8AB0', charSpacing: 2.5 });
   s.addText('A member stops coming, and we notice months later.', {
@@ -995,9 +1060,10 @@ so about 20 hours for 500 members - two or three people over a fortnight.
     x: 1.2, y: 3.9, w: 10.8, h: 1.4, fontFace: FONT, fontSize: 28, bold: true, color: WHITE, lineSpacing: 40,
   });
 
-  s.addText('RT AG Connect  —  Connecting People. Strengthening the Church.', {
+  s.addText(`${CHURCH}  —  Connecting People. Strengthening the Church.`, {
     x: 1.2, y: 6.2, w: 11, h: 0.4, fontFace: FONT, fontSize: 14, color: GOLD_LIGHT, italic: true,
   });
+  s.addImage({ path: LOGO, x: 11.6, y: 5.9, w: 1.0, h: 1.0 });
 
   notes(s, `
 Return to the question you asked on slide 2, and answer it.
@@ -1016,5 +1082,6 @@ If you need a single closing line, use:
 // ===========================================================================
 await pptx.writeFile({ fileName: OUTPUT });
 console.log(`\nDeck written to:\n  ${OUTPUT}\n`);
-console.log('  21 slides, each with speaker notes.');
-console.log('  7 screenshot placeholders are marked in gold - replace them before presenting.\n');
+const captured = fs.existsSync(SHOTS) ? fs.readdirSync(SHOTS).filter((f) => f.endsWith('.png')).length : 0;
+console.log('  22 slides, each with speaker notes.');
+console.log(`  ${captured} screen captures found in tools/deck/screenshots; any missing one is a gold placeholder.\n`);

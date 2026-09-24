@@ -54,6 +54,11 @@ Three rules that will carry the deck:
 
 ### Get your screenshots first
 
+> **Already done.** Since September 2026 the deck is generated with real captures
+> from the live system (`tools/deck/screenshots`, demonstration data). Re-run the
+> capture only if the screens change. The notes below describe what each
+> capture should show, which still applies.
+
 Sign in and capture these seven, at full screen, before you start building:
 
 1. Login page
