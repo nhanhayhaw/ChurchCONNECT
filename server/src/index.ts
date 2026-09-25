@@ -7,7 +7,7 @@
 import { createApp } from './app.js';
 import { env } from './config/env.js';
 import { pool, closePool } from './config/db.js';
-import { ensureStorageReady } from './services/storage.service.js';
+import { ensureStorageReady, describeStorage } from './services/storage.service.js';
 import { startScheduledJobs, stopScheduledJobs } from './jobs/scheduler.js';
 
 async function main(): Promise<void> {
@@ -41,7 +41,7 @@ async function main(): Promise<void> {
     console.log(`  environment : ${env.NODE_ENV}`);
     console.log(`  listening   : http://localhost:${env.PORT}`);
     console.log(`  client      : ${env.CLIENT_ORIGIN}`);
-    console.log(`  uploads     : ${env.uploadDir}\n`);
+    console.log(`  photos      : ${describeStorage()}\n`);
   });
 
   startScheduledJobs();

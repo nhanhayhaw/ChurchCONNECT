@@ -16,6 +16,7 @@ import rateLimit from 'express-rate-limit';
 import { env } from './config/env.js';
 import { pool } from './config/db.js';
 import { errorHandler, notFoundHandler } from './middleware/error.js';
+import { photoStorageMode } from './services/storage.service.js';
 
 import authRoutes from './modules/auth/auth.routes.js';
 import memberRoutes from './modules/members/members.routes.js';
@@ -82,7 +83,9 @@ export function createApp() {
     // The running commit, so an operator can tell whether a deploy has landed.
     // Render exposes it as RENDER_GIT_COMMIT; other hosts use GIT_COMMIT.
     const commit = (process.env.RENDER_GIT_COMMIT ?? process.env.GIT_COMMIT ?? '').slice(0, 7) || null;
-    const base = { service: 'churchconnect-api', commit, time: new Date().toISOString() };
+    // `photos` says where member photographs are being kept, so an operator can
+    // confirm the Supabase Storage variables reached the service.
+    const base = { service: 'churchconnect-api', commit, photos: photoStorageMode, time: new Date().toISOString() };
     try {
       await Promise.race([
         pool.query('SELECT 1'),

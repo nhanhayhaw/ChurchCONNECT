@@ -58,3 +58,11 @@ services:
       # room for a migration run or a local developer session at the same time.
       - key: DB_POOL_MAX
         value: "8"
+      # Member photographs. With both set, files go to a private Supabase Storage
+      # bucket (created on first boot) and survive restarts; without them they
+      # fall back to this service's disk, which the free plan wipes on restart.
+      # Settings -> API in the Supabase dashboard: Project URL and service_role key.
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false

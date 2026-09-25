@@ -2,7 +2,6 @@
  * Member routes.
  */
 import { Router } from 'express';
-import fs from 'node:fs';
 import { z } from 'zod';
 import { asyncHandler, readPagination } from '../../utils/http.js';
 import { validateBody, validateQuery, validateParams } from '../../middleware/validate.js';
@@ -10,7 +9,7 @@ import { authenticate, requireAuth } from '../../middleware/auth.js';
 import { requirePermission, departmentScope } from '../../middleware/rbac.js';
 import { assertMemberInScope } from '../../middleware/scope.js';
 import { recordAudit } from '../../services/audit.service.js';
-import { photoUpload, storeMemberPhoto, deleteStoredPhoto, resolveStoredPath } from '../../services/storage.service.js';
+import { photoUpload, storeMemberPhoto, deleteStoredPhoto, readStoredPhoto } from '../../services/storage.service.js';
 import { notFound, forbidden } from '../../utils/errors.js';
 import { memberCreateSchema, memberUpdateSchema, memberListQuerySchema } from './members.schema.js';
 import * as service from './members.service.js';
@@ -82,14 +81,17 @@ router.get(
     const record = await service.getPhotoRecord(Number(req.params.id));
     if (!record) throw notFound('Photo not found.');
 
-    const absolute = resolveStoredPath(record.storage_path);
-    if (!fs.existsSync(absolute)) throw notFound('Photo not found.');
+    // Null when the file is gone - e.g. a row written while photos still lived
+    // on a disk that has since been wiped. The client falls back to initials.
+    const bytes = await readStoredPhoto(record.storage_path);
+    if (!bytes) throw notFound('Photo not found.');
 
     res.setHeader('Content-Type', 'image/jpeg');
+    res.setHeader('Content-Length', String(bytes.length));
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Content-Security-Policy', "default-src 'none'; sandbox");
     res.setHeader('Cache-Control', 'private, max-age=3600');
-    fs.createReadStream(absolute).pipe(res);
+    res.end(bytes);
   }),
 );
 

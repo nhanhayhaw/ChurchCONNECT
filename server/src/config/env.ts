@@ -45,6 +45,14 @@ const schema = z.object({
   // cap, leaving room for a migration run or a developer session alongside.
   DB_POOL_MAX: z.coerce.number().int().min(1).max(100).optional(),
 
+  // --- Member photographs -------------------------------------------------
+  // With both set, photos go to a private Supabase Storage bucket and survive
+  // API restarts; otherwise they are written to UPLOAD_DIR. Empty strings
+  // (as left by .env.example) count as unset.
+  SUPABASE_URL: z.preprocess((v) => (v === '' ? undefined : v), z.string().url().optional()),
+  SUPABASE_SERVICE_ROLE_KEY: z.preprocess((v) => (v === '' ? undefined : v), z.string().min(20).optional()),
+  SUPABASE_STORAGE_BUCKET: z.preprocess((v) => (v === '' ? undefined : v), z.string().min(1).default('member-photos')),
+
   UPLOAD_DIR: z.string().default('./uploads'),
   MAX_UPLOAD_BYTES: z.coerce.number().int().positive().default(3 * 1024 * 1024),
 
@@ -120,6 +128,8 @@ export const env = {
   pgSsl: raw.PGSSL === 'true',
   jobsEnabled: raw.ENABLE_JOBS === 'true',
   uploadDir: path.resolve(process.cwd(), raw.UPLOAD_DIR),
+  /** True when member photographs go to Supabase Storage rather than local disk. */
+  supabaseStorageEnabled: Boolean(raw.SUPABASE_URL && raw.SUPABASE_SERVICE_ROLE_KEY),
   smtpSecure: raw.SMTP_SECURE === 'true',
   /** True once enough is configured to actually send mail. */
   emailEnabled: Boolean(raw.SMTP_HOST),

@@ -26,6 +26,7 @@
     "seed:prod": "node dist/db/seed.js"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.117.2",
     "argon2": "^0.41.1",
     "compression": "^1.7.5",
     "cookie-parser": "^1.4.7",
