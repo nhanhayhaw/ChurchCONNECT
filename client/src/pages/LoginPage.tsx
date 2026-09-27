@@ -96,7 +96,7 @@ export default function LoginPage() {
         />
 
         <div className="relative flex items-center gap-3">
-          <img src="/logo.png" alt="" className="h-11 w-11 object-contain" aria-hidden />
+          <img src="/logo.png" alt="" className="h-11 w-11 object-contain [filter:drop-shadow(0_0_1.5px_#fff)_drop-shadow(0_0_1.5px_#fff)_drop-shadow(0_0_1px_#fff)]" aria-hidden />
           <div>
             <p className="text-sm font-semibold tracking-widest text-white">EKKLESIAOS</p>
             <p className="text-xs text-navy-300">Connecting People. Strengthening the Church.</p>
