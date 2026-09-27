@@ -11,7 +11,7 @@
  * the next tick rather than needing a catch-up mechanism.
  *
  * A single-instance guard prevents two overlapping executions of the same job
- * if one run outlasts its interval. If RT AG Connect is ever scaled to more
+ * if one run outlasts its interval. If Ekklesia is ever scaled to more
  * than one Node process, this in-process lock is no longer sufficient - see
  * docs/ARCHITECTURE.md for the advisory-lock upgrade path.
  */

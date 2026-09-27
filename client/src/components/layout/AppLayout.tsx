@@ -23,7 +23,7 @@ export function AppLayout() {
           <Outlet />
         </main>
         <footer className="no-print border-t border-slate-200 px-4 py-4 text-center text-xs text-slate-400 dark:border-navy-800 lg:px-6">
-          RT AG Connect - Connecting People. Strengthening the Church.
+          Ekklesia - Redemption Temple · Connecting People. Strengthening the Church.
         </footer>
       </div>
     </div>

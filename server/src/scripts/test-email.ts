@@ -17,7 +17,7 @@ import { closePool } from '../config/db.js';
 async function run(): Promise<void> {
   const recipient = process.argv[2];
 
-  console.log('\nRT AG Connect - email configuration test\n');
+  console.log('\nEkklesia - email configuration test\n');
 
   // --- 1. What is configured -------------------------------------------------
   console.log('  Settings');

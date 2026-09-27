@@ -104,7 +104,7 @@ export default function SettingsPage() {
                 <Input label="Telephone" value={draft.church_phone ?? ''} onChange={(e) => set('church_phone', e.target.value)} disabled={!canManage} />
                 <Input label="Email address" type="email" value={draft.church_email ?? ''} onChange={(e) => set('church_email', e.target.value)} disabled={!canManage} />
               </div>
-              <Input label="Logo URL" value={draft.church_logo_url ?? ''} onChange={(e) => set('church_logo_url', e.target.value)} disabled={!canManage} hint="Optional. Leave blank to use the built-in RT AG Connect mark." />
+              <Input label="Logo URL" value={draft.church_logo_url ?? ''} onChange={(e) => set('church_logo_url', e.target.value)} disabled={!canManage} hint="Optional. Leave blank to use the built-in Ekklesia mark." />
 
               {canManage && (
                 <Button

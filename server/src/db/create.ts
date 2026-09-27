@@ -33,7 +33,7 @@ async function run(): Promise<void> {
     ssl: env.pgSsl ? { rejectUnauthorized: false } : undefined,
   });
 
-  console.log('\nRT AG Connect - database creation');
+  console.log('\nEkklesia - database creation');
   console.log(`  server   : ${url.host}`);
   console.log(`  database : ${targetDatabase}`);
 

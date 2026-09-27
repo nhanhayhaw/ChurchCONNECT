@@ -1,5 +1,5 @@
 /**
- * Generates the RT AG Connect leadership presentation.
+ * Generates the Ekklesia leadership presentation.
  *
  *   cd tools/deck && npm install && npm run build
  *
@@ -56,9 +56,9 @@ const SLIDE_H = 7.5;
 
 const pptx = new PptxGenJS();
 pptx.layout = 'LAYOUT_16x9';
-pptx.author = 'RT AG Connect';
-pptx.company = 'RT AG Connect';
-pptx.title = 'RT AG Connect - Membership, Attendance & Follow-Up';
+pptx.author = 'Ekklesia - Redemption Temple';
+pptx.company = 'Redemption Temple AG';
+pptx.title = 'Ekklesia - Redemption Temple - Membership, Attendance & Follow-Up';
 pptx.subject = 'Leadership briefing';
 
 // ---------------------------------------------------------------------------
@@ -83,7 +83,7 @@ function contentSlide(title, kicker) {
   });
 
   // Quiet footer: the church on the left, the crest on the right.
-  slide.addText(`${CHURCH}  ·  RT AG Connect`, {
+  slide.addText(`${CHURCH}  ·  Ekklesia`, {
     x: 0.7, y: 6.92, w: 6, h: 0.3,
     fontFace: FONT, fontSize: 9, color: MUTED,
   });
@@ -213,7 +213,7 @@ function notes(slide, text) {
   s.addShape(pptx.ShapeType.rect, { x: 8.6, y: 0, w: 4.733, h: SLIDE_H, fill: { color: NAVY_LIGHT }, line: { color: NAVY_LIGHT } });
   s.addImage({ path: LOGO, x: 9.72, y: 2.45, w: 2.5, h: 2.5 });
 
-  s.addText('RT AG CONNECT', {
+  s.addText('EKKLESIA', {
     x: 0.95, y: 2.25, w: 8, h: 0.9,
     fontFace: FONT, fontSize: 46, bold: true, color: WHITE, charSpacing: 3,
   });

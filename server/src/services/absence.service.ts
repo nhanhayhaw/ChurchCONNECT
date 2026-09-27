@@ -1,5 +1,5 @@
 /**
- * Automatic absence monitoring - the pastoral heart of RT AG Connect.
+ * Automatic absence monitoring - the pastoral heart of Ekklesia.
  *
  * WHAT IT DOES
  * For every active member it counts how many *consecutive* tracked services

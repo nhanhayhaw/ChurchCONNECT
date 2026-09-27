@@ -70,7 +70,7 @@ const schema = z.object({
   SMTP_PASSWORD: z.string().optional(),
   // Must be an address at a domain you control and have authorised (SPF/DKIM),
   // or the message lands in spam. See docs/EMAIL.md.
-  MAIL_FROM: z.string().default('RT AG Connect <no-reply@localhost>'),
+  MAIL_FROM: z.string().default('Ekklesia - Redemption Temple <no-reply@localhost>'),
   MAIL_REPLY_TO: z.string().optional(),
   // Minutes a password-reset link stays valid.
   RESET_TOKEN_TTL_MINUTES: z.coerce.number().int().positive().max(1440).default(60),
@@ -92,7 +92,7 @@ const parsed = schema.safeParse(process.env);
 if (!parsed.success) {
   const issues = parsed.error.issues.map((i) => `  - ${i.path.join('.')}: ${i.message}`).join('\n');
   // eslint-disable-next-line no-console
-  console.error(`\nRT AG Connect cannot start - invalid environment:\n${issues}\n\nCopy server/.env.example to server/.env and complete it.\n`);
+  console.error(`\nEkklesia cannot start - invalid environment:\n${issues}\n\nCopy server/.env.example to server/.env and complete it.\n`);
   process.exit(1);
 }
 

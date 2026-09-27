@@ -47,7 +47,7 @@ function layout(branding: Branding, bodyHtml: string): string {
           <tr>
             <td style="background-color:${NAVY};padding:22px 28px;">
               <div style="font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;letter-spacing:2px;color:#FFFFFF;">
-                RT AG CONNECT
+                EKKLESIA
               </div>
               <div style="font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12px;color:${GOLD};padding-top:3px;">
                 ${escapeHtml(branding.churchName)}
@@ -330,13 +330,13 @@ This is an automated message. Please do not reply.`;
 
 export function testEmail(branding: Branding): { subject: string; html: string; text: string } {
   return {
-    subject: `RT AG Connect email test - ${branding.churchName}`,
+    subject: `Ekklesia email test - ${branding.churchName}`,
     html: layout(
       branding,
       `
 <p style="margin:0 0 16px 0;"><strong>Your email configuration works.</strong></p>
 <p style="margin:0 0 16px 0;">
-  If you are reading this, RT AG Connect can send password reset links and security
+  If you are reading this, Ekklesia can send password reset links and security
   notices to your members and staff.
 </p>
 <p style="margin:0;color:${MUTED};font-size:13px;">
@@ -345,7 +345,7 @@ export function testEmail(branding: Branding): { subject: string; html: string; 
     ),
     text: `Your email configuration works.
 
-If you are reading this, RT AG Connect can send password reset links and
+If you are reading this, Ekklesia can send password reset links and
 security notices to your members and staff.
 
 Sent from ${env.SMTP_HOST ?? 'unknown host'} at ${new Date().toUTCString()}.`,

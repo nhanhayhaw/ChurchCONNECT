@@ -1,5 +1,5 @@
 -- ============================================================================
--- RT AG Connect - Initial schema
+-- Ekklesia - Initial schema
 -- PostgreSQL 14+
 --
 -- Design notes

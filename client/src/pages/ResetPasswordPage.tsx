@@ -117,7 +117,7 @@ export default function ResetPasswordPage() {
         <div className="mb-8 flex items-center gap-3">
           <img src="/logo.png" alt="" className="h-11 w-11 object-contain" aria-hidden />
           <div>
-            <p className="text-sm font-semibold tracking-widest text-navy-900 dark:text-white">RT AG CONNECT</p>
+            <p className="text-sm font-semibold tracking-widest text-navy-900 dark:text-white">EKKLESIA</p>
             <p className="text-xs text-slate-500 dark:text-slate-400">
               {isInvite ? 'Welcome — set your password' : 'Choose a new password'}
             </p>

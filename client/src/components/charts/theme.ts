@@ -6,7 +6,7 @@
  * pre-validated reference palette rather than invented, because getting
  * colour-vision separation right is a measurement, not a judgement.
  *
- * VALIDATION - run against RT AG Connect's own surfaces, not the defaults
+ * VALIDATION - run against Ekklesia's own surfaces, not the defaults
  *
  *   node scripts/validate_palette.js "#2a78d6,#eb6834,#1baf7a" --mode light --surface "#ffffff"
  *   node scripts/validate_palette.js "#3987e5,#d95926,#199e70" --mode dark  --surface "#0A1C33"

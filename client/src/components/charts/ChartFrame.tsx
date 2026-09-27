@@ -1,7 +1,7 @@
 /**
  * Shared chart chrome: title, legend, table-view twin and empty state.
  *
- * Every chart in RT AG Connect is wrapped in this. The table toggle is not
+ * Every chart in Ekklesia is wrapped in this. The table toggle is not
  * decoration - it is the accessible equivalent of the chart, so no value is
  * ever reachable only by hovering a coloured mark.
  */

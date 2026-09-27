@@ -18,7 +18,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { error: Error | 
 
   componentDidCatch(error: Error, info: ErrorInfo) {
     // In production this is where a reporting service would be called.
-    console.error('[RT AG Connect] render error:', error, info.componentStack);
+    console.error('[Ekklesia] render error:', error, info.componentStack);
   }
 
   render() {
@@ -29,7 +29,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { error: Error | 
         <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-6 text-center shadow-card dark:border-navy-800 dark:bg-navy-900">
           <h1 className="text-lg font-semibold text-slate-900 dark:text-white">Something went wrong</h1>
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            RT AG Connect ran into an unexpected problem on this screen. Your data has not been affected.
+            Ekklesia ran into an unexpected problem on this screen. Your data has not been affected.
           </p>
           <div className="mt-5 flex justify-center gap-2">
             <button

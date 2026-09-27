@@ -33,7 +33,7 @@ interface Column {
 async function buildWorkbook(sheetName: string, columns: Column[], rows: any[]): Promise<ExcelJS.Workbook> {
   const church = await getChurchProfile();
   const wb = new ExcelJS.Workbook();
-  wb.creator = 'RT AG Connect';
+  wb.creator = 'Ekklesia - Redemption Temple';
   wb.created = new Date();
 
   const ws = wb.addWorksheet(sheetName, {

@@ -27,7 +27,7 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [branding, setBranding] = useState({ churchName: 'RT AG Connect', tagline: 'Connecting People. Strengthening the Church.' });
+  const [branding, setBranding] = useState({ churchName: 'Redemption Temple AG', tagline: 'Connecting People. Strengthening the Church.' });
 
   // The church's own name on the login screen, fetched before sign-in.
   useEffect(() => {
@@ -98,8 +98,8 @@ export default function LoginPage() {
         <div className="relative flex items-center gap-3">
           <img src="/logo.png" alt="" className="h-11 w-11 object-contain" aria-hidden />
           <div>
-            <p className="text-sm font-semibold tracking-widest text-white">RT AG CONNECT</p>
-            <p className="text-xs text-navy-300">Membership &amp; Follow-Up Management</p>
+            <p className="text-sm font-semibold tracking-widest text-white">EKKLESIA</p>
+            <p className="text-xs text-navy-300">Redemption Temple</p>
           </div>
         </div>
 
@@ -124,7 +124,7 @@ export default function LoginPage() {
           <div className="mb-8 flex items-center gap-3 lg:hidden">
             <img src="/logo.png" alt="" className="h-11 w-11 object-contain" aria-hidden />
             <div>
-              <p className="text-sm font-semibold tracking-widest text-navy-900 dark:text-white">RT AG CONNECT</p>
+              <p className="text-sm font-semibold tracking-widest text-navy-900 dark:text-white">EKKLESIA</p>
               <p className="text-xs text-slate-500 dark:text-slate-400">{branding.tagline}</p>
             </div>
           </div>

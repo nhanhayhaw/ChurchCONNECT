@@ -22,7 +22,7 @@ let cachedAt = 0;
 
 /** Defaults used when a key has not been seeded or has been deleted. */
 export const SETTING_DEFAULTS = {
-  church_name: 'RT AG Connect Assembly',
+  church_name: 'Redemption Temple AG',
   church_tagline: 'Connecting People. Strengthening the Church.',
   church_address: 'P.O. Box 1204, Accra, Ghana',
   church_phone: '+233 30 000 0000',

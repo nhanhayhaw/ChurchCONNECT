@@ -121,9 +121,9 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
             <img src="/logo.png" alt="" className="h-9 w-9 shrink-0 object-contain" aria-hidden />
             <span className="min-w-0">
               <span className="block truncate text-sm font-semibold tracking-wide text-white">
-                RT AG CONNECT
+                EKKLESIA
               </span>
-              <span className="block truncate text-2xs text-navy-300">Membership &amp; Follow-Up</span>
+              <span className="block truncate text-2xs text-navy-300">Redemption Temple</span>
             </span>
           </NavLink>
           <button

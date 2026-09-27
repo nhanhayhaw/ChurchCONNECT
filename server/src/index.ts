@@ -37,7 +37,7 @@ async function main(): Promise<void> {
 
   const app = createApp();
   const server = app.listen(env.PORT, () => {
-    console.log(`\n  RT AG Connect API`);
+    console.log(`\n  Ekklesia API`);
     console.log(`  environment : ${env.NODE_ENV}`);
     console.log(`  listening   : http://localhost:${env.PORT}`);
     console.log(`  client      : ${env.CLIENT_ORIGIN}`);

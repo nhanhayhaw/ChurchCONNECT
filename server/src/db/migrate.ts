@@ -79,7 +79,7 @@ async function dropEverything(): Promise<void> {
 async function run(): Promise<void> {
   const fresh = process.argv.includes('--fresh');
 
-  console.log('\nRT AG Connect - database migration');
+  console.log('\nEkklesia - database migration');
   console.log(`  target: ${env.DATABASE_URL.replace(/:[^:@/]+@/, ':****@')}`);
 
   if (fresh) await dropEverything();
