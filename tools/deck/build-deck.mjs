@@ -21,6 +21,9 @@ import { fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const OUTPUT = path.resolve(here, '../../docs/ChurchConnect-Leadership-Presentation.pptx');
 const LOGO = path.resolve(here, '../../client/public/logo.png');
+// A 96px copy for the 22 footers: pptxgenjs embeds every addImage separately,
+// so the full 512px file there would add 5 MB to the deck for no visible gain.
+const LOGO_SMALL = path.resolve(here, 'logo-footer.png');
 // Screens captured from the live system with the demonstration data. A slide
 // whose capture is missing falls back to a marked placeholder, never to an
 // empty box.
@@ -87,7 +90,7 @@ function contentSlide(title, kicker) {
     x: 0.7, y: 6.92, w: 6, h: 0.3,
     fontFace: FONT, fontSize: 9, color: MUTED,
   });
-  slide.addImage({ path: LOGO, x: 12.25, y: 6.82, w: 0.42, h: 0.42 });
+  slide.addImage({ path: LOGO_SMALL, x: 12.25, y: 6.82, w: 0.42, h: 0.42 });
 
   return slide;
 }
