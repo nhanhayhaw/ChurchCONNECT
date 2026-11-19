@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reel 4 - Smarter Follow-Up. Stronger Connections.</title>
+<link rel="stylesheet" href="reel.css">
+<style>
+  .st-card { position: absolute; left: 70px; top: 560px; width: 940px; background: #fff; border-radius: 24px; border: 1px solid #E2E8F0; box-shadow: 0 30px 70px -20px rgba(0,0,0,0.55); padding: 34px 38px; color: #0F172A; }
+  .st-card .hd { font-size: 24px; font-weight: 600; color: #0F172A; }
+  .st-card .sub { font-size: 20px; color: #64748B; margin-top: 4px; }
+  .st-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px; margin-top: 26px; }
+  .st-grid .badge { font-size: 30px; padding: 16px 26px; justify-content: center; }
+  .flow { position: absolute; left: 70px; top: 1140px; width: 940px; display: flex; align-items: center; justify-content: center; gap: 18px; }
+  .flow .badge { font-size: 26px; padding: 12px 22px; }
+  .flow svg { width: 34px; height: 34px; color: var(--navy-300); }
+  .note-modal { top: 560px; }
+  .note-modal .in { min-height: 170px; line-height: 1.45; }
+  .entry { position: absolute; left: 70px; top: 1280px; width: 940px; background: #fff; border-radius: 22px; border: 1px solid #E2E8F0; box-shadow: 0 30px 70px -20px rgba(0,0,0,0.55); padding: 26px 32px; color: #0F172A; }
+  .entry .meta { display: flex; align-items: center; gap: 16px; font-size: 20px; color: #64748B; }
+  .entry .txt { font-size: 24px; line-height: 1.45; margin-top: 12px; color: #0F172A; }
+  .two .screen { position: absolute; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="bg" width="1080" height="1920"></canvas>
+
+  <section class="scene" id="s-leader">
+    <div class="kicker" style="top:330px">Monday morning</div>
+    <div class="h2" style="top:380px">Know who needs<br><span class="gold">attention.</span></div>
+  </section>
+
+  <section class="scene" id="s-alert">
+    <div class="kicker" style="top:330px">Needs your attention</div>
+    <div class="h2" style="top:380px">An alert is waiting.</div>
+  </section>
+
+  <section class="scene" id="s-profile">
+    <div class="kicker" style="top:330px">The member's record</div>
+    <div class="h2" style="top:380px">History and the case,<br><span class="gold">together.</span></div>
+  </section>
+
+  <section class="scene" id="s-statuses">
+    <div class="kicker" style="top:330px">Six statuses</div>
+    <div class="h2" style="top:380px">Keep every follow-up<br><span class="gold">organised.</span></div>
+    <div class="st-card">
+      <div class="hd">Follow-up status</div>
+      <div class="sub">Where the case stands, in one word.</div>
+      <div class="st-grid">
+        <span class="badge amber">Pending</span>
+        <span class="badge sky">Contacted</span>
+        <span class="badge emerald">Responded</span>
+        <span class="badge amber">Needs Further Follow-Up</span>
+        <span class="badge emerald">Resolved</span>
+        <span class="badge red">Unable to Reach</span>
+      </div>
+    </div>
+    <div class="flow">
+      <span class="badge amber">Pending</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <span class="badge sky">Contacted</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <span class="badge emerald">Resolved</span>
+    </div>
+  </section>
+
+  <section class="scene" id="s-note">
+    <div class="kicker" style="top:330px">Record contact</div>
+    <div class="h2" style="top:380px">Never lose track<br>of a <span class="gold">conversation.</span></div>
+    <div class="modal note-modal">
+      <div class="hd"><div class="t">Record contact</div><div class="d">Priscilla Baidoo &middot; Level 3 - Pastoral Follow-Up</div></div>
+      <div class="bd">
+        <div class="field"><label>Contact method</label><div class="in">Phone call</div></div>
+        <div class="field"><label>Status</label><div class="in"><span class="badge sky" style="font-size:22px;padding:4px 14px">Contacted</span></div></div>
+        <div class="field"><label>Note</label><div class="in focus"><span class="typed"></span><span class="caret"></span></div></div>
+      </div>
+      <div class="ft"><span class="btn outline">Cancel</span><span class="btn primary" id="save-btn">Save note</span></div>
+    </div>
+    <div class="entry">
+      <div class="meta"><span class="badge sky" style="font-size:20px;padding:4px 14px">Contacted</span><span>Phone call</span><span>&middot;</span><span>Grace Owusu</span><span>&middot;</span><span>Today</span></div>
+      <div class="txt">Member was contacted and stated that he travelled for work. Expected to return next Sunday.</div>
+    </div>
+  </section>
+
+  <section class="scene two" id="s-more">
+    <div class="h2" style="top:330px">Birthdays. Departments.<br><span class="gold">Groups.</span></div>
+  </section>
+
+  <section class="scene" id="s-close">
+    <div class="statement l1" style="top:700px">Ekklesia doesn't replace<br>a pastor's visit.</div>
+    <div class="statement gold l2" style="top:920px">It makes sure<br>the visit happens.</div>
+  </section>
+
+  <section class="scene" id="s-outro"></section>
+
+  <div class="vignette"></div>
+  <div id="subs"></div>
+</div>
+
+<script src="engine.js"></script>
+<script src="shared.js"></script>
+<script>
+(function () {
+  const { p, ease, reveal, stagger, kf, lerp, sfade, cameraKf, highlight, typeText } = E;
+  const $ = (s) => document.querySelector(s);
+  const SHOT = { x: 40, y: 560, w: 1000, h: 900 };
+
+  // leader
+  const ld = $('#s-leader');
+  const ldPhoto = E.photoLayer(ld, { blur: 6 });
+  ld.querySelectorAll('.kicker, .h2').forEach((h) => ld.appendChild(h));
+  const ldShot = E.screenFrame(ld, { src: 'assets/screens/dashboard.png', ...SHOT });
+  E.brandCorner(ld);
+
+  // alert: dashboard banner -> click -> alerts page
+  const al = $('#s-alert');
+  const alDash = E.screenFrame(al, { src: 'assets/screens/dashboard.png', ...SHOT });
+  const alList = E.screenFrame(al, { src: 'assets/screens/alerts.png', ...SHOT });
+  const alCur = E.cursorEl(al);
+  E.brandCorner(al);
+
+  // profile -> the follow-up case page
+  const pf = $('#s-profile');
+  const pfShot = E.screenFrame(pf, { src: 'assets/screens/follow-up.png', ...SHOT });
+  E.brandCorner(pf);
+
+  // statuses
+  const st = $('#s-statuses');
+  E.brandCorner(st).note.remove();
+  const stBadges = st.querySelectorAll('.st-grid .badge');
+  const flowItems = st.querySelectorAll('.flow > *');
+
+  // note
+  const nt = $('#s-note');
+  E.brandCorner(nt);
+  const typed = nt.querySelector('.typed');
+  const NOTE = 'Member was contacted and stated that he travelled for work. Expected to return next Sunday.';
+  const saveBtn = $('#save-btn');
+  const ntModal = nt.querySelector('.note-modal');
+  const entry = nt.querySelector('.entry');
+  const ntCur = E.cursorEl(nt);
+
+  // more
+  const mo = $('#s-more');
+  const moA = E.screenFrame(mo, { src: 'assets/screens/birthdays.png', x: 40, y: 560, w: 760, h: 620 });
+  const moB = E.screenFrame(mo, { src: 'assets/screens/departments.png', x: 280, y: 900, w: 760, h: 620 });
+  E.brandCorner(mo);
+
+  // close
+  const cl = $('#s-close');
+  const clPhoto = E.photoLayer(cl, { blur: 4 });
+  cl.querySelectorAll('.statement').forEach((h) => cl.appendChild(h));
+  E.brandCorner(cl).note.remove();
+
+  const outro = E.endCard($('#s-outro'), { lines: ['Give every member the attention they deserve.'] });
+
+  E.reel.define([
+    { id: 'leader', el: ld, render(lt, dur) {
+      sfade(ld, lt, dur, 0.7, 0.5);
+      ldPhoto(lt, dur, { from: 1.1, to: 1.02, opacity: 0.6 });
+      stagger([ld.querySelector('.kicker'), ld.querySelector('.h2')], lt, { at: 0.2, gap: 0.15, dur: 0.9, y: 30 });
+      reveal(ldShot.frame, lt, { at: 1.4, dur: 1.3, y: 120, scale: 0.92 });
+      cameraKf(ldShot.wrap, ldShot.img, lt, [[0, [1080, 0, 0.463]], [dur, [1080, 0, 0.48]]]);
+    } },
+
+    { id: 'alert', el: al, render(lt, dur) {
+      sfade(al, lt, dur, 0.4, 0.5);
+      stagger([al.querySelector('.kicker'), al.querySelector('.h2')], lt, { at: 0.1, gap: 0.15, dur: 0.8, y: 30 });
+      const swap = 3.6;
+      alDash.frame.style.opacity = (1 - p(lt, swap, 0.25)).toFixed(3);
+      alDash.frame.style.visibility = lt > swap + 0.25 ? 'hidden' : 'visible';
+      cameraKf(alDash.wrap, alDash.img, lt, [[0, [1080, 0, 0.48]], [1.3, [1270, 330, 0.95]], [swap, [1270, 330, 0.95]]]);
+      highlight(alDash.ring, alDash.wrap, alDash.img, lt, { at: 0.9, until: swap - 0.1, x: 421, y: 265, w: 1702, h: 113, pad: 10 });
+      const [rx, ry] = E.toStage(alDash.wrap, alDash.img, 2000, 313);
+      E.cursor(alCur, lt, [[1.6, [600, 1500]], [2.6, [rx, ry]], [swap + 0.2, [rx, ry]]], [3.1]);
+      alCur.style.opacity = lt > swap + 0.3 ? '0' : alCur.style.opacity;
+      reveal(alList.frame, lt, { at: swap + 0.15, dur: 0.6, y: 40, scale: 0.97 });
+      cameraKf(alList.wrap, alList.img, lt, [[swap, [1080, 0, 0.463]], [swap + 0.6, [1080, 0, 0.463]], [swap + 2.0, [1200, 1150, 0.72]], [dur, [1200, 1180, 0.74]]]);
+      highlight(alList.ring, alList.wrap, alList.img, lt, { at: swap + 2.0, until: dur - 0.3, x: 421, y: 1120, w: 1702, h: 150, pad: 8 });
+    } },
+
+    { id: 'profile', el: pf, render(lt, dur) {
+      sfade(pf, lt, dur, 0.45, 0.5);
+      stagger([pf.querySelector('.kicker'), pf.querySelector('.h2')], lt, { at: 0.1, gap: 0.15, dur: 0.8, y: 30 });
+      reveal(pfShot.frame, lt, { at: 0.25, dur: 1.0, y: 80, scale: 0.95 });
+      cameraKf(pfShot.wrap, pfShot.img, lt, [[0, [1080, 0, 0.463]], [1.2, [1080, 0, 0.463]], [2.6, [700, 640, 0.95]], [4.2, [700, 640, 0.95]], [dur, [1560, 560, 0.72]]]);
+      highlight(pfShot.ring, pfShot.wrap, pfShot.img, lt, { at: 2.7, until: 4.1, x: 440, y: 470, w: 500, h: 110, pad: 10 });
+    } },
+
+    { id: 'statuses', el: st, render(lt, dur) {
+      sfade(st, lt, dur, 0.45, 0.5);
+      stagger([st.querySelector('.kicker'), st.querySelector('.h2')], lt, { at: 0.1, gap: 0.15, dur: 0.8, y: 30 });
+      reveal(st.querySelector('.st-card'), lt, { at: 0.4, dur: 0.9, y: 60, scale: 0.97 });
+      stBadges.forEach((b, i) => reveal(b, lt, { at: 1.0 + i * 0.22, dur: 0.55, y: 16, scale: 0.85, e: ease.outBack }));
+      flowItems.forEach((b, i) => reveal(b, lt, { at: 3.0 + i * 0.18, dur: 0.6, y: 20, scale: 0.9, e: ease.outBack }));
+    } },
+
+    { id: 'note', el: nt, render(lt, dur) {
+      sfade(nt, lt, dur, 0.45, 0.5);
+      stagger([nt.querySelector('.kicker'), nt.querySelector('.h2')], lt, { at: 0.1, gap: 0.15, dur: 0.8, y: 30 });
+      reveal(ntModal, lt, { at: 0.3, dur: 0.9, y: 60, scale: 0.97 });
+      typeText(typed, NOTE, lt, { at: 1.0, cps: 30 });
+      const bx = ntModal.offsetLeft + saveBtn.offsetLeft + saveBtn.offsetWidth / 2, by = ntModal.offsetTop + saveBtn.offsetTop + saveBtn.offsetHeight / 2;
+      E.cursor(ntCur, lt, [[3.9, [980, 1500]], [4.8, [bx + 8, by + 6]], [dur, [bx + 8, by + 6]]], [5.2]);
+      saveBtn.classList.toggle('pressed', lt >= 5.2 && lt < 5.45);
+      reveal(entry, lt, { at: 5.5, dur: 0.7, y: 40, scale: 0.96, e: ease.outBack });
+    } },
+
+    { id: 'more', el: mo, render(lt, dur) {
+      sfade(mo, lt, dur, 0.45, 0.5);
+      reveal(mo.querySelector('.h2'), lt, { at: 0.1, dur: 0.8, y: 30 });
+      reveal(moA.frame, lt, { at: 0.3, dur: 1.0, x: -80, y: 40 });
+      reveal(moB.frame, lt, { at: 0.8, dur: 1.0, x: 80, y: 40 });
+      cameraKf(moA.wrap, moA.img, lt, [[0, [1080, 0, 0.352]], [dur, [1000, 0, 0.40]]]);
+      cameraKf(moB.wrap, moB.img, lt, [[0, [1080, 0, 0.352]], [dur, [1000, 60, 0.40]]]);
+    } },
+
+    { id: 'close', el: cl, render(lt, dur) {
+      sfade(cl, lt, dur, 0.5, 0.5);
+      clPhoto(lt, dur, { from: 1.0, to: 1.08, opacity: 0.55 });
+      reveal(cl.querySelector('.l1'), lt, { at: 0.3, dur: 0.9, y: 30 });
+      reveal(cl.querySelector('.l2'), lt, { at: 2.6, dur: 0.9, y: 30 });
+    } },
+
+    { id: 'outro', el: $('#s-outro'), render: outro },
+  ]);
+})();
+</script>
+</body>
+</html>

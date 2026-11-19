@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reel 1 - Introducing Ekklesia</title>
+<link rel="stylesheet" href="reel.css">
+<style>
+  /* Scene: people */
+  .grid { position: absolute; left: 168px; top: 450px; width: 744px; }
+  .grid .avatar { position: absolute; }
+  /* Scene: problem */
+  .paper { position: absolute; left: 90px; top: 540px; width: 560px; height: 700px; background: #FBFAF6; border-radius: 10px; color: #334155; padding: 44px 48px; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6); transform-origin: center; background-image: repeating-linear-gradient(180deg, transparent 0 51px, #D9DEE7 51px 52px); background-position: 0 150px; }
+  .paper h4 { margin: 0; font-size: 30px; font-weight: 700; color: #0F172A; }
+  .paper .sub { font-size: 22px; color: #64748B; margin-top: 6px; }
+  .paper .tally { position: absolute; left: 48px; top: 190px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px 10px; width: 460px; }
+  .paper .tally i { display: block; height: 36px; width: 56px; background: repeating-linear-gradient(90deg, #475569 0 4px, transparent 4px 13px) 0 0/52px 100% no-repeat; position: relative; }
+  .paper .tally i::after { content: ''; position: absolute; left: 2px; top: 14px; width: 56px; height: 4px; background: #475569; transform: rotate(-20deg); }
+  .paper .total { position: absolute; left: 48px; bottom: 50px; font-size: 42px; font-weight: 800; color: #0F172A; }
+  .paper .total span { font-size: 22px; font-weight: 500; color: #64748B; display: block; }
+  .sheet { position: absolute; left: 420px; top: 760px; width: 600px; background: #fff; border-radius: 10px; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6); overflow: hidden; color: #0F172A; font-size: 21px; transform-origin: center; }
+  .sheet table { border-collapse: collapse; width: 100%; }
+  .sheet th { background: #F1F5F9; font-weight: 600; text-align: left; padding: 12px 14px; border: 1px solid #E2E8F0; font-size: 18px; color: #475569; }
+  .sheet td { padding: 11px 14px; border: 1px solid #E2E8F0; white-space: nowrap; }
+  .sheet td.c { text-align: center; }
+  .sheet .x { color: #d03b3b; font-weight: 700; }
+  .sheet .ok { color: #0ca30c; font-weight: 700; }
+  .sheet .q { color: #94A3B8; }
+  /* Scene: dashboard */
+  .sys-line { position: absolute; left: 80px; right: 80px; top: 1455px; text-align: center; font-size: 28px; font-weight: 500; color: var(--navy-200); }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="bg" width="1080" height="1920"></canvas>
+
+  <!-- COLD OPEN -->
+  <section class="scene" id="s-cold">
+    <div class="h1 center" style="top:800px"><span class="w">A church</span> <span class="w">is more</span> <span class="w">than</span> <span class="w gold">numbers.</span></div>
+  </section>
+
+  <!-- PEOPLE -->
+  <section class="scene" id="s-people">
+    <div class="grid"></div>
+    <div class="h2 center" style="top:1300px">Every member <span class="gold">matters.</span></div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="scene" id="s-problem">
+    <div class="kicker" style="top:330px">The challenge</div>
+    <div class="h2" style="top:380px">Hundreds of members.<br>One register.</div>
+    <div class="paper">
+      <h4>Sunday Service</h4>
+      <div class="sub">14 September &middot; Head count</div>
+      <div class="tally"></div>
+      <div class="total">312 <span>present</span></div>
+    </div>
+    <div class="sheet">
+      <table>
+        <thead><tr><th>Member</th><th>Wk 1</th><th>Wk 2</th><th>Wk 3</th><th>Wk 4</th></tr></thead>
+        <tbody>
+          <tr><td>A. Mensah</td><td class="c ok">&#10003;</td><td class="c ok">&#10003;</td><td class="c ok">&#10003;</td><td class="c ok">&#10003;</td></tr>
+          <tr><td>E. Boateng</td><td class="c ok">&#10003;</td><td class="c x">&#10007;</td><td class="c x">&#10007;</td><td class="c q">?</td></tr>
+          <tr><td>K. Osei</td><td class="c ok">&#10003;</td><td class="c ok">&#10003;</td><td class="c q">?</td><td class="c q">?</td></tr>
+          <tr><td>M. Baidoo</td><td class="c x">&#10007;</td><td class="c x">&#10007;</td><td class="c x">&#10007;</td><td class="c q">?</td></tr>
+          <tr><td>P. Lartey</td><td class="c ok">&#10003;</td><td class="c ok">&#10003;</td><td class="c ok">&#10003;</td><td class="c q">?</td></tr>
+          <tr><td>Y. Bonsu</td><td class="c q">?</td><td class="c q">?</td><td class="c q">?</td><td class="c q">?</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="h2 center" style="top:1330px"><span class="gold">Counted.</span> But not known.</div>
+  </section>
+
+  <!-- BRIDGE -->
+  <section class="scene" id="s-bridge">
+    <div class="light-sweep"></div>
+    <div class="h1 center" style="top:780px">Know your people.</div>
+    <div class="h1 center gold" style="top:890px">Understand your church.</div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section class="scene" id="s-dashboard">
+    <div class="kicker center" style="top:300px">Introducing</div>
+    <div class="wordmark" style="top:338px">EKKLESIA</div>
+    <div class="sys-line">Church Membership, Attendance &amp;<br>Follow-Up Management System</div>
+  </section>
+
+  <!-- OUTRO -->
+  <section class="scene" id="s-outro"></section>
+
+  <div class="vignette"></div>
+  <div id="subs"></div>
+</div>
+
+<script src="engine.js"></script>
+<script src="shared.js"></script>
+<script>
+(function () {
+  const { p, ease, reveal, stagger, kf, lerp, sfade, cameraKf, highlight } = E;
+  const $ = (s) => document.querySelector(s);
+
+  // ---- cold ------------------------------------------------------------
+  const cold = $('#s-cold');
+  const coldPhoto = E.photoLayer(cold);
+  cold.appendChild(cold.querySelector('.h1')); // photo under the text
+  E.brandCorner(cold).note.remove();
+  const coldWords = cold.querySelectorAll('.w');
+
+  // ---- people ----------------------------------------------------------
+  const people = $('#s-people');
+  const peoplePhoto = E.photoLayer(people, { blur: 10 });
+  people.appendChild(people.querySelector('.grid'));
+  people.appendChild(people.querySelector('.h2'));
+  E.brandCorner(people).note.remove();
+  const INITIALS = ['NA', 'AA', 'FB', 'HT', 'MB', 'PB', 'YB', 'GD', 'FF', 'LA', 'EA', 'GA', 'KO', 'PL', 'PN', 'HQ', 'YB', 'AM', 'EB', 'JM', 'SA', 'DK', 'RO', 'CA', 'TQ'];
+  const grid = people.querySelector('.grid');
+  const avatars = INITIALS.map((ini, i) => {
+    const a = E.avatar(ini, 120, i);
+    a.style.left = (i % 5) * 156 + 'px';
+    a.style.top = Math.floor(i / 5) * 156 + 'px';
+    grid.appendChild(a);
+    return a;
+  });
+  const ORDER = [12, 7, 17, 11, 13, 6, 8, 16, 18, 2, 22, 1, 3, 21, 23, 5, 9, 15, 19, 0, 4, 20, 24, 10, 14];
+
+  // ---- problem ---------------------------------------------------------
+  const problem = $('#s-problem');
+  E.brandCorner(problem).note.remove();
+  const tally = problem.querySelector('.tally');
+  for (let i = 0; i < 24; i++) tally.appendChild(document.createElement('i'));
+  const paper = problem.querySelector('.paper'), sheet = problem.querySelector('.sheet');
+  const probTexts = [problem.querySelector('.kicker'), problem.querySelectorAll('.h2')[0]];
+  const probLast = problem.querySelectorAll('.h2')[1];
+
+  // ---- bridge ----------------------------------------------------------
+  const bridge = $('#s-bridge');
+  const bridgePhoto = E.photoLayer(bridge, { blur: 8 });
+  bridge.appendChild(bridge.querySelector('.light-sweep'));
+  bridge.querySelectorAll('.h1').forEach((h) => bridge.appendChild(h));
+  E.brandCorner(bridge).note.remove();
+  const bridgeLines = bridge.querySelectorAll('.h1');
+
+  // ---- dashboard -------------------------------------------------------
+  const dash = $('#s-dashboard');
+  const shot = E.screenFrame(dash, { src: 'assets/screens/dashboard.png', x: 40, y: 490, w: 1000, h: 930 });
+  const glass = document.createElement('div'); glass.className = 'glass'; shot.frame.appendChild(glass);
+  E.brandCorner(dash);
+  const dashTexts = [dash.querySelector('.kicker'), dash.querySelector('.wordmark')];
+
+  // ---- outro -----------------------------------------------------------
+  const outro = E.endCard($('#s-outro'));
+
+  E.reel.bgIntensity = (t) => 1;
+
+  E.reel.define([
+    { id: 'cold', el: cold, render(lt, dur) {
+      sfade(cold, lt, dur, 0.8, 0.6);
+      coldPhoto(lt, dur, { from: 1.14, to: 1.02 });
+      coldWords.forEach((w, i) => reveal(w, lt, { at: 0.5 + i * 0.28, dur: 0.9, y: 30 }));
+    } },
+
+    { id: 'people', el: people, render(lt, dur) {
+      sfade(people, lt, dur, 0.5, 0.5);
+      peoplePhoto(lt, dur, { from: 1.02, to: 1.08, opacity: 0.55 });
+      ORDER.forEach((idx, k) => {
+        const a = avatars[idx];
+        const q = p(lt, 0.15 + k * 0.075, 0.6, ease.outBack);
+        const float = Math.sin(lt * 1.4 + idx) * 4;
+        a.style.opacity = Math.min(1, q * 1.4).toFixed(3);
+        a.style.transform = `scale(${lerp(0.3, 1, q).toFixed(3)}) translateY(${float.toFixed(1)}px)`;
+      });
+      reveal(people.querySelector('.h2'), lt, { at: 2.3, dur: 0.9, y: 30 });
+    } },
+
+    { id: 'problem', el: problem, render(lt, dur) {
+      sfade(problem, lt, dur, 0.5, 0.5);
+      stagger(probTexts, lt, { at: 0.2, gap: 0.15, dur: 0.8, y: 30 });
+      // Cards land, then at 4.2s lose their colour and sink: counting is not knowing.
+      const sink = p(lt, 4.1, 1.4, ease.inOut);
+      const rp = reveal(paper, lt, { at: 0.55, dur: 0.9, y: 60, scale: 0.96 });
+      paper.style.transform += ` rotate(${lerp(-9, -6, rp)}deg) translateY(${sink * 60}px)`;
+      paper.style.filter = `grayscale(${sink}) blur(${sink * 3}px)`;
+      paper.style.opacity = (rp * (1 - sink * 0.6)).toFixed(3);
+      const rs = reveal(sheet, lt, { at: 0.95, dur: 0.9, y: 60, scale: 0.96 });
+      sheet.style.transform += ` rotate(${lerp(7, 4, rs)}deg) translateY(${sink * 80}px)`;
+      sheet.style.filter = `grayscale(${sink}) blur(${sink * 3}px)`;
+      sheet.style.opacity = (rs * (1 - sink * 0.6)).toFixed(3);
+      // Tally marks fill in one by one.
+      tally.querySelectorAll('i').forEach((i, k) => { i.style.opacity = p(lt, 1.2 + k * 0.07, 0.15); });
+      reveal(probLast, lt, { at: 4.6, dur: 0.9, y: 30 });
+    } },
+
+    { id: 'bridge', el: bridge, render(lt, dur) {
+      sfade(bridge, lt, dur, 0.5, 0.5);
+      bridgePhoto(lt, dur, { from: 1.0, to: 1.08, opacity: 0.5 });
+      E.sweep(bridge.querySelector('.light-sweep'), lt, 0.2, 1.4);
+      reveal(bridgeLines[0], lt, { at: 0.5, dur: 0.9, y: 36 });
+      reveal(bridgeLines[1], lt, { at: 1.25, dur: 0.9, y: 36 });
+    } },
+
+    { id: 'dashboard', el: dash, render(lt, dur) {
+      sfade(dash, lt, dur, 0.45, 0.6);
+      stagger(dashTexts, lt, { at: 0.1, gap: 0.2, dur: 0.9, y: 30 });
+      reveal(shot.frame, lt, { at: 0.25, dur: 1.2, y: 90, scale: 0.94, e: ease.outQuint });
+      reveal(dash.querySelector('.sys-line'), lt, { at: 1.0, dur: 0.9, y: 20 });
+      cameraKf(shot.wrap, shot.img, lt, [
+        [0, [1080, 0, 0.463]], [2.6, [1080, 0, 0.463]],
+        [4.4, [1283, 540, 0.58]], [6.2, [1283, 540, 0.58]],
+        [8.4, [1283, 1010, 0.58]],
+      ]);
+      highlight(shot.ring, shot.frame, shot.img, lt, { at: 4.6, until: 6.4, x: 421, y: 457, w: 1702, h: 165, pad: 10 });
+      const g = p(lt, 0.7, 1.3, ease.inOutSine);
+      glass.style.transform = `translateX(${lerp(-1100, 1100, g)}px)`;
+    } },
+
+    { id: 'outro', el: $('#s-outro'), render: outro },
+  ]);
+})();
+</script>
+</body>
+</html>

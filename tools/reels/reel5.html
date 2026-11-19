@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reel 5 - The Future of Church Management</title>
+<link rel="stylesheet" href="reel.css">
+<style>
+  .role { position: absolute; left: 70px; width: 940px; height: 150px; background: #fff; border-radius: 20px; border: 1px solid #E2E8F0; box-shadow: 0 30px 70px -20px rgba(0,0,0,0.55); color: #0F172A; display: flex; align-items: center; gap: 24px; padding: 0 30px; }
+  .role .ic { width: 84px; height: 84px; border-radius: 20px; background: #F2F5F9; color: #0F2A4A; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .role .ic svg { width: 40px; height: 40px; }
+  .role .t { font-size: 29px; font-weight: 600; }
+  .role .d { font-size: 21px; color: #64748B; margin-top: 4px; line-height: 1.3; }
+  .role .d strong { color: #0F172A; }
+  .priv { position: absolute; left: 70px; top: 560px; width: 940px; background: #fff; border-radius: 24px; border: 1px solid #E2E8F0; box-shadow: 0 30px 70px -20px rgba(0,0,0,0.55); color: #0F172A; padding: 36px 40px; }
+  .priv .top { display: flex; align-items: center; gap: 22px; margin-bottom: 22px; }
+  .priv .top b { font-size: 30px; font-weight: 600; }
+  .priv .top span { display: block; font-size: 21px; color: #64748B; margin-top: 4px; }
+  .priv .shield { width: 84px; height: 84px; border-radius: 22px; background: #F2F5F9; color: #0F2A4A; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .priv .shield svg { width: 50px; height: 50px; }
+  .priv li { list-style: none; display: flex; gap: 18px; align-items: flex-start; font-size: 26px; line-height: 1.35; padding: 16px 0; border-top: 1px solid #E2E8F0; }
+  .priv ul { margin: 0; padding: 0; }
+  .priv li svg { width: 30px; height: 30px; color: #0ca30c; flex-shrink: 0; margin-top: 3px; }
+  .priv li strong { color: #0F172A; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="bg" width="1080" height="1920"></canvas>
+
+  <section class="scene" id="s-cinematic">
+    <div class="light-sweep"></div>
+    <div class="h1 center w1" style="top:700px">One church.</div>
+    <div class="h1 center w2" style="top:810px">Better information.</div>
+    <div class="h1 center gold w3" style="top:920px">Stronger leadership.</div>
+  </section>
+
+  <section class="scene" id="s-devices">
+    <div class="kicker" style="top:330px">Browser-based</div>
+    <div class="h2" style="top:380px">Desktop, tablet or phone.<br><span class="gold">Nothing to install.</span></div>
+  </section>
+
+  <section class="scene" id="s-roles">
+    <div class="kicker" style="top:330px">Role-based access</div>
+    <div class="h2" style="top:380px">Who sees what.</div>
+    <div class="role" style="top:560px"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div><div><div class="t">Super Administrator</div><div class="d">Everything, including user accounts and settings.</div></div></div>
+    <div class="role" style="top:730px"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div class="t">Pastor</div><div class="d">Full visibility of members, attendance, alerts and reports; manages follow-ups.</div></div></div>
+    <div class="role" style="top:900px"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><div><div class="t">Church Administrator</div><div class="d">Registers members, records attendance, manages departments and groups.</div></div></div>
+    <div class="role" style="top:1070px"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><div class="t">Department Leader</div><div class="d"><strong>Their own department only.</strong></div></div></div>
+    <div class="role" style="top:1240px"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><div><div class="t">Viewer</div><div class="d">Read-only.</div></div></div>
+  </section>
+
+  <section class="scene" id="s-privacy">
+    <div class="kicker" style="top:330px">Privacy &amp; accountability</div>
+    <div class="h2" style="top:380px">Member information<br>is a <span class="gold">trust.</span></div>
+    <div class="priv">
+      <div class="top"><div class="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div><div><b>Protecting members' information</b><span>Addresses, phone numbers, dates of birth, photographs.</span></div></div>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Every person signs in with their <strong>own account</strong></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Access is <strong>limited by role</strong></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Every action is recorded</strong> - who did what, and when</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Photographs visible only to <strong>signed-in staff</strong></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="scene" id="s-reports">
+    <div class="kicker" style="top:330px">Reports &amp; dashboard</div>
+    <div class="h2" style="top:380px">Better information<br>for <span class="gold">better decisions.</span></div>
+  </section>
+
+  <section class="scene" id="s-close">
+    <div class="statement l1" style="top:640px">Organised membership.</div>
+    <div class="statement l2" style="top:760px">Meaningful follow-up.</div>
+    <div class="statement gold l3" style="top:920px">Technology serving<br>the mission of the church.</div>
+  </section>
+
+  <section class="scene" id="s-outro"></section>
+
+  <div class="vignette"></div>
+  <div id="subs"></div>
+</div>
+
+<script src="engine.js"></script>
+<script src="shared.js"></script>
+<script>
+(function () {
+  const { p, ease, reveal, stagger, kf, lerp, sfade, cameraKf, highlight } = E;
+  const $ = (s) => document.querySelector(s);
+
+  // cinematic
+  const ci = $('#s-cinematic');
+  const ciPhoto = E.photoLayer(ci, { blur: 0 });
+  ci.appendChild(ci.querySelector('.light-sweep'));
+  ci.querySelectorAll('.h1').forEach((h) => ci.appendChild(h));
+  E.brandCorner(ci).note.remove();
+
+  // devices
+  const dv = $('#s-devices');
+  const desk = E.screenFrame(dv, { src: 'assets/screens/dashboard.png', x: 40, y: 560, w: 780, h: 520 });
+  const tab = document.createElement('div'); tab.className = 'device tablet'; tab.style.cssText = 'left:640px;top:720px;width:400px;height:560px;'; tab.innerHTML = '<div class="img-wrap"><img src="assets/screens/dashboard.png" alt=""></div>'; dv.appendChild(tab);
+  const tabWrap = tab.querySelector('.img-wrap'), tabImg = tab.querySelector('img');
+  const ph = document.createElement('div'); ph.className = 'device phone'; ph.style.cssText = 'left:120px;top:960px;width:290px;height:580px;'; ph.innerHTML = '<div class="img-wrap"><img src="assets/screens/dashboard.png" alt=""></div>'; dv.appendChild(ph);
+  const phWrap = ph.querySelector('.img-wrap'), phImg = ph.querySelector('img');
+  E.brandCorner(dv);
+
+  // roles
+  const ro = $('#s-roles');
+  E.brandCorner(ro).note.remove();
+  const roles = ro.querySelectorAll('.role');
+
+  // privacy
+  const pv = $('#s-privacy');
+  E.brandCorner(pv).note.remove();
+  const privItems = pv.querySelectorAll('li');
+
+  // reports
+  const rp = $('#s-reports');
+  const rpShot = E.screenFrame(rp, { src: 'assets/screens/reports.png', x: 40, y: 560, w: 1000, h: 900 });
+  E.brandCorner(rp);
+
+  // close
+  const cl = $('#s-close');
+  const clPhoto = E.photoLayer(cl, { blur: 3 });
+  cl.querySelectorAll('.statement').forEach((h) => cl.appendChild(h));
+  E.brandCorner(cl).note.remove();
+
+  const outro = E.endCard($('#s-outro'), { lines: ['Modern church administration.'] });
+
+  E.reel.define([
+    { id: 'cinematic', el: ci, render(lt, dur) {
+      sfade(ci, lt, dur, 0.9, 0.5);
+      ciPhoto(lt, dur, { from: 1.16, to: 1.04 });
+      E.sweep(ci.querySelector('.light-sweep'), lt, 0.3, 1.5);
+      reveal(ci.querySelector('.w1'), lt, { at: 0.5, dur: 0.9, y: 30 });
+      reveal(ci.querySelector('.w2'), lt, { at: 1.3, dur: 0.9, y: 30 });
+      reveal(ci.querySelector('.w3'), lt, { at: 2.2, dur: 0.9, y: 30 });
+    } },
+
+    { id: 'devices', el: dv, render(lt, dur) {
+      sfade(dv, lt, dur, 0.45, 0.5);
+      stagger([dv.querySelector('.kicker'), dv.querySelector('.h2')], lt, { at: 0.1, gap: 0.15, dur: 0.8, y: 30 });
+      reveal(desk.frame, lt, { at: 0.3, dur: 1.0, y: 70, scale: 0.95 });
+      reveal(tab, lt, { at: 1.1, dur: 1.0, y: 70, x: 40, scale: 0.95 });
+      reveal(ph, lt, { at: 1.9, dur: 1.0, y: 70, x: -40, scale: 0.95 });
+      cameraKf(desk.wrap, desk.img, lt, [[0, [1080, 0, 0.361]], [dur, [1080, 0, 0.40]]]);
+      E.camera(tabWrap, tabImg, 700, 0, 0.30 + 0.02 * p(lt, 1, dur));
+      E.camera(phWrap, phImg, 1270, 400, 0.52 + 0.03 * p(lt, 2, dur));
+      // Slight parallax drift so the trio feels dimensional.
+      const dr = Math.sin(lt * 0.8) * 4;
+      tab.style.transform += ` translateY(${dr}px)`;
+      ph.style.transform += ` translateY(${-dr}px)`;
+    } },
+
+    { id: 'roles', el: ro, render(lt, dur) {
+      sfade(ro, lt, dur, 0.45, 0.5);
+      stagger([ro.querySelector('.kicker'), ro.querySelector('.h2')], lt, { at: 0.1, gap: 0.15, dur: 0.8, y: 30 });
+      [0.6, 2.9, 3.9, 4.9, 6.0].forEach((at, i) => reveal(roles[i], lt, { at, dur: 0.7, y: 40, scale: 0.97, e: ease.outBack }));
+    } },
+
+    { id: 'privacy', el: pv, render(lt, dur) {
+      sfade(pv, lt, dur, 0.45, 0.5);
+      stagger([pv.querySelector('.kicker'), pv.querySelector('.h2')], lt, { at: 0.1, gap: 0.15, dur: 0.8, y: 30 });
+      reveal(pv.querySelector('.priv'), lt, { at: 0.4, dur: 0.9, y: 60, scale: 0.97 });
+      privItems.forEach((li, i) => reveal(li, lt, { at: 1.1 + i * 0.5, dur: 0.6, y: 18 }));
+    } },
+
+    { id: 'reports', el: rp, render(lt, dur) {
+      sfade(rp, lt, dur, 0.45, 0.5);
+      stagger([rp.querySelector('.kicker'), rp.querySelector('.h2')], lt, { at: 0.1, gap: 0.15, dur: 0.8, y: 30 });
+      reveal(rpShot.frame, lt, { at: 0.25, dur: 1.0, y: 80, scale: 0.95 });
+      cameraKf(rpShot.wrap, rpShot.img, lt, [[0, [1080, 0, 0.463]], [1.0, [1080, 0, 0.463]], [dur, [1100, 500, 0.62]]]);
+    } },
+
+    { id: 'close', el: cl, render(lt, dur) {
+      sfade(cl, lt, dur, 0.5, 0.5);
+      clPhoto(lt, dur, { from: 1.0, to: 1.1, opacity: 0.6 });
+      reveal(cl.querySelector('.l1'), lt, { at: 0.3, dur: 0.9, y: 30 });
+      reveal(cl.querySelector('.l2'), lt, { at: 1.4, dur: 0.9, y: 30 });
+      reveal(cl.querySelector('.l3'), lt, { at: 2.8, dur: 0.9, y: 30 });
+    } },
+
+    { id: 'outro', el: $('#s-outro'), render: outro },
+  ]);
+})();
+</script>
+</body>
+</html>

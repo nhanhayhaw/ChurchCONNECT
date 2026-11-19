@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reel 2 - Never Lose Track of a Member</title>
+<link rel="stylesheet" href="reel.css">
+<style>
+  /* Calendar */
+  .cal { position: absolute; left: 90px; top: 560px; width: 900px; background: #fff; border-radius: 24px; color: #0F172A; box-shadow: 0 30px 70px -20px rgba(0,0,0,0.55); padding: 34px 38px 30px; }
+  .cal .hd { display: flex; justify-content: space-between; align-items: baseline; }
+  .cal .hd b { font-size: 34px; font-weight: 700; }
+  .cal .hd span { font-size: 22px; color: #64748B; }
+  .cal .wk { display: grid; grid-template-columns: repeat(7, 1fr); margin-top: 22px; }
+  .cal .wk i { font-style: normal; font-size: 18px; font-weight: 600; letter-spacing: 0.08em; color: #64748B; text-align: center; padding-bottom: 12px; border-bottom: 1px solid #E2E8F0; }
+  .cal .wk i.sun { color: #0F2A4A; }
+  .cal .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px 0; margin-top: 12px; }
+  .cal .days b { position: relative; height: 96px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 500; color: #0F172A; border-radius: 14px; }
+  .cal .days b.mute { color: #CBD5E1; }
+  .cal .days b.sun { background: #F2F5F9; font-weight: 700; }
+  .cal .days b .x { position: absolute; inset: 10px; border-radius: 12px; background: #FEF2F2; box-shadow: inset 0 0 0 2px #FECACA; display: flex; align-items: center; justify-content: center; color: #d03b3b; font-weight: 800; font-size: 40px; opacity: 0; }
+  .cal .days b .x::after { content: '\2717'; }
+  .missed { position: absolute; left: 90px; top: 1335px; width: 900px; display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); border-radius: 20px; padding: 22px 34px; }
+  .missed span { font-size: 30px; font-weight: 600; color: var(--navy-200); }
+  .missed b { font-size: 64px; font-weight: 800; color: #fff; font-variant-numeric: tabular-nums; }
+  .missed b.red { color: #F87171; }
+  /* Levels */
+  .lvl { position: absolute; left: 70px; width: 940px; height: 230px; background: #fff; border-radius: 22px; border: 1px solid #E2E8F0; box-shadow: 0 30px 70px -20px rgba(0,0,0,0.55); color: #0F172A; display: flex; align-items: center; padding: 0 34px; gap: 28px; }
+  .lvl .n { width: 150px; text-align: center; }
+  .lvl .n b { display: block; font-size: 84px; font-weight: 800; line-height: 1; letter-spacing: -0.03em; }
+  .lvl .n span { display: block; font-size: 18px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #64748B; margin-top: 6px; }
+  .lvl .arrow { width: 44px; height: 44px; color: #94A3B8; }
+  .lvl .body { flex: 1; }
+  .lvl .body .t { font-size: 30px; font-weight: 600; margin-top: 10px; }
+  .lvl .body .d { font-size: 21px; color: #64748B; margin-top: 6px; line-height: 1.35; }
+  /* Alert row + dialog */
+  .alert-row { top: 560px; display: flex; gap: 26px; align-items: flex-start; }
+  .alert-row .avatar { flex-shrink: 0; }
+  .alert-row .body { flex: 1; min-width: 0; }
+  .alert-row .actions { display: flex; align-items: center; gap: 16px; margin-top: 22px; }
+  .btn svg { width: 26px; height: 26px; }
+  .pressed { transform: scale(0.97); filter: brightness(0.85); }
+  .dlg { top: 905px; }
+  .dlg .info { background: #F8FAFC; border-radius: 14px; padding: 18px 22px; font-size: 23px; color: #334155; line-height: 1.45; margin-bottom: 22px; }
+  .lines .h2 { text-align: center; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="bg" width="1080" height="1920"></canvas>
+
+  <section class="scene" id="s-question">
+    <div class="h1 center" style="top:720px"><span class="w">When a member</span> <span class="w">stops attending,</span></div>
+    <div class="h1 center gold" style="top:940px"><span class="w">how long before</span> <span class="w">someone notices?</span></div>
+  </section>
+
+  <section class="scene" id="s-calendar">
+    <div class="kicker" style="top:330px">The reality</div>
+    <div class="h2" style="top:380px">Weeks pass.<br>Nobody notices.</div>
+    <div class="cal">
+      <div class="hd"><b>September 2026</b><span>Sunday Service</span></div>
+      <div class="wk"><i class="sun">SUN</i><i>MON</i><i>TUE</i><i>WED</i><i>THU</i><i>FRI</i><i>SAT</i></div>
+      <div class="days"></div>
+    </div>
+    <div class="missed"><span>Services missed</span><b class="count">0</b></div>
+  </section>
+
+  <section class="scene" id="s-alerts">
+    <div class="kicker" style="top:330px">Every night</div>
+    <div class="h2" style="top:380px">Absence is noticed<br><span class="gold">automatically.</span></div>
+  </section>
+
+  <section class="scene" id="s-levels">
+    <div class="kicker" style="top:330px">Three levels</div>
+    <div class="h2" style="top:380px">Graded follow-up.</div>
+    <div class="lvl" style="top:560px"><div class="n"><b>2</b><span>missed services</span></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg><div class="body"><span class="badge sky">Level 1</span><div class="t">Follow-Up Reminder</div><div class="d">Two consecutive services missed. A friendly check-in is enough.</div></div></div>
+    <div class="lvl" style="top:820px"><div class="n"><b>3</b><span>missed services</span></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg><div class="body"><span class="badge amber">Level 2</span><div class="t">Urgent Follow-Up</div><div class="d">Three consecutive services missed. Worth a personal call this week.</div></div></div>
+    <div class="lvl" style="top:1080px"><div class="n"><b>4</b><span>missed services</span></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg><div class="body"><span class="badge red">Level 3</span><div class="t">Pastoral Follow-Up</div><div class="d">Absent for around a month. A pastoral visit or call is appropriate.</div></div></div>
+    <div class="small" style="top:1370px">Thresholds are the church's to set, in Settings.</div>
+  </section>
+
+  <section class="scene" id="s-alertcard">
+    <div class="kicker" style="top:330px">One press</div>
+    <div class="h2" style="top:380px">Everything needed<br>to act.</div>
+    <div class="row-card alert-row">
+      <div class="body">
+        <div class="t">John Mensah</div>
+        <div class="d">Absent for <strong>3</strong> consecutive service(s). Last attendance: 19 July 2026.</div>
+        <div class="m"><span>CC-2026-0041</span><span>Ushering</span><span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:6px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>024 000 0000</span></div>
+        <div class="actions"><span class="badge amber">Level 2</span><button class="btn primary" id="start-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Start follow-up</button></div>
+      </div>
+    </div>
+    <div class="modal dlg">
+      <div class="hd"><div class="t">Start a follow-up for John Mensah</div><div class="d">Level 2 - Urgent Follow-Up. Absent for 3 consecutive service(s).</div></div>
+      <div class="bd">
+        <div class="info">Last seen at church on 19 July 2026.<br>Phone: 024 000 0000</div>
+        <div class="field"><label>Assign to</label><div class="in">Grace Owusu (Pastor)</div></div>
+        <div class="field"><label>Next contact by</label><div class="in">30 Sep 2026</div></div>
+        <div class="field"><label>Opening note</label><div class="in ph">Will call this evening to check on the family.</div></div>
+      </div>
+      <div class="ft"><span class="btn outline">Cancel</span><span class="btn primary">Start follow-up</span></div>
+    </div>
+  </section>
+
+  <section class="scene lines" id="s-human">
+    <div class="h2 l1" style="top:600px">The system <span class="gold">never</span> decides<br>that someone has left.</div>
+    <div class="h2 l2" style="top:810px">It <span class="gold">never</span> contacts<br>a member on its own.</div>
+    <div class="h2 l3" style="top:1020px">It raises an alert<br>for a <span class="gold">person.</span></div>
+    <div class="h1 center f1" style="top:760px">Technology helps us care.</div>
+    <div class="h1 center gold f2" style="top:880px">People make the difference.</div>
+  </section>
+
+  <section class="scene" id="s-outro"></section>
+
+  <div class="vignette"></div>
+  <div id="subs"></div>
+</div>
+
+<script src="engine.js"></script>
+<script src="shared.js"></script>
+<script>
+(function () {
+  const { p, ease, reveal, stagger, kf, lerp, sfade, cameraKf, highlight, countUp } = E;
+  const $ = (s) => document.querySelector(s);
+
+  // question
+  const q = $('#s-question');
+  const qPhoto = E.photoLayer(q, { blur: 3 });
+  q.querySelectorAll('.h1').forEach((h) => q.appendChild(h));
+  E.brandCorner(q).note.remove();
+  const qWords = q.querySelectorAll('.w');
+
+  // calendar
+  const cal = $('#s-calendar');
+  E.brandCorner(cal).note.remove();
+  const days = cal.querySelector('.days');
+  const SUN = [6, 13, 20, 27];
+  const cells = [];
+  for (let i = 0; i < 35; i++) {
+    const b = document.createElement('b');
+    const d = i - 1; // September 2026 starts on a Tuesday
+    if (d < 1 || d > 30) { b.classList.add('mute'); b.textContent = d < 1 ? String(30 + d) : String(d - 30); }
+    else { b.textContent = String(d); if (i % 7 === 0) b.classList.add('sun'); }
+    if (SUN.includes(d)) { const x = document.createElement('span'); x.className = 'x'; b.appendChild(x); }
+    days.appendChild(b); cells.push(b);
+  }
+  const xs = cal.querySelectorAll('.x');
+  const X_AT = [0.9, 1.7, 2.5, 3.3];
+  const count = cal.querySelector('.count');
+
+  // alerts
+  const al = $('#s-alerts');
+  const alShot = E.screenFrame(al, { src: 'assets/screens/alerts.png', x: 40, y: 560, w: 1000, h: 900 });
+  E.brandCorner(al);
+
+  // levels
+  const lv = $('#s-levels');
+  E.brandCorner(lv).note.remove();
+  const lvlCards = lv.querySelectorAll('.lvl');
+
+  // alertcard
+  const ac = $('#s-alertcard');
+  E.brandCorner(ac);
+  const row = ac.querySelector('.alert-row');
+  row.insertBefore(E.avatar('JM', 92, 0), row.firstChild);
+  const btn = $('#start-btn');
+  const dlg = ac.querySelector('.dlg');
+  const cur = E.cursorEl(ac);
+
+  // human
+  const hu = $('#s-human');
+  const huPhoto = E.photoLayer(hu, { blur: 10 });
+  hu.querySelectorAll('.h2, .h1').forEach((h) => hu.appendChild(h));
+  E.brandCorner(hu).note.remove();
+  const L = ['.l1', '.l2', '.l3'].map((s) => hu.querySelector(s));
+  const F = ['.f1', '.f2'].map((s) => hu.querySelector(s));
+
+  const outro = E.endCard($('#s-outro'), { lines: ['No member should go unnoticed.'] });
+
+  E.reel.define([
+    { id: 'question', el: q, render(lt, dur) {
+      sfade(q, lt, dur, 0.8, 0.5);
+      qPhoto(lt, dur, { from: 1.12, to: 1.02, opacity: 0.9 });
+      qWords.forEach((w, i) => reveal(w, lt, { at: 0.4 + i * 0.45, dur: 0.9, y: 30 }));
+    } },
+
+    { id: 'calendar', el: cal, render(lt, dur) {
+      sfade(cal, lt, dur, 0.5, 0.5);
+      stagger([cal.querySelector('.kicker'), cal.querySelector('.h2')], lt, { at: 0.15, gap: 0.15, dur: 0.8, y: 30 });
+      reveal(cal.querySelector('.cal'), lt, { at: 0.35, dur: 0.9, y: 60, scale: 0.97 });
+      reveal(cal.querySelector('.missed'), lt, { at: 0.6, dur: 0.9, y: 30 });
+      let n = 0;
+      xs.forEach((x, i) => {
+        const qx = p(lt, X_AT[i], 0.35, ease.outBack);
+        x.style.opacity = Math.min(1, qx * 1.5).toFixed(3);
+        x.style.transform = `scale(${lerp(1.6, 1, qx).toFixed(3)})`;
+        if (lt >= X_AT[i]) n = i + 1;
+      });
+      count.textContent = String(n);
+      count.classList.toggle('red', n >= 2);
+      // The counter flexes on each change.
+      const last = n > 0 ? X_AT[n - 1] : -1;
+      const s = n > 0 ? 1 + 0.25 * Math.max(0, 1 - (lt - last) / 0.35) : 1;
+      count.style.transform = `scale(${s.toFixed(3)})`;
+    } },
+
+    { id: 'alerts', el: al, render(lt, dur) {
+      sfade(al, lt, dur, 0.45, 0.5);
+      stagger([al.querySelector('.kicker'), al.querySelector('.h2')], lt, { at: 0.1, gap: 0.15, dur: 0.8, y: 30 });
+      reveal(alShot.frame, lt, { at: 0.3, dur: 1.1, y: 80, scale: 0.95 });
+      cameraKf(alShot.wrap, alShot.img, lt, [[0, [1080, 0, 0.463]], [1.3, [1080, 0, 0.463]], [2.6, [890, 340, 0.95]], [4.0, [890, 340, 0.95]], [5.3, [1200, 700, 0.62]]]);
+      highlight(alShot.ring, alShot.wrap, alShot.img, lt, { at: 2.7, until: 4.1, x: 421, y: 292, w: 940, h: 76, pad: 12 });
+    } },
+
+    { id: 'levels', el: lv, render(lt, dur) {
+      sfade(lv, lt, dur, 0.45, 0.5);
+      stagger([lv.querySelector('.kicker'), lv.querySelector('.h2')], lt, { at: 0.1, gap: 0.15, dur: 0.8, y: 30 });
+      [0.6, 2.3, 4.0].forEach((at, i) => reveal(lvlCards[i], lt, { at, dur: 0.8, y: 50, scale: 0.97, e: ease.outBack }));
+      reveal(lv.querySelector('.small'), lt, { at: 5.4, dur: 0.8, y: 20 });
+    } },
+
+    { id: 'alertcard', el: ac, render(lt, dur) {
+      sfade(ac, lt, dur, 0.45, 0.5);
+      stagger([ac.querySelector('.kicker'), ac.querySelector('.h2')], lt, { at: 0.1, gap: 0.15, dur: 0.8, y: 30 });
+      reveal(row, lt, { at: 0.5, dur: 0.9, y: 60, scale: 0.97 });
+      // Cursor travels to the button and presses it; the dialog opens.
+      const bx = btn.offsetLeft + row.offsetLeft + btn.offsetWidth / 2, by = btn.offsetTop + row.offsetTop + btn.offsetHeight / 2;
+      E.cursor(cur, lt, [[2.4, [900, 1300]], [3.6, [bx + 10, by + 8]], [8, [bx + 10, by + 8]]], [4.1]);
+      btn.classList.toggle('pressed', lt >= 4.1 && lt < 4.35);
+      reveal(dlg, lt, { at: 4.4, dur: 0.7, y: 50, scale: 0.96, e: ease.outBack });
+      cur.style.zIndex = 60;
+    } },
+
+    { id: 'human', el: hu, render(lt, dur) {
+      sfade(hu, lt, dur, 0.5, 0.5);
+      huPhoto(lt, dur, { from: 1.0, to: 1.08, opacity: 0.45 });
+      const hs = E.sceneTimes('human'); const flip = (hs.vo ? hs.vo.start + hs.vo.dur - hs.start : 6.9) + 0.25;
+      reveal(L[0], lt, { at: 0.3, dur: 0.9, y: 30, until: flip });
+      reveal(L[1], lt, { at: 2.4, dur: 0.9, y: 30, until: flip });
+      reveal(L[2], lt, { at: 4.6, dur: 0.9, y: 30, until: flip });
+      reveal(F[0], lt, { at: flip + 0.5, dur: 0.9, y: 30 });
+      reveal(F[1], lt, { at: flip + 1.1, dur: 0.9, y: 30 });
+    } },
+
+    { id: 'outro', el: $('#s-outro'), render: outro },
+  ]);
+})();
+</script>
+</body>
+</html>

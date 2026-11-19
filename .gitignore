@@ -33,3 +33,6 @@ desktop.ini
 
 # Office lock files (created while a document is open)
 ~$*
+
+# Rendered reels campaign (large media); regenerate with tools/reels
+EKKLESIA_PROMOTIONAL_CAMPAIGN/
