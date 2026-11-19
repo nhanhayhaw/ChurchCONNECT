@@ -382,7 +382,7 @@ table.
 | Role | Access |
 |---|---|
 | **Super Administrator** | Everything, including user accounts and settings |
-| **Pastor** | Full visibility of members, attendance, alerts and reports; manages follow-ups |
+| **Pastor** | Full access: members, attendance, alerts, follow-ups, departments, groups, reports, user accounts and settings |
 | **Church Administrator** | Registers members, records attendance, manages departments and groups |
 | **Department Leader** | **Their own department only** |
 | **Tele Pastor** | Pastoral care by phone and visitation; sees alerts and birthdays, records follow-up calls |

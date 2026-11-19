@@ -706,8 +706,8 @@ INSERT INTO roles (name, label, description, permissions, is_system) VALUES
  '["*"]'::jsonb, TRUE),
 
 ('pastor', 'Pastor',
- 'Full visibility of members, attendance, follow-ups and reports. Read-only on records.',
- '["members:read","attendance:read","followups:read","followups:manage","birthdays:read","departments:read","groups:read","reports:read","reports:export","dashboard:read","notifications:read"]'::jsonb, TRUE),
+ 'Leads the congregation: full access to members, attendance, follow-ups, departments, groups, reports, user accounts and settings.',
+ '["members:read","members:create","members:update","members:delete","members:export","attendance:read","attendance:record","attendance:delete","followups:read","followups:manage","birthdays:read","departments:read","departments:manage","groups:read","groups:manage","reports:read","reports:export","dashboard:read","users:read","users:manage","settings:read","settings:manage","notifications:read"]'::jsonb, TRUE),
 
 ('church_admin', 'Church Administrator',
  'Day-to-day administration: registration, attendance, departments, groups and follow-ups.',
