@@ -398,7 +398,7 @@ export async function assignableOfficers() {
     `SELECT u.id, u.full_name, r.label AS role_label
        FROM users u JOIN roles r ON r.id = u.role_id
       WHERE u.is_active
-        AND r.name IN ('super_admin','pastor','church_admin','department_leader')
+        AND r.name IN ('super_admin','pastor','church_admin','department_leader','tele_pastor')
       ORDER BY u.full_name`,
   );
   return rows.map((r) => ({ id: r.id, fullName: r.full_name, roleLabel: r.role_label }));

@@ -717,6 +717,10 @@ INSERT INTO roles (name, label, description, permissions, is_system) VALUES
  'Sees and follows up members of their own department only.',
  '["members:read","attendance:read","attendance:record","followups:read","followups:manage","birthdays:read","departments:read","groups:read","reports:read","dashboard:read","notifications:read"]'::jsonb, TRUE),
 
+('tele_pastor', 'Tele Pastor',
+ 'Pastoral care by phone, visitation and prayer. Sees members, absences, birthdays and follow-ups church-wide, and records the calls and visits made. Cannot edit member records, export data or change settings.',
+ '["members:read","attendance:read","followups:read","followups:manage","birthdays:read","departments:read","groups:read","reports:read","dashboard:read","notifications:read"]'::jsonb, TRUE),
+
 ('viewer', 'Viewer',
  'Read-only access to members, attendance and reports.',
  '["members:read","attendance:read","followups:read","birthdays:read","departments:read","groups:read","reports:read","dashboard:read","notifications:read"]'::jsonb, TRUE)

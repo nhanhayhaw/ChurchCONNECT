@@ -49,6 +49,7 @@ export const ROLE_NAMES = {
   PASTOR: 'pastor',
   CHURCH_ADMIN: 'church_admin',
   DEPARTMENT_LEADER: 'department_leader',
+  TELE_PASTOR: 'tele_pastor',
   VIEWER: 'viewer',
 } as const;
 
@@ -131,6 +132,24 @@ export const DEFAULT_ROLES: RoleDefinition[] = [
       'reports:read',
       'dashboard:read',
       'notifications:read',
+    ],
+  },
+  {
+    name: ROLE_NAMES.TELE_PASTOR,
+    label: 'Tele Pastor',
+    description:
+      'Pastoral care by phone, visitation and prayer. Sees members, absences, birthdays and follow-ups church-wide, and records the calls and visits made. Cannot edit member records, export data or change settings.',
+    permissions: [
+      'members:read', // names, phone numbers and the pastoral history behind a call
+      'attendance:read', // who has been absent, and for how long
+      'followups:read',
+      'followups:manage', // record calls, visits and outcomes; close resolved cases
+      'birthdays:read', // birthday and anniversary calls
+      'departments:read',
+      'groups:read', // connect new converts to a cell or department
+      'reports:read', // the weekly report to the Pastor, without export
+      'dashboard:read',
+      'notifications:read', // absence alerts and birthday reminders are addressed to this role
     ],
   },
   {

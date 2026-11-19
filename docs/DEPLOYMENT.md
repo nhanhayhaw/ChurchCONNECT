@@ -625,9 +625,11 @@ instance; `sharp` in particular spikes during photo uploads.
 
 # Known gap — role seeding on a fresh production database
 
-The five default roles (Super Administrator, Pastor, Church Administrator,
+The five original roles (Super Administrator, Pastor, Church Administrator,
 Department Leader, Viewer) are currently created by **`npm run seed`**, together
-with 62 fictional demo members. There is no "roles only" option, so a genuinely
+with 62 fictional demo members. (The Tele Pastor role is the exception: it is
+added by migration `004_tele_pastor_role.sql`, so it exists on every database
+the migration runner has touched.) There is no "roles only" option, so a genuinely
 clean production install has no roles until you add them.
 
 Until that is fixed, use whichever of these suits you:

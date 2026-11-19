@@ -269,6 +269,7 @@ audit:read       notifications:read
 | Pastor | all `:read` + `followups:manage` + `reports:export` |
 | Church Administrator | everything except `users:*`, `settings:manage`, `audit:read`, `members:delete` |
 | Department Leader | reads + `attendance:record` + `followups:manage`, **scoped in SQL to their own department** |
+| Tele Pastor | reads + `followups:manage`, church-wide; no `reports:export`. Receives absence alerts and birthday reminders |
 | Viewer | reads only |
 
 ---

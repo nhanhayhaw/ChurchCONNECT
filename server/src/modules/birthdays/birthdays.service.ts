@@ -207,7 +207,7 @@ export async function generateBirthdayReminders(): Promise<{ created: number; no
   let notified = 0;
 
   const { rows: alertRoles } = await query<{ id: number }>(`SELECT id FROM roles WHERE name = ANY($1)`, [
-    [ROLE_NAMES.SUPER_ADMIN, ROLE_NAMES.PASTOR, ROLE_NAMES.CHURCH_ADMIN],
+    [ROLE_NAMES.SUPER_ADMIN, ROLE_NAMES.PASTOR, ROLE_NAMES.CHURCH_ADMIN, ROLE_NAMES.TELE_PASTOR],
   ]);
 
   for (const offset of days) {

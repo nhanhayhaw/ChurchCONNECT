@@ -264,7 +264,7 @@ export async function runAbsenceScan(opts: { triggeredBy?: number } = {}): Promi
   // admin account. Notifications are addressed per role, so one row per role.
   const { rows: alertRoles } = await query<{ id: number }>(
     `SELECT id FROM roles WHERE name = ANY($1)`,
-    [[ROLE_NAMES.SUPER_ADMIN, ROLE_NAMES.PASTOR, ROLE_NAMES.CHURCH_ADMIN]],
+    [[ROLE_NAMES.SUPER_ADMIN, ROLE_NAMES.PASTOR, ROLE_NAMES.CHURCH_ADMIN, ROLE_NAMES.TELE_PASTOR]],
   );
 
   for (const c of candidates) {

@@ -385,6 +385,7 @@ table.
 | **Pastor** | Full visibility of members, attendance, alerts and reports; manages follow-ups |
 | **Church Administrator** | Registers members, records attendance, manages departments and groups |
 | **Department Leader** | **Their own department only** |
+| **Tele Pastor** | Pastoral care by phone and visitation; sees alerts and birthdays, records follow-up calls |
 | **Viewer** | Read-only |
 
 **What to say**
