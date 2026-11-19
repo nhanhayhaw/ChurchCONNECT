@@ -274,7 +274,7 @@ Then, critically, add two rules under **Redirects/Rewrites**:
 
 | Source | Destination | Action |
 |---|---|---|
-| `/api/*` | `https://churchconnect-api.onrender.com/api/*` | Rewrite |
+| `/api/*` | `https://churchconnect-api-omoa.onrender.com/api/*` | Rewrite |
 | `/*` | `/index.html` | Rewrite |
 
 The first keeps the browser on one origin, which is what allows the refresh
