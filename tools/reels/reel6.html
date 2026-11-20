@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reel 6 - Six Roles. One Church.</title>
+<link rel="stylesheet" href="reel.css">
+<style>
+  .role { position: absolute; left: 70px; width: 940px; height: 220px; background: #fff; border-radius: 22px; border: 1px solid #E2E8F0; box-shadow: 0 30px 70px -20px rgba(0,0,0,0.55); color: #0F172A; display: flex; align-items: center; gap: 26px; padding: 0 32px; }
+  .role .ic { width: 96px; height: 96px; border-radius: 24px; background: #F2F5F9; color: #0F2A4A; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .role .ic svg { width: 46px; height: 46px; }
+  .role .body { flex: 1; min-width: 0; }
+  .role .t { font-size: 32px; font-weight: 600; display: flex; align-items: center; gap: 16px; }
+  .role .t .badge { font-size: 20px; padding: 4px 14px; }
+  .role .d { font-size: 23px; color: #475569; margin-top: 8px; line-height: 1.32; }
+  .role .d strong { color: #0F172A; }
+  .spot { position: absolute; left: 70px; top: 560px; width: 940px; background: #fff; border-radius: 24px; border: 1px solid #E2E8F0; box-shadow: 0 30px 70px -20px rgba(0,0,0,0.55); color: #0F172A; padding: 36px 40px; }
+  .spot .top { display: flex; align-items: center; gap: 22px; margin-bottom: 20px; }
+  .spot .top b { font-size: 32px; font-weight: 600; }
+  .spot .top span { display: block; font-size: 22px; color: #64748B; margin-top: 4px; }
+  .spot .ic { width: 88px; height: 88px; border-radius: 22px; background: #F2F5F9; color: #0F2A4A; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .spot .ic svg { width: 48px; height: 48px; }
+  .spot ul { margin: 0; padding: 0; }
+  .spot li { list-style: none; display: flex; gap: 18px; align-items: flex-start; font-size: 26px; line-height: 1.35; padding: 15px 0; border-top: 1px solid #E2E8F0; }
+  .spot li svg { width: 30px; height: 30px; flex-shrink: 0; margin-top: 3px; color: #0ca30c; }
+  .spot li.no svg { color: #d03b3b; }
+  .spot li.no { color: #64748B; }
+  .spot li strong { color: #0F172A; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="bg" width="1080" height="1920"></canvas>
+
+  <section class="scene" id="s-open">
+    <div class="light-sweep"></div>
+    <div class="h1 center w1" style="top:720px">Not everyone needs<br>to see everything.</div>
+    <div class="h1 center gold w2" style="top:960px">Access is by role.</div>
+  </section>
+
+  <section class="scene" id="s-signin">
+    <div class="kicker" style="top:330px">Your own account</div>
+    <div class="h2" style="top:380px">Sign in.<br><span class="gold">See what your role allows.</span></div>
+  </section>
+
+  <section class="scene" id="s-leaders">
+    <div class="kicker" style="top:330px">Six roles</div>
+    <div class="h2" style="top:380px">Leadership and<br>administration.</div>
+    <div class="role" style="top:600px"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div><div class="body"><div class="t">Super Administrator <span class="badge gold">Full access</span></div><div class="d">Everything, including user accounts, settings and the audit log.</div></div></div>
+    <div class="role" style="top:850px"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="body"><div class="t">Pastor <span class="badge emerald">Church-wide</span></div><div class="d">Members, attendance, follow-ups, departments, groups, reports, user accounts and settings.</div></div></div>
+    <div class="role" style="top:1100px"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><div class="body"><div class="t">Church Administrator <span class="badge emerald">Church-wide</span></div><div class="d">Registers members, records attendance, manages departments, groups and follow-ups.</div></div></div>
+  </section>
+
+  <section class="scene" id="s-care">
+    <div class="kicker" style="top:330px">Six roles</div>
+    <div class="h2" style="top:380px">Care and<br>oversight.</div>
+    <div class="role" style="top:600px"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="body"><div class="t">Department Leader <span class="badge amber">Own department only</span></div><div class="d">Sees and follows up <strong>the members of their own department</strong>, and nobody else's.</div></div></div>
+    <div class="role" style="top:850px"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div class="body"><div class="t">Tele Pastor <span class="badge sky">Church-wide</span></div><div class="d">Pastoral care by phone, visitation and prayer. Records calls and visits; cannot edit records.</div></div></div>
+    <div class="role" style="top:1100px"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><div class="body"><div class="t">Viewer <span class="badge slate">Read-only</span></div><div class="d">Read-only access to members, attendance and reports.</div></div></div>
+  </section>
+
+  <section class="scene" id="s-telepastor">
+    <div class="kicker" style="top:330px">Tele Pastor</div>
+    <div class="h2" style="top:380px">The pastor's<br><span class="gold">extended hands.</span></div>
+    <div class="spot">
+      <div class="top"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><b>Pastoral care by phone and visitation</b><span>Calls absentees, first-timers and birthdays. Reports to the Pastor.</span></div></div>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Receives <strong>absence alerts</strong> and <strong>birthday reminders</strong></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Opens <strong>member records</strong> and phone numbers, church-wide</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Every call and visit</strong> written down as a follow-up note</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Can be <strong>assigned a follow-up</strong> by the Pastor</span></li>
+        <li class="no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Cannot edit member records, export data or change settings</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="scene" id="s-enforced">
+    <div class="statement l1" style="top:640px">Enforced by the system.</div>
+    <div class="statement l2" style="top:760px">Not by trust.</div>
+    <div class="statement gold l3" style="top:920px">Every action<br>is recorded.</div>
+  </section>
+
+  <section class="scene" id="s-outro"></section>
+
+  <div class="vignette"></div>
+  <div id="subs"></div>
+</div>
+
+<script src="engine.js"></script>
+<script src="shared.js"></script>
+<script>
+(function () {
+  const { p, ease, reveal, stagger, kf, lerp, sfade, cameraKf, highlight } = E;
+  const $ = (s) => document.querySelector(s);
+  // Card reveals follow the measured narration, so each role lands as it is named.
+  const voDur = (id) => ((window.TIMELINE && window.TIMELINE.byId[id] && window.TIMELINE.byId[id].vo) || { dur: 6 }).dur;
+  const beats = (id, fr) => fr.map((f) => 0.35 + voDur(id) * f);
+
+  // open
+  const op = $('#s-open');
+  const opPhoto = E.photoLayer(op, { blur: 0 });
+  op.appendChild(op.querySelector('.light-sweep'));
+  op.querySelectorAll('.h1').forEach((h) => op.appendChild(h));
+  E.brandCorner(op).note.remove();
+
+  // signin
+  const si = $('#s-signin');
+  const login = E.screenFrame(si, { src: 'assets/screens/login.png', x: 40, y: 560, w: 1000, h: 625 });
+  E.brandCorner(si).note.remove();
+
+  // leaders / care
+  const le = $('#s-leaders');
+  E.brandCorner(le).note.remove();
+  const leCards = le.querySelectorAll('.role');
+  const ca = $('#s-care');
+  E.brandCorner(ca).note.remove();
+  const caCards = ca.querySelectorAll('.role');
+
+  // telepastor
+  const tp = $('#s-telepastor');
+  E.brandCorner(tp).note.remove();
+  const tpItems = tp.querySelectorAll('li');
+
+  // enforced
+  const en = $('#s-enforced');
+  const enPhoto = E.photoLayer(en, { blur: 3 });
+  en.querySelectorAll('.statement').forEach((h) => en.appendChild(h));
+  E.brandCorner(en).note.remove();
+
+  const outro = E.endCard($('#s-outro'), { lines: ['Six roles. One church.'] });
+
+  E.reel.define([
+    { id: 'open', el: op, render(lt, dur) {
+      sfade(op, lt, dur, 0.9, 0.5);
+      opPhoto(lt, dur, { from: 1.16, to: 1.04 });
+      E.sweep(op.querySelector('.light-sweep'), lt, 0.3, 1.5);
+      reveal(op.querySelector('.w1'), lt, { at: 0.5, dur: 0.9, y: 30 });
+      reveal(op.querySelector('.w2'), lt, { at: 1.9, dur: 0.9, y: 30 });
+    } },
+
+    { id: 'signin', el: si, render(lt, dur) {
+      sfade(si, lt, dur, 0.45, 0.5);
+      stagger([si.querySelector('.kicker'), si.querySelector('.h2')], lt, { at: 0.1, gap: 0.15, dur: 0.8, y: 30 });
+      reveal(login.frame, lt, { at: 0.3, dur: 1.0, y: 80, scale: 0.95 });
+      cameraKf(login.wrap, login.img, lt, [[0, [1080, 675, 0.463]], [1.0, [1080, 675, 0.463]], [dur - 0.4, [1572, 700, 0.85]]]);
+      highlight(login.ring, login.wrap, login.img, lt, { at: 2.0, dur: 0.6, until: dur - 0.5, x: 1318, y: 540, w: 600, h: 370, pad: 14 });
+    } },
+
+    { id: 'leaders', el: le, render(lt, dur) {
+      sfade(le, lt, dur, 0.45, 0.5);
+      stagger([le.querySelector('.kicker'), le.querySelector('.h2')], lt, { at: 0.1, gap: 0.15, dur: 0.8, y: 30 });
+      beats('leaders', [0, 0.22, 0.52]).forEach((at, i) => reveal(leCards[i], lt, { at, dur: 0.7, y: 40, scale: 0.97, e: ease.outBack }));
+    } },
+
+    { id: 'care', el: ca, render(lt, dur) {
+      sfade(ca, lt, dur, 0.45, 0.5);
+      stagger([ca.querySelector('.kicker'), ca.querySelector('.h2')], lt, { at: 0.1, gap: 0.15, dur: 0.8, y: 30 });
+      beats('care', [0, 0.38, 0.82]).forEach((at, i) => reveal(caCards[i], lt, { at, dur: 0.7, y: 40, scale: 0.97, e: ease.outBack }));
+    } },
+
+    { id: 'telepastor', el: tp, render(lt, dur) {
+      sfade(tp, lt, dur, 0.45, 0.5);
+      stagger([tp.querySelector('.kicker'), tp.querySelector('.h2')], lt, { at: 0.1, gap: 0.15, dur: 0.8, y: 30 });
+      reveal(tp.querySelector('.spot'), lt, { at: 0.4, dur: 0.9, y: 60, scale: 0.97 });
+      tpItems.forEach((li, i) => reveal(li, lt, { at: 1.2 + i * 0.6, dur: 0.6, y: 18 }));
+    } },
+
+    { id: 'enforced', el: en, render(lt, dur) {
+      sfade(en, lt, dur, 0.5, 0.5);
+      enPhoto(lt, dur, { from: 1.0, to: 1.1, opacity: 0.6 });
+      reveal(en.querySelector('.l1'), lt, { at: 0.3, dur: 0.9, y: 30 });
+      reveal(en.querySelector('.l2'), lt, { at: 1.3, dur: 0.9, y: 30 });
+      reveal(en.querySelector('.l3'), lt, { at: 2.6, dur: 0.9, y: 30 });
+    } },
+
+    { id: 'outro', el: $('#s-outro'), render: outro },
+  ]);
+})();
+</script>
+</body>
+</html>

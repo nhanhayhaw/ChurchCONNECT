@@ -71,6 +71,16 @@ const BOARD = {
     close: { visual: 'Sanctuary; three statements, the last in gold.', text: 'Organised membership. / Meaningful follow-up. / Technology serving the mission of the church.', screens: 'None', sfx: 'Whoosh' },
     outro: { visual: 'Shared end card, held longer for the full closing line.', text: 'EKKLESIA / Connecting People. Strengthening the Church. / Developed for Redemption Temple Assemblies of God / Modern church administration.', screens: 'None', sfx: 'Logo chord' },
   },
+  reel6: {
+    message: 'Who sees what: six roles, each with exactly the access their work needs, enforced by the system and recorded.',
+    open: { visual: 'Sanctuary photograph, slow push, gold light sweep. Two lines rise; the second in gold.', text: 'Not everyone needs to see everything. / Access is by role.', screens: 'None', sfx: 'Music' },
+    signin: { visual: 'Login page capture rises in a browser frame; camera pushes into the sign-in form with a gold ring.', text: 'YOUR OWN ACCOUNT / Sign in. See what your role allows.', screens: 'login.png (live capture)', sfx: 'Whoosh, chime' },
+    leaders: { visual: 'Three white role cards land in time with the narration: Super Administrator (Full access), Pastor (Church-wide), Church Administrator (Church-wide). Each card carries the role\'s own description from the application.', text: 'SIX ROLES / Leadership and administration.', screens: 'None (roles table, server/src/config/permissions.ts)', sfx: 'Whoosh, three pops' },
+    care: { visual: 'Three more role cards: Department Leader (Own department only, amber), Tele Pastor (Church-wide, sky), Viewer (Read-only, slate).', text: 'SIX ROLES / Care and oversight.', screens: 'None (roles table)', sfx: 'Whoosh, three pops' },
+    telepastor: { visual: 'A white spotlight card for the Tele Pastor: phone icon, "The pastor\'s extended hands", four checked lines (absence alerts and birthday reminders, member records and phone numbers, every call and visit recorded, follow-ups assigned) and one crossed line (cannot edit records or export data).', text: 'TELE PASTOR / Pastoral care by phone and visitation.', screens: 'None (role definition)', sfx: 'Whoosh, four pops' },
+    enforced: { visual: 'Blurred sanctuary; three statements, the last in gold.', text: 'Enforced by the system. / Not by trust. / Every action is recorded.', screens: 'None', sfx: 'Whoosh' },
+    outro: { visual: 'Shared end card with the reel\'s line.', text: 'Six roles. One church.', screens: 'None', sfx: 'Logo chord' },
+  },
 };
 
 const CAPTIONS = {
@@ -93,6 +103,10 @@ const CAPTIONS = {
   reel5: {
     caption: `One church. Better information. Stronger leadership.\n\nEKKLESIA runs in the browser on desktop, tablet or phone. Five roles see exactly what they should, access is enforced by role, and every action is recorded.\n\nOrganised membership. Meaningful follow-up. Technology serving the mission of the church.\n\nDeveloped for Redemption Temple Assemblies of God.`,
     tags: '#Ekklesia #ChurchLeadership #ChurchManagement #ChurchTech #DataProtection #RedemptionTemple #AssembliesOfGod #ConnectingPeople',
+  },
+  reel6: {
+    caption: `Six roles. One church.\n\nNot everyone needs to see everything. In EKKLESIA every person signs in with their own account and sees only what their role allows: Super Administrator, Pastor, Church Administrator, Department Leader, Tele Pastor and Viewer.\n\nThe Tele Pastor is the pastor's extended hands - absence alerts, birthdays, member records, and every call written down.\n\nAccess is enforced by the system, not by trust. Every action is recorded.`,
+    tags: '#Ekklesia #TelePastor #PastoralCare #ChurchLeadership #ChurchManagement #DataProtection #RedemptionTemple #AssembliesOfGod',
   },
 };
 
@@ -129,11 +143,11 @@ fs.writeFileSync(path.join(voDir, 'All_Reels.md'), all);
 // --- Captions ----------------------------------------------------------------
 const capDir = D('Social_Media_Captions');
 let cap = `# Captions, hashtags and publishing sequence\n\n`;
-cap += `## Recommended publishing sequence\n\nPost one reel every three to four days so the story builds: what it is → why it matters → how it works → how it changes pastoral care → why leadership should embrace it.\n\n`;
+cap += `## Recommended publishing sequence\n\nPost one reel every three to four days so the story builds: what it is → why it matters → how it works → how it changes pastoral care → why leadership should embrace it → who sees what.\n\n`;
 cap += `| Order | Day | Reel | What the audience should understand |\n|---|---|---|---|\n`;
-const seq = ['Sunday (after service)', 'Wednesday', 'Sunday', 'Wednesday', 'Sunday'];
+const seq = ['Sunday (after service)', 'Wednesday', 'Sunday', 'Wednesday', 'Sunday', 'Wednesday'];
 REELS.forEach((r, i) => { cap += `| ${i + 1} | ${seq[i]} | ${r.file.replace(/_/g, ' ')} | ${BOARD[r.id].message} |\n`; });
-cap += `\nRepost Reel 2 (the question) once more after Reel 5 as the campaign's "most important message": this is a system for knowing our people, not just counting them.\n\nPlatforms: Instagram Reels, Facebook Reels, TikTok, WhatsApp Status (WhatsApp accepts up to 60 s per status; every reel fits in one). Upload the matching .srt where the platform supports captions; subtitles are also burned in.\n\n`;
+cap += `\nRepost Reel 2 (the question) once more after Reel ${REELS.length} as the campaign's "most important message": this is a system for knowing our people, not just counting them.\n\nPlatforms: Instagram Reels, Facebook Reels, TikTok, WhatsApp Status (WhatsApp accepts up to 60 s per status; every reel fits in one). Upload the matching .srt where the platform supports captions; subtitles are also burned in.\n\n`;
 for (const r of REELS) {
   cap += `## ${r.file.replace(/_/g, ' ')}\n\n**Message:** ${BOARD[r.id].message}\n\n**Caption**\n\n${CAPTIONS[r.id].caption}\n\n**Hashtags**\n\n${CAPTIONS[r.id].tags}\n\n`;
 }
@@ -157,12 +171,13 @@ Everything in the reels is drawn from the live Ekklesia application and the lead
 | birthdays.png | Birthdays: today / week / month / 30 days, celebrating today card | Reels 3, 4 |
 | departments.png | Departments: cards with leader, meeting time, roster | Reels 3, 4 |
 | reports.png | Reports: list, date range, Print / Excel / PDF | Reels 3, 5 |
-| login.png | Login page (brand panel) | Reference only |
+| login.png | Login page (brand panel and sign-in form) | Reel 6 |
 
 ## Recreated elements (built from the component source, not re-imagined)
 
 - **Badges** — \`client/src/components/ui/Badge.tsx\` tones: sky (Level 1 / Contacted), amber (Level 2 / Pending / Needs Further Follow-Up), red (Level 3 / Unable to Reach), emerald (Responded / Resolved).
 - **Alert row and Start-follow-up dialog** — \`client/src/pages/AbsenceAlertsPage.tsx\` copy and layout; worked example (John Mensah) from the deck, slide 11.
+- **Role cards (Reel 6)** — labels and descriptions are the six role definitions in \`server/src/config/permissions.ts\`; the Tele Pastor spotlight lists only what that role's permissions grant.
 - **Avatars** — pastel disc with initials, as \`Avatar.tsx\`.
 - **Buttons, inputs, modal** — navy primary, outline secondary, rounded-xl cards (\`reel.css\` mirrors \`tailwind.config.js\` and \`index.css\`).
 
@@ -186,7 +201,7 @@ Everything in the reels is drawn from the live Ekklesia application and the lead
 // --- README ------------------------------------------------------------------
 fs.writeFileSync(path.join(OUT, 'README.md'), `# EKKLESIA - Promotional Reels Campaign
 
-Five connected reels introducing **Ekklesia**, the Church Membership, Attendance & Follow-Up Management System developed for **Redemption Temple Assemblies of God**.
+${REELS.length === 6 ? 'Six' : REELS.length} connected reels introducing **Ekklesia**, the Church Membership, Attendance & Follow-Up Management System developed for **Redemption Temple Assemblies of God**.
 
 | Reel | File | Length | Message |
 |---|---|---|---|
