@@ -23,7 +23,7 @@ import { formatNumber, formatDateShort, formatCountdown, titleCase } from '@/uti
 import type { DashboardData } from '@/types';
 
 export default function DashboardPage() {
-  const { user } = useAuth();
+  const { user, can } = useAuth();
   const navigate = useNavigate();
 
   const { data, isLoading, isError, error, refetch, isFetching } = useQuery({
@@ -57,13 +57,19 @@ export default function DashboardPage() {
             : 'Loading the latest figures...'
         }
         actions={
+          // Only the actions this role can actually take: a Tele Pastor or
+          // Viewer must not be offered buttons that lead to a permission error.
           <>
-            <Button variant="outline" onClick={() => navigate('/attendance/record')} leftIcon={<CalendarCheck className="h-4 w-4" />}>
-              Record attendance
-            </Button>
-            <Button onClick={() => navigate('/members/new')} leftIcon={<UserPlus className="h-4 w-4" />}>
-              Add member
-            </Button>
+            {can('attendance:record') && (
+              <Button variant="outline" onClick={() => navigate('/attendance/record')} leftIcon={<CalendarCheck className="h-4 w-4" />}>
+                Record attendance
+              </Button>
+            )}
+            {can('members:create') && (
+              <Button onClick={() => navigate('/members/new')} leftIcon={<UserPlus className="h-4 w-4" />}>
+                Add member
+              </Button>
+            )}
           </>
         }
       />
@@ -259,7 +265,7 @@ export default function DashboardPage() {
                 icon={<ClipboardList className="h-6 w-6" aria-hidden />}
                 title="No attendance recorded yet"
                 description="Open Record Attendance to take your first register."
-                action={<Button onClick={() => navigate('/attendance/record')}>Record attendance</Button>}
+                action={can('attendance:record') ? <Button onClick={() => navigate('/attendance/record')}>Record attendance</Button> : undefined}
               />
             ) : (
               <ul className="divide-y divide-slate-100 dark:divide-navy-800">
