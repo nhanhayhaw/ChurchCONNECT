@@ -98,7 +98,7 @@ export const REELS = [
     scenes: [
       { id: 'open', min: 4.5, pad: 0.8, vo: 'Not everyone in a church needs to see everything.' },
       { id: 'signin', min: 4.5, pad: 0.5, sfx: [['chime', 1.0]], vo: 'Each person signs in with their own account, and sees only what their role allows.' },
-      { id: 'leaders', min: 6.5, pad: 0.4, sfx: [['pop', 0.6], ['pop', 2.0], ['pop', 3.5]], vo: 'Super Administrator, everything. Pastor, full access. Church Administrator, registration and attendance.' },
+      { id: 'leaders', min: 6.5, pad: 0.4, sfx: [['pop', 0.6], ['pop', 3.0], ['pop', 5.5]], vo: 'Super Administrator, everything. Pastor, full access. Church Administrator, registration and attendance.' },
       { id: 'care', min: 6.5, pad: 0.4, sfx: [['pop', 0.6], ['pop', 2.7], ['pop', 5.2]], vo: 'Department Leader, their own department only. Tele Pastor, care by phone and visitation. Viewer, read-only.' },
       { id: 'telepastor', min: 6.0, pad: 0.4, sfx: [['pop', 1.2], ['pop', 1.8], ['pop', 2.4], ['pop', 3.0]], vo: "The Tele Pastor is the pastor's extended hands. Alerts, birthdays, records, every call written down." },
       { id: 'enforced', min: 4.5, pad: 0.7, vo: 'Enforced by the system, not by trust. Every action recorded.' },

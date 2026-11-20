@@ -148,7 +148,7 @@
     { id: 'leaders', el: le, render(lt, dur) {
       sfade(le, lt, dur, 0.45, 0.5);
       stagger([le.querySelector('.kicker'), le.querySelector('.h2')], lt, { at: 0.1, gap: 0.15, dur: 0.8, y: 30 });
-      beats('leaders', [0, 0.22, 0.52]).forEach((at, i) => reveal(leCards[i], lt, { at, dur: 0.7, y: 40, scale: 0.97, e: ease.outBack }));
+      beats('leaders', [0, 0.31, 0.6]).forEach((at, i) => reveal(leCards[i], lt, { at, dur: 0.7, y: 40, scale: 0.97, e: ease.outBack }));
     } },
 
     { id: 'care', el: ca, render(lt, dur) {
