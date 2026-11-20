@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reel 8 - Ekklesia Is Live</title>
+<link rel="stylesheet" href="reel.css">
+<style>
+  /* A large browser address bar, in the frame's chrome style. */
+  .bar { position: absolute; left: 70px; top: 760px; width: 940px; background: #EEF2F7; border: 1px solid #DCE3EC; border-radius: 26px; padding: 22px 26px; display: flex; align-items: center; gap: 18px; box-shadow: 0 40px 90px -20px rgba(0,0,0,0.65); }
+  .bar i { width: 20px; height: 20px; border-radius: 50%; background: #D5DCE6; display: block; flex-shrink: 0; }
+  .bar .url { flex: 1; height: 112px; border-radius: 56px; background: #fff; border: 1px solid #DCE3EC; display: flex; align-items: center; padding: 0 34px; gap: 18px; overflow: hidden; }
+  .bar .url svg { width: 32px; height: 32px; color: #0ca30c; flex-shrink: 0; }
+  .bar .url .typed { font-size: 46px; font-weight: 600; color: var(--ink); letter-spacing: -0.01em; white-space: nowrap; }
+  .bar .url .typed .d { color: var(--muted); font-weight: 500; }
+  .bar .url .caret { height: 52px; vertical-align: -8px; width: 4px; }
+  .big { position: absolute; left: 0; right: 0; text-align: center; top: 1000px; font-size: 54px; font-weight: 800; letter-spacing: -0.01em; color: var(--gold-300); }
+  .big span { color: #fff; font-weight: 600; }
+  .sub2 { position: absolute; left: 80px; right: 80px; text-align: center; top: 1090px; font-size: 28px; color: var(--navy-200); font-weight: 500; line-height: 1.4; }
+  .ec-url { font-size: 34px !important; color: var(--gold-300) !important; font-weight: 700 !important; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="bg" width="1080" height="1920"></canvas>
+
+  <section class="scene" id="s-open">
+    <div class="light-sweep"></div>
+    <div class="kicker center w0" style="top:660px">Now live</div>
+    <div class="h1 center w1" style="top:720px">Ekklesia<br>is live.</div>
+    <div class="h1 center gold w2" style="top:960px;font-size:64px">One address.<br>Any device.</div>
+  </section>
+
+  <section class="scene" id="s-url">
+    <div class="kicker" style="top:330px">The web address</div>
+    <div class="h2" style="top:380px">Type this into<br><span class="gold">any browser.</span></div>
+    <div class="bar"><i></i><i></i><i></i><div class="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span class="typed"></span><span class="caret"></span></div></div>
+    <div class="big b1">ekklesiaos-church<span>.vercel.app</span></div>
+    <div class="sub2 b2">No "www". A hyphen between ekklesiaos and church.</div>
+  </section>
+
+  <section class="scene" id="s-devices">
+    <div class="kicker" style="top:330px">Browser-based</div>
+    <div class="h2" style="top:380px">Phone, tablet or computer.<br><span class="gold">Nothing to install.</span></div>
+  </section>
+
+  <section class="scene" id="s-bookmark">
+    <div class="statement l1" style="top:640px">Type it once.</div>
+    <div class="statement l2" style="top:760px">Bookmark it.</div>
+    <div class="statement gold l3" style="top:920px">Then it is<br>one tap away.</div>
+  </section>
+
+  <section class="scene" id="s-signin">
+    <div class="kicker" style="top:330px">Your own account</div>
+    <div class="h2" style="top:380px">Sign in.<br><span class="gold">Your role decides what you see.</span></div>
+  </section>
+
+  <section class="scene" id="s-outro"></section>
+
+  <div class="vignette"></div>
+  <div id="subs"></div>
+</div>
+
+<script src="engine.js"></script>
+<script src="shared.js"></script>
+<script>
+(function () {
+  const { p, ease, reveal, stagger, kf, lerp, sfade, cameraKf, highlight } = E;
+  const $ = (s) => document.querySelector(s);
+  const URL = 'ekklesiaos-church.vercel.app';
+  const OVER = [1080, 675, 0.463];
+
+  // open
+  const op = $('#s-open');
+  const opPhoto = E.photoLayer(op, { blur: 0 });
+  op.appendChild(op.querySelector('.light-sweep'));
+  op.querySelectorAll('.kicker, .h1').forEach((h) => op.appendChild(h));
+  E.brandCorner(op).note.remove();
+
+  // url
+  const ur = $('#s-url');
+  E.brandCorner(ur).note.remove();
+  const urTyped = ur.querySelector('.typed');
+  const urCaret = ur.querySelector('.caret');
+
+  // devices: the sign-in page on a desktop frame, a tablet and a phone
+  const dv = $('#s-devices');
+  const desk = E.screenFrame(dv, { src: 'assets/screens/login-empty.png', url: URL, x: 40, y: 560, w: 780, h: 520 });
+  const tab = document.createElement('div'); tab.className = 'device tablet'; tab.style.cssText = 'left:640px;top:720px;width:400px;height:560px;'; tab.innerHTML = '<div class="img-wrap"><img src="assets/screens/login-empty.png" alt=""></div>'; dv.appendChild(tab);
+  const tabWrap = tab.querySelector('.img-wrap'), tabImg = tab.querySelector('img');
+  const ph = document.createElement('div'); ph.className = 'device phone'; ph.style.cssText = 'left:120px;top:960px;width:290px;height:580px;'; ph.innerHTML = '<div class="img-wrap"><img src="assets/screens/login-empty.png" alt=""></div>'; dv.appendChild(ph);
+  const phWrap = ph.querySelector('.img-wrap'), phImg = ph.querySelector('img');
+  E.brandCorner(dv).note.remove();
+
+  // bookmark
+  const bk = $('#s-bookmark');
+  const bkPhoto = E.photoLayer(bk, { blur: 3 });
+  bk.querySelectorAll('.statement').forEach((h) => bk.appendChild(h));
+  E.brandCorner(bk).note.remove();
+
+  // signin
+  const si = $('#s-signin');
+  const siShot = E.screenFrame(si, { src: 'assets/screens/login-empty.png', url: URL, x: 40, y: 560, w: 1000, h: 625 });
+  E.brandCorner(si).note.remove();
+
+  const outro = E.endCard($('#s-outro'), { lines: ['<span class="ec-url">ekklesiaos-church.vercel.app</span>'] });
+
+  const heads = (sec, lt) => stagger([sec.querySelector('.kicker'), sec.querySelector('.h2')], lt, { at: 0.1, gap: 0.15, dur: 0.8, y: 30 });
+
+  E.reel.define([
+    { id: 'open', el: op, render(lt, dur) {
+      sfade(op, lt, dur, 0.9, 0.5);
+      opPhoto(lt, dur, { from: 1.16, to: 1.04 });
+      E.sweep(op.querySelector('.light-sweep'), lt, 0.3, 1.5);
+      reveal(op.querySelector('.w0'), lt, { at: 0.4, dur: 0.8, y: 20 });
+      reveal(op.querySelector('.w1'), lt, { at: 0.7, dur: 0.9, y: 30 });
+      reveal(op.querySelector('.w2'), lt, { at: 2.0, dur: 0.9, y: 30 });
+    } },
+
+    { id: 'url', el: ur, render(lt, dur) {
+      sfade(ur, lt, dur, 0.45, 0.5);
+      heads(ur, lt);
+      reveal(ur.querySelector('.bar'), lt, { at: 0.4, dur: 0.9, y: 50, scale: 0.97 });
+      // Typed character by character, about 14 per second; the gold line below lands when it is complete.
+      const n = Math.max(0, Math.min(URL.length, Math.floor((lt - 1.0) * 14)));
+      const txt = URL.slice(0, n);
+      const cut = Math.min(n, 'ekklesiaos-church'.length);
+      urTyped.innerHTML = txt.slice(0, cut) + (n > cut ? `<span class="d">${txt.slice(cut)}</span>` : '');
+      urCaret.style.opacity = lt > 0.9 && (n < URL.length || Math.floor(lt * 2) % 2 === 0) ? '1' : '0';
+      const done = 1.0 + URL.length / 14;
+      reveal(ur.querySelector('.b1'), lt, { at: done + 0.2, dur: 0.8, y: 24, scale: 0.94, e: ease.outBack });
+      reveal(ur.querySelector('.b2'), lt, { at: done + 0.7, dur: 0.7, y: 14 });
+    } },
+
+    { id: 'devices', el: dv, render(lt, dur) {
+      sfade(dv, lt, dur, 0.45, 0.5);
+      heads(dv, lt);
+      reveal(desk.frame, lt, { at: 0.3, dur: 1.0, y: 70, scale: 0.95 });
+      reveal(tab, lt, { at: 1.1, dur: 1.0, y: 70, x: 40, scale: 0.95 });
+      reveal(ph, lt, { at: 1.9, dur: 1.0, y: 70, x: -40, scale: 0.95 });
+      cameraKf(desk.wrap, desk.img, lt, [[0, [1080, 0, 0.361]], [dur, [1080, 0, 0.40]]]);
+      // Tablet and phone show the sign-in form itself.
+      E.camera(tabWrap, tabImg, 1620, 560, 0.30 + 0.02 * p(lt, 1, dur));
+      E.camera(phWrap, phImg, 1620, 620, 0.34 + 0.03 * p(lt, 2, dur));
+      const dr = Math.sin(lt * 0.8) * 4;
+      tab.style.transform += ` translateY(${dr}px)`;
+      ph.style.transform += ` translateY(${-dr}px)`;
+    } },
+
+    { id: 'bookmark', el: bk, render(lt, dur) {
+      sfade(bk, lt, dur, 0.5, 0.5);
+      bkPhoto(lt, dur, { from: 1.0, to: 1.1, opacity: 0.6 });
+      reveal(bk.querySelector('.l1'), lt, { at: 0.3, dur: 0.9, y: 30 });
+      reveal(bk.querySelector('.l2'), lt, { at: 1.3, dur: 0.9, y: 30 });
+      reveal(bk.querySelector('.l3'), lt, { at: 2.5, dur: 0.9, y: 30 });
+    } },
+
+    { id: 'signin', el: si, render(lt, dur) {
+      sfade(si, lt, dur, 0.45, 0.5);
+      heads(si, lt);
+      reveal(siShot.frame, lt, { at: 0.3, dur: 1.0, y: 80, scale: 0.95 });
+      cameraKf(siShot.wrap, siShot.img, lt, [[0, OVER], [1.0, OVER], [dur - 0.4, [1572, 700, 0.85]]]);
+      highlight(siShot.ring, siShot.wrap, siShot.img, lt, { at: 2.0, dur: 0.6, until: dur - 0.5, x: 1318, y: 540, w: 600, h: 370, pad: 14 });
+    } },
+
+    { id: 'outro', el: $('#s-outro'), render: outro },
+  ]);
+})();
+</script>
+</body>
+</html>

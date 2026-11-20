@@ -93,6 +93,15 @@ const BOARD = {
     keep: { visual: 'Blurred sanctuary; three statements, the last in gold.', text: 'Your password is yours alone. / Never share it. / Member information is confidential.', screens: 'None', sfx: 'Music' },
     outro: { visual: 'Shared end card with the reel\'s line.', text: 'Welcome to the team.', screens: 'None', sfx: 'Logo chord' },
   },
+  reel8: {
+    message: 'The launch announcement: Ekklesia is live at ekklesiaos-church.vercel.app, in the browser on any device.',
+    open: { visual: 'Sanctuary photograph, slow push, gold light sweep. Kicker NOW LIVE, headline, gold promise.', text: 'NOW LIVE / Ekklesia is live. / One address. Any device.', screens: 'None', sfx: 'Riser, chime' },
+    url: { visual: 'A large browser address bar; the address types in character by character (padlock icon, domain in dark, ".vercel.app" muted). The full address then lands in gold beneath, with a spelling note: no "www", a hyphen between ekklesiaos and church.', text: 'THE WEB ADDRESS / Type this into any browser. / ekklesiaos-church.vercel.app', screens: 'None (address bar recreated)', sfx: 'Typing ticks, pop' },
+    devices: { visual: 'The sign-in page on a desktop browser frame, a tablet and a phone, landing one after another with a gentle parallax drift.', text: 'BROWSER-BASED / Phone, tablet or computer. Nothing to install.', screens: 'login-empty.png (live capture) on three devices', sfx: 'Three pops' },
+    bookmark: { visual: 'Blurred sanctuary; three statements, the last in gold.', text: 'Type it once. / Bookmark it. / Then it is one tap away.', screens: 'None', sfx: 'Music' },
+    signin: { visual: 'Sign-in page in a browser frame; camera pushes into the form with a gold ring.', text: 'YOUR OWN ACCOUNT / Sign in. Your role decides what you see.', screens: 'login-empty.png (live capture)', sfx: 'Whoosh, chime' },
+    outro: { visual: 'Shared end card; the reel\'s line is the address itself, in gold.', text: 'ekklesiaos-church.vercel.app', screens: 'None', sfx: 'Logo chord' },
+  },
 };
 
 const CAPTIONS = {
@@ -123,6 +132,10 @@ const CAPTIONS = {
   reel7: {
     caption: `Tele Pastors: your first sign-in.\n\nOpen the Ekklesia web address, sign in with your email and the temporary password, and choose your own password before anything else: at least 10 characters, with a capital letter, a small letter and a number.\n\nYour password is yours alone. Member information is confidential.\n\nShare this one with the Tele Pastor team directly (WhatsApp works well); it is not for the public feed.`,
     tags: '#Ekklesia #TelePastor #PastoralCare #RedemptionTemple #AssembliesOfGod',
+  },
+  reel8: {
+    caption: `Ekklesia is live.\n\nhttps://ekklesiaos-church.vercel.app\n\nIt runs in your browser on a phone, a tablet or a computer. Nothing to install. Type it once, bookmark it, and sign in with your own account.\n\nChurch Membership, Attendance & Follow-Up Management for Redemption Temple Assemblies of God.`,
+    tags: '#Ekklesia #NowLive #ChurchManagement #ChurchTech #RedemptionTemple #AssembliesOfGod #ConnectingPeople',
   },
 };
 
@@ -161,7 +174,7 @@ const capDir = D('Social_Media_Captions');
 let cap = `# Captions, hashtags and publishing sequence\n\n`;
 cap += `## Recommended publishing sequence\n\nPost one reel every three to four days so the story builds: what it is → why it matters → how it works → how it changes pastoral care → why leadership should embrace it → who sees what.\n\n`;
 cap += `| Order | Day | Reel | What the audience should understand |\n|---|---|---|---|\n`;
-const seq = ['Sunday (after service)', 'Wednesday', 'Sunday', 'Wednesday', 'Sunday', 'Wednesday', 'Sent directly to the Tele Pastor team (not the public feed)'];
+const seq = ['Sunday (after service)', 'Wednesday', 'Sunday', 'Wednesday', 'Sunday', 'Wednesday', 'Sent directly to the Tele Pastor team (not the public feed)', 'Launch day, and pinned to the profile; repost whenever new accounts are issued'];
 REELS.forEach((r, i) => { cap += `| ${i + 1} | ${seq[i]} | ${r.file.replace(/_/g, ' ')} | ${BOARD[r.id].message} |\n`; });
 cap += `\nRepost Reel 2 (the question) once more after Reel 6 as the campaign's "most important message": this is a system for knowing our people, not just counting them.\n\nPlatforms: Instagram Reels, Facebook Reels, TikTok, WhatsApp Status (WhatsApp accepts up to 60 s per status; every reel fits in one). Upload the matching .srt where the platform supports captions; subtitles are also burned in.\n\n`;
 for (const r of REELS) {
@@ -222,7 +235,7 @@ Everything in the reels is drawn from the live Ekklesia application and the lead
 // --- README ------------------------------------------------------------------
 fs.writeFileSync(path.join(OUT, 'README.md'), `# EKKLESIA - Promotional Reels Campaign
 
-${['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven'][REELS.length] || REELS.length} connected reels introducing **Ekklesia**, the Church Membership, Attendance & Follow-Up Management System developed for **Redemption Temple Assemblies of God**.
+${['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'][REELS.length] || REELS.length} connected reels introducing **Ekklesia**, the Church Membership, Attendance & Follow-Up Management System developed for **Redemption Temple Assemblies of God**.
 
 | Reel | File | Length | Message |
 |---|---|---|---|

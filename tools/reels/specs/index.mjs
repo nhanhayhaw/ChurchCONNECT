@@ -124,4 +124,19 @@ export const REELS = [
       { id: 'outro', min: 5.0, pad: 1.6, vo: 'Ekklesia. Welcome to the team.' },
     ],
   },
+  {
+    // The launch announcement: the web address, and that it runs anywhere.
+    id: 'reel8',
+    file: 'Reel_08_Ekklesia_Is_Live',
+    title: 'Ekklesia Is Live',
+    theme: 'One Address. Any Device.',
+    scenes: [
+      { id: 'open', min: 4.0, pad: 0.8, sfx: [['riser', 0.3], ['chime', 1.0]], vo: 'Ekklesia is now live.' },
+      { id: 'url', min: 6.5, pad: 0.8, sfx: [['tick', 1.0], ['tick', 1.3], ['tick', 1.6], ['tick', 1.9], ['tick', 2.2], ['tick', 2.5], ['tick', 2.8], ['pop', 3.3]], vo: 'The address is ekklesiaos-church.vercel.app.' },
+      { id: 'devices', min: 6.0, pad: 0.5, sfx: [['pop', 0.4], ['pop', 1.2], ['pop', 2.0]], vo: 'It runs in your browser, on a phone, a tablet or a computer. Nothing to install.' },
+      { id: 'bookmark', min: 4.5, pad: 0.6, vo: 'Type it once and bookmark it. Then it is one tap away.' },
+      { id: 'signin', min: 5.0, pad: 0.5, sfx: [['whoosh', 0.4], ['chime', 2.2]], vo: 'Sign in with your own account. Your role decides what you see.' },
+      { id: 'outro', min: 5.5, pad: 1.6, vo: 'Ekklesia. ekklesiaos-church.vercel.app.' },
+    ],
+  },
 ];
