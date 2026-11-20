@@ -105,4 +105,23 @@ export const REELS = [
       { id: 'outro', min: 5.0, pad: 1.6, vo: 'Ekklesia. Six roles. One church.' },
     ],
   },
+  {
+    // A walkthrough for the Tele Pastors themselves: the first sign-in with
+    // the temporary password, and the password change the system insists on.
+    id: 'reel7',
+    file: 'Reel_07_Your_First_Sign_In',
+    title: 'Your First Sign-In',
+    theme: 'For Tele Pastors',
+    scenes: [
+      { id: 'open', min: 4.5, pad: 0.8, vo: 'Welcome, Tele Pastor. Here is your first sign-in.' },
+      { id: 'address', min: 4.5, pad: 0.5, sfx: [['whoosh', 0.4]], vo: 'Open the Ekklesia web address on any phone or computer.' },
+      { id: 'signin', min: 7.5, pad: 0.5, sfx: [['chime', 1.6], ['pop', 2.9], ['click', 6.2]], vo: 'Type your email and the temporary password, Telepastor one two three, capital T. Then press Sign in.' },
+      { id: 'change', min: 5.0, pad: 0.5, sfx: [['whoosh', 0.4], ['alert', 2.2]], vo: 'Ekklesia then asks you to choose your own password first.' },
+      { id: 'rules', min: 6.0, pad: 0.5, sfx: [['pop', 2.3], ['pop', 2.9], ['pop', 3.6]], vo: 'At least ten characters: a capital letter, a small letter and a number. Something only you know.' },
+      { id: 'update', min: 6.5, pad: 0.5, sfx: [['click', 2.6], ['chime', 3.4]], vo: 'Type it twice and press Update password. Then sign in again with your new password.' },
+      { id: 'dashboard', min: 6.0, pad: 0.5, sfx: [['whoosh', 0.4], ['pop', 2.4]], vo: 'Then your dashboard. Members, Follow-Up and Birthdays are in the menu on the left.' },
+      { id: 'keep', min: 5.0, pad: 0.7, vo: 'Your password is yours alone. Never share it.' },
+      { id: 'outro', min: 5.0, pad: 1.6, vo: 'Ekklesia. Welcome to the team.' },
+    ],
+  },
 ];

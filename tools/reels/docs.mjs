@@ -81,6 +81,18 @@ const BOARD = {
     enforced: { visual: 'Blurred sanctuary; three statements, the last in gold.', text: 'Enforced by the system. / Not by trust. / Every action is recorded.', screens: 'None', sfx: 'Whoosh' },
     outro: { visual: 'Shared end card with the reel\'s line.', text: 'Six roles. One church.', screens: 'None', sfx: 'Logo chord' },
   },
+  reel7: {
+    message: 'For Tele Pastors: the first sign-in with the temporary password, and the password change the system requires before anything else.',
+    open: { visual: 'Sanctuary photograph, slow push, gold light sweep. Kicker FOR TELE PASTORS, headline, then the gold promise.', text: 'FOR TELE PASTORS / Your first sign-in. / One minute. Three steps.', screens: 'None', sfx: 'Music' },
+    address: { visual: 'The empty sign-in page rises in a browser frame whose address bar reads ekklesiaos-church.vercel.app; the address repeats in a gold chip beneath the frame.', text: 'STEP 1 / Open the web address. / ekklesiaos-church.vercel.app', screens: 'login-empty.png (live capture)', sfx: 'Whoosh' },
+    signin: { visual: 'Sign-in page with the sample account filled in and the password shown. Camera pushes into the form; a gold ring moves email -> password -> Sign in as each is named. A white card below shows the temporary password Telepastor123 with a plain-language spelling hint. Cursor arrives and clicks Sign in.', text: 'STEP 2 / Sign in with the temporary password. / Temporary password: Telepastor123', screens: 'login-filled.png (live capture)', sfx: 'Chime, pop, click' },
+    change: { visual: 'The Change your password page as the system shows it on first sign-in; camera pushes in and rings the line "Your account requires a new password before you continue."', text: 'STEP 3 / Choose your own password.', screens: 'change-password.png (live capture)', sfx: 'Whoosh, alert' },
+    rules: { visual: 'A white card in the application\'s input style: a masked password types in (dots only), and three rule rows tick green one by one: 10 characters, capital and small letter, a number. Footer: something only you know, not the temporary password.', text: 'STEP 3 / A strong password has all three.', screens: 'None (rules are the application\'s own validation)', sfx: 'Three pops' },
+    update: { visual: 'The completed form; cursor clicks Update password. Crossfade to the sign-in page with the green "Password updated. Please sign in again." toast ringed.', text: 'STEP 3 / Update, then sign in again.', screens: 'change-password-filled.png, password-updated.png (live captures)', sfx: 'Click, chime' },
+    dashboard: { visual: 'The Tele Pastor\'s own dashboard (Good evening, Abena); camera pushes to the left menu and rings Members / Attendance / Follow-Up / Birthdays.', text: 'YOU ARE IN / Your dashboard, your menu.', screens: 'dashboard-telepastor.png (live capture)', sfx: 'Whoosh, pop' },
+    keep: { visual: 'Blurred sanctuary; three statements, the last in gold.', text: 'Your password is yours alone. / Never share it. / Member information is confidential.', screens: 'None', sfx: 'Music' },
+    outro: { visual: 'Shared end card with the reel\'s line.', text: 'Welcome to the team.', screens: 'None', sfx: 'Logo chord' },
+  },
 };
 
 const CAPTIONS = {
@@ -107,6 +119,10 @@ const CAPTIONS = {
   reel6: {
     caption: `Six roles. One church.\n\nNot everyone needs to see everything. In EKKLESIA every person signs in with their own account and sees only what their role allows: Super Administrator, Pastor, Church Administrator, Department Leader, Tele Pastor and Viewer.\n\nThe Tele Pastor is the pastor's extended hands - absence alerts, birthdays, member records, and every call written down.\n\nAccess is enforced by the system, not by trust. Every action is recorded.`,
     tags: '#Ekklesia #TelePastor #PastoralCare #ChurchLeadership #ChurchManagement #DataProtection #RedemptionTemple #AssembliesOfGod',
+  },
+  reel7: {
+    caption: `Tele Pastors: your first sign-in.\n\nOpen the Ekklesia web address, sign in with your email and the temporary password, and choose your own password before anything else: at least 10 characters, with a capital letter, a small letter and a number.\n\nYour password is yours alone. Member information is confidential.\n\nShare this one with the Tele Pastor team directly (WhatsApp works well); it is not for the public feed.`,
+    tags: '#Ekklesia #TelePastor #PastoralCare #RedemptionTemple #AssembliesOfGod',
   },
 };
 
@@ -145,9 +161,9 @@ const capDir = D('Social_Media_Captions');
 let cap = `# Captions, hashtags and publishing sequence\n\n`;
 cap += `## Recommended publishing sequence\n\nPost one reel every three to four days so the story builds: what it is → why it matters → how it works → how it changes pastoral care → why leadership should embrace it → who sees what.\n\n`;
 cap += `| Order | Day | Reel | What the audience should understand |\n|---|---|---|---|\n`;
-const seq = ['Sunday (after service)', 'Wednesday', 'Sunday', 'Wednesday', 'Sunday', 'Wednesday'];
+const seq = ['Sunday (after service)', 'Wednesday', 'Sunday', 'Wednesday', 'Sunday', 'Wednesday', 'Sent directly to the Tele Pastor team (not the public feed)'];
 REELS.forEach((r, i) => { cap += `| ${i + 1} | ${seq[i]} | ${r.file.replace(/_/g, ' ')} | ${BOARD[r.id].message} |\n`; });
-cap += `\nRepost Reel 2 (the question) once more after Reel ${REELS.length} as the campaign's "most important message": this is a system for knowing our people, not just counting them.\n\nPlatforms: Instagram Reels, Facebook Reels, TikTok, WhatsApp Status (WhatsApp accepts up to 60 s per status; every reel fits in one). Upload the matching .srt where the platform supports captions; subtitles are also burned in.\n\n`;
+cap += `\nRepost Reel 2 (the question) once more after Reel 6 as the campaign's "most important message": this is a system for knowing our people, not just counting them.\n\nPlatforms: Instagram Reels, Facebook Reels, TikTok, WhatsApp Status (WhatsApp accepts up to 60 s per status; every reel fits in one). Upload the matching .srt where the platform supports captions; subtitles are also burned in.\n\n`;
 for (const r of REELS) {
   cap += `## ${r.file.replace(/_/g, ' ')}\n\n**Message:** ${BOARD[r.id].message}\n\n**Caption**\n\n${CAPTIONS[r.id].caption}\n\n**Hashtags**\n\n${CAPTIONS[r.id].tags}\n\n`;
 }
@@ -172,11 +188,16 @@ Everything in the reels is drawn from the live Ekklesia application and the lead
 | departments.png | Departments: cards with leader, meeting time, roster | Reels 3, 4 |
 | reports.png | Reports: list, date range, Print / Excel / PDF | Reels 3, 5 |
 | login.png | Login page (brand panel and sign-in form) | Reel 6 |
+| login-empty.png, login-filled.png | Sign-in page, empty and with the sample Tele Pastor account and temporary password shown | Reel 7 |
+| change-password.png, change-password-filled.png | Change your password (first sign-in), empty and completed | Reel 7 |
+| password-updated.png | Sign-in page with the "Password updated" toast | Reel 7 |
+| dashboard-telepastor.png | A Tele Pastor's dashboard (Abena Mensah, sample account) and menu | Reel 7 |
 
 ## Recreated elements (built from the component source, not re-imagined)
 
 - **Badges** — \`client/src/components/ui/Badge.tsx\` tones: sky (Level 1 / Contacted), amber (Level 2 / Pending / Needs Further Follow-Up), red (Level 3 / Unable to Reach), emerald (Responded / Resolved).
 - **Alert row and Start-follow-up dialog** — \`client/src/pages/AbsenceAlertsPage.tsx\` copy and layout; worked example (John Mensah) from the deck, slide 11.
+- **Password rules card (Reel 7)** — the three rules are the application's own validation in \`client/src/pages/AccountPages.tsx\`; the typed password is masked dots, never a real password.
 - **Role cards (Reel 6)** — labels and descriptions are the six role definitions in \`server/src/config/permissions.ts\`; the Tele Pastor spotlight lists only what that role's permissions grant.
 - **Avatars** — pastel disc with initials, as \`Avatar.tsx\`.
 - **Buttons, inputs, modal** — navy primary, outline secondary, rounded-xl cards (\`reel.css\` mirrors \`tailwind.config.js\` and \`index.css\`).
@@ -201,7 +222,7 @@ Everything in the reels is drawn from the live Ekklesia application and the lead
 // --- README ------------------------------------------------------------------
 fs.writeFileSync(path.join(OUT, 'README.md'), `# EKKLESIA - Promotional Reels Campaign
 
-${REELS.length === 6 ? 'Six' : REELS.length} connected reels introducing **Ekklesia**, the Church Membership, Attendance & Follow-Up Management System developed for **Redemption Temple Assemblies of God**.
+${['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven'][REELS.length] || REELS.length} connected reels introducing **Ekklesia**, the Church Membership, Attendance & Follow-Up Management System developed for **Redemption Temple Assemblies of God**.
 
 | Reel | File | Length | Message |
 |---|---|---|---|

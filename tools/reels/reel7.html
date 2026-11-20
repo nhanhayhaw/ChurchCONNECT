@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reel 7 - Your First Sign-In</title>
+<link rel="stylesheet" href="reel.css">
+<style>
+  /* The web address, shown above the browser frame. */
+  .addr { position: absolute; left: 0; right: 0; text-align: center; top: 1250px; }
+  .addr .chip { font-size: 30px; padding: 16px 30px; letter-spacing: 0.01em; background: rgba(219,184,119,0.14); border-color: rgba(219,184,119,0.5); color: #fff; }
+  .addr .chip b { color: var(--gold-300); font-weight: 700; }
+
+  /* The temporary password, in the application's own input style. */
+  .temp { left: 70px; top: 1250px; width: 940px; padding: 28px 34px; }
+  .temp .lab { font-size: 22px; font-weight: 500; color: #334155; margin-bottom: 10px; }
+  .temp .in { display: flex; align-items: center; gap: 18px; font-size: 40px; font-weight: 600; letter-spacing: 0.03em; color: var(--ink); border: 2px solid #456A96; box-shadow: 0 0 0 4px rgba(69,106,150,0.2); border-radius: 14px; padding: 16px 22px; }
+  .temp .in svg { width: 36px; height: 36px; color: #64748B; flex-shrink: 0; }
+  .temp .hint { font-size: 21px; color: #64748B; margin-top: 12px; }
+  .temp .hint b { color: var(--ink); }
+
+  /* The password-rules card. */
+  .rules { left: 70px; top: 600px; width: 940px; padding: 36px 40px; }
+  .rules .lab { font-size: 24px; font-weight: 500; color: #334155; margin-bottom: 12px; }
+  .rules .in { font-size: 44px; letter-spacing: 0.12em; color: var(--ink); border: 2px solid #456A96; box-shadow: 0 0 0 4px rgba(69,106,150,0.2); border-radius: 14px; padding: 14px 22px; min-height: 92px; display: flex; align-items: center; }
+  .rules .in .caret { height: 44px; vertical-align: 0; }
+  .rules ul { margin: 28px 0 0; padding: 0; }
+  .rules li { list-style: none; display: flex; gap: 20px; align-items: center; font-size: 28px; color: #64748B; padding: 16px 0; border-top: 1px solid #E2E8F0; }
+  .rules li .tick { width: 44px; height: 44px; border-radius: 50%; border: 3px solid #CBD5E1; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff; }
+  .rules li .tick svg { width: 26px; height: 26px; opacity: 0; }
+  .rules li.ok { color: var(--ink); }
+  .rules li.ok .tick { background: var(--green); border-color: var(--green); }
+  .rules li.ok .tick svg { opacity: 1; }
+  .rules li.ok strong { color: var(--ink); }
+  .rules .foot { margin-top: 22px; font-size: 24px; color: #64748B; }
+  .rules .foot b { color: var(--ink); }
+
+  .statement.sm { font-size: 60px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="bg" width="1080" height="1920"></canvas>
+
+  <section class="scene" id="s-open">
+    <div class="light-sweep"></div>
+    <div class="kicker center w0" style="top:640px">For Tele Pastors</div>
+    <div class="h1 center w1" style="top:700px">Your first<br>sign-in.</div>
+    <div class="h1 center gold w2" style="top:940px;font-size:64px">One minute.<br>Three steps.</div>
+  </section>
+
+  <section class="scene" id="s-address">
+    <div class="kicker" style="top:330px">Step 1</div>
+    <div class="h2" style="top:380px">Open the<br><span class="gold">web address.</span></div>
+    <div class="addr"><span class="chip"><b>ekklesiaos-church</b>.vercel.app</span></div>
+  </section>
+
+  <section class="scene" id="s-signin">
+    <div class="kicker" style="top:330px">Step 2</div>
+    <div class="h2" style="top:380px">Sign in with the<br><span class="gold">temporary password.</span></div>
+    <div class="card temp">
+      <div class="lab">Temporary password</div>
+      <div class="in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>Telepastor123</span></div>
+      <div class="hint">Capital <b>T</b>, then small letters, then <b>1 2 3</b>. Works once, for your first sign-in only.</div>
+    </div>
+  </section>
+
+  <section class="scene" id="s-change">
+    <div class="kicker" style="top:330px">Step 3</div>
+    <div class="h2" style="top:380px">Choose your<br><span class="gold">own password.</span></div>
+  </section>
+
+  <section class="scene" id="s-rules">
+    <div class="kicker" style="top:330px">Step 3</div>
+    <div class="h2" style="top:380px">A strong password<br>has all three.</div>
+    <div class="card rules">
+      <div class="lab">New password</div>
+      <div class="in"><span class="typed"></span><span class="caret"></span></div>
+      <ul>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>At least <strong>10 characters</strong></span></li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>A <strong>capital letter</strong> and a <strong>small letter</strong></span></li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>At least <strong>one number</strong></span></li>
+      </ul>
+      <div class="foot">Something <b>only you</b> know. Not the temporary password.</div>
+    </div>
+  </section>
+
+  <section class="scene" id="s-update">
+    <div class="kicker" style="top:330px">Step 3</div>
+    <div class="h2" style="top:380px">Update, then<br><span class="gold">sign in again.</span></div>
+  </section>
+
+  <section class="scene" id="s-dashboard">
+    <div class="kicker" style="top:330px">You are in</div>
+    <div class="h2" style="top:380px">Your dashboard,<br>your menu.</div>
+  </section>
+
+  <section class="scene" id="s-keep">
+    <div class="statement l1" style="top:620px">Your password<br>is yours alone.</div>
+    <div class="statement sm l2" style="top:860px">Never share it.</div>
+    <div class="statement sm gold l3" style="top:1000px">Member information<br>is confidential.</div>
+  </section>
+
+  <section class="scene" id="s-outro"></section>
+
+  <div class="vignette"></div>
+  <div id="subs"></div>
+</div>
+
+<script src="engine.js"></script>
+<script src="shared.js"></script>
+<script>
+(function () {
+  const { p, ease, reveal, stagger, kf, lerp, sfade, cameraKf, highlight } = E;
+  const $ = (s) => document.querySelector(s);
+  const URL = 'ekklesiaos-church.vercel.app';
+  const SHOT = { x: 40, y: 560, w: 1000, h: 625 };
+  const OVER = [1080, 675, 0.463]; // whole 2x capture inside the frame
+  // Rings and clicks follow the measured narration (VO starts 0.35 s into a scene).
+  const voDur = (id) => ((window.TIMELINE && window.TIMELINE.byId[id] && window.TIMELINE.byId[id].vo) || { dur: 6 }).dur;
+  const beat = (id, f) => 0.35 + voDur(id) * f;
+
+  // open
+  const op = $('#s-open');
+  const opPhoto = E.photoLayer(op, { blur: 0 });
+  op.appendChild(op.querySelector('.light-sweep'));
+  op.querySelectorAll('.kicker, .h1').forEach((h) => op.appendChild(h));
+  E.brandCorner(op).note.remove();
+
+  // address
+  const ad = $('#s-address');
+  const adShot = E.screenFrame(ad, { src: 'assets/screens/login-empty.png', url: URL, ...SHOT });
+  E.brandCorner(ad).note.remove();
+
+  // signin
+  const si = $('#s-signin');
+  const siShot = E.screenFrame(si, { src: 'assets/screens/login-filled.png', url: URL, ...SHOT });
+  const siCur = E.cursorEl(si);
+  E.brandCorner(si);
+
+  // change
+  const ch = $('#s-change');
+  const chShot = E.screenFrame(ch, { src: 'assets/screens/change-password.png', url: URL, ...SHOT });
+  E.brandCorner(ch);
+
+  // rules
+  const ru = $('#s-rules');
+  E.brandCorner(ru).note.remove();
+  const ruItems = ru.querySelectorAll('li');
+  const ruTyped = ru.querySelector('.typed');
+  const ruCaret = ru.querySelector('.caret');
+
+  // update: the filled form, then the sign-in page with the confirmation toast
+  const up = $('#s-update');
+  const upA = E.screenFrame(up, { src: 'assets/screens/change-password-filled.png', url: URL, ...SHOT });
+  const upB = E.screenFrame(up, { src: 'assets/screens/password-updated.png', url: URL, ...SHOT });
+  const upCur = E.cursorEl(up);
+  E.brandCorner(up);
+
+  // dashboard
+  const da = $('#s-dashboard');
+  const daShot = E.screenFrame(da, { src: 'assets/screens/dashboard-telepastor.png', url: URL, ...SHOT });
+  E.brandCorner(da);
+
+  // keep
+  const ke = $('#s-keep');
+  const kePhoto = E.photoLayer(ke, { blur: 3 });
+  ke.querySelectorAll('.statement').forEach((h) => ke.appendChild(h));
+  E.brandCorner(ke).note.remove();
+
+  const outro = E.endCard($('#s-outro'), { lines: ['Welcome to the team.'] });
+
+  const heads = (sec, lt) => stagger([sec.querySelector('.kicker'), sec.querySelector('.h2')], lt, { at: 0.1, gap: 0.15, dur: 0.8, y: 30 });
+
+  E.reel.define([
+    { id: 'open', el: op, render(lt, dur) {
+      sfade(op, lt, dur, 0.9, 0.5);
+      opPhoto(lt, dur, { from: 1.16, to: 1.04 });
+      E.sweep(op.querySelector('.light-sweep'), lt, 0.3, 1.5);
+      reveal(op.querySelector('.w0'), lt, { at: 0.4, dur: 0.8, y: 20 });
+      reveal(op.querySelector('.w1'), lt, { at: 0.7, dur: 0.9, y: 30 });
+      reveal(op.querySelector('.w2'), lt, { at: 2.2, dur: 0.9, y: 30 });
+    } },
+
+    { id: 'address', el: ad, render(lt, dur) {
+      sfade(ad, lt, dur, 0.45, 0.5);
+      heads(ad, lt);
+      reveal(ad.querySelector('.addr'), lt, { at: 0.9, dur: 0.8, y: 24, scale: 0.92, e: ease.outBack });
+      reveal(adShot.frame, lt, { at: 0.3, dur: 1.0, y: 80, scale: 0.95 });
+      cameraKf(adShot.wrap, adShot.img, lt, [[0, OVER], [dur, [1080, 675, 0.48]]]);
+    } },
+
+    { id: 'signin', el: si, render(lt, dur) {
+      sfade(si, lt, dur, 0.45, 0.5);
+      heads(si, lt);
+      reveal(siShot.frame, lt, { at: 0.2, dur: 0.9, y: 60, scale: 0.96 });
+      // Overview, then push into the form; the ring moves email -> password -> Sign in.
+      cameraKf(siShot.wrap, siShot.img, lt, [[0, OVER], [0.8, OVER], [1.8, [1620, 720, 0.85]], [dur, [1620, 740, 0.88]]]);
+      const t1 = beat('signin', 0.02), t2 = beat('signin', 0.24), t3 = beat('signin', 0.74), click = t3 + 0.4;
+      if (lt < t2) highlight(siShot.ring, siShot.wrap, siShot.img, lt, { at: t1, dur: 0.5, until: t2 - 0.3, x: 1236, y: 513, w: 767, h: 72, pad: 10 });
+      else if (lt < t3) highlight(siShot.ring, siShot.wrap, siShot.img, lt, { at: t2, dur: 0.4, until: t3 - 0.3, x: 1236, y: 674, w: 767, h: 72, pad: 10 });
+      else highlight(siShot.ring, siShot.wrap, siShot.img, lt, { at: t3, dur: 0.4, until: dur - 0.4, x: 1236, y: 853, w: 767, h: 84, pad: 10 });
+      reveal(si.querySelector('.temp'), lt, { at: beat('signin', 0.35), dur: 0.8, y: 40, scale: 0.97, e: ease.outBack });
+      const [bx, by] = E.toStage(siShot.wrap, siShot.img, 1620, 895);
+      E.cursor(siCur, lt, [[t3 - 1.0, [900, 1700]], [t3 + 0.2, [bx, by]], [dur, [bx, by]]], [click]);
+    } },
+
+    { id: 'change', el: ch, render(lt, dur) {
+      sfade(ch, lt, dur, 0.45, 0.5);
+      heads(ch, lt);
+      reveal(chShot.frame, lt, { at: 0.2, dur: 0.9, y: 60, scale: 0.96 });
+      cameraKf(chShot.wrap, chShot.img, lt, [[0, OVER], [1.0, OVER], [2.2, [1000, 580, 0.75]], [dur, [1000, 600, 0.78]]]);
+      highlight(chShot.ring, chShot.wrap, chShot.img, lt, { at: 2.2, dur: 0.5, until: dur - 0.4, x: 556, y: 262, w: 810, h: 48, pad: 10 });
+    } },
+
+    { id: 'rules', el: ru, render(lt, dur) {
+      sfade(ru, lt, dur, 0.45, 0.5);
+      heads(ru, lt);
+      reveal(ru.querySelector('.rules'), lt, { at: 0.4, dur: 0.9, y: 60, scale: 0.97 });
+      // Masked typing: the audience sees dots, never a real password.
+      const n = Math.max(0, Math.min(12, Math.floor((lt - 1.0) * 10)));
+      ruTyped.textContent = '●'.repeat(n);
+      ruCaret.style.opacity = lt > 0.9 && (n < 12 || Math.floor(lt * 2) % 2 === 0) ? '1' : '0';
+      [2.3, 2.9, 3.6].forEach((at, i) => ruItems[i].classList.toggle('ok', lt >= at));
+      reveal(ru.querySelector('.foot'), lt, { at: 4.5, dur: 0.7, y: 14 });
+    } },
+
+    { id: 'update', el: up, render(lt, dur) {
+      sfade(up, lt, dur, 0.45, 0.5);
+      heads(up, lt);
+      const swap = 3.3;
+      // A: the completed form; cursor travels to Update password and clicks at 2.6.
+      reveal(upA.frame, lt, { at: 0.2, dur: 0.9, until: swap, outDur: 0.45, y: 60, scale: 0.96 });
+      cameraKf(upA.wrap, upA.img, lt, [[0, OVER], [0.7, OVER], [1.7, [1000, 820, 0.75]], [dur, [1000, 820, 0.75]]]);
+      highlight(upA.ring, upA.wrap, upA.img, lt, { at: 1.9, dur: 0.4, until: swap - 0.2, x: 601, y: 1064, w: 349, h: 81, pad: 10 });
+      const [ux, uy] = E.toStage(upA.wrap, upA.img, 775, 1105);
+      E.cursor(upCur, lt, [[1.2, [900, 1700]], [2.2, [ux, uy]], [swap, [ux, uy]]], [2.6]);
+      upCur.style.opacity = lt > swap ? '0' : upCur.style.opacity;
+      // B: back at sign-in, "Password updated" toast ringed.
+      reveal(upB.frame, lt, { at: swap, dur: 0.8, y: 40, scale: 0.98 });
+      cameraKf(upB.wrap, upB.img, lt, [[swap, [1540, 1000, 0.72]], [dur, [1540, 980, 0.75]]]);
+      highlight(upB.ring, upB.wrap, upB.img, lt, { at: swap + 0.5, dur: 0.5, until: dur - 0.4, x: 1363, y: 1173, w: 758, h: 142, pad: 10 });
+    } },
+
+    { id: 'dashboard', el: da, render(lt, dur) {
+      sfade(da, lt, dur, 0.45, 0.5);
+      heads(da, lt);
+      reveal(daShot.frame, lt, { at: 0.2, dur: 0.9, y: 60, scale: 0.96 });
+      cameraKf(daShot.wrap, daShot.img, lt, [[0, OVER], [1.2, OVER], [2.4, [560, 330, 0.9]], [dur, [560, 350, 0.92]]]);
+      highlight(daShot.ring, daShot.wrap, daShot.img, lt, { at: 2.6, dur: 0.5, until: dur - 0.4, x: 24, y: 248, w: 464, h: 292, pad: 10 });
+    } },
+
+    { id: 'keep', el: ke, render(lt, dur) {
+      sfade(ke, lt, dur, 0.5, 0.5);
+      kePhoto(lt, dur, { from: 1.0, to: 1.1, opacity: 0.6 });
+      reveal(ke.querySelector('.l1'), lt, { at: 0.3, dur: 0.9, y: 30 });
+      reveal(ke.querySelector('.l2'), lt, { at: beat('keep', 0.6), dur: 0.9, y: 30 });
+      reveal(ke.querySelector('.l3'), lt, { at: beat('keep', 0.6) + 1.3, dur: 0.9, y: 30 });
+    } },
+
+    { id: 'outro', el: $('#s-outro'), render: outro },
+  ]);
+})();
+</script>
+</body>
+</html>
