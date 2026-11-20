@@ -39,8 +39,7 @@ services:
       - key: PGSSL
         value: "true"
       - key: CLIENT_ORIGIN
-        # First entry is the public URL used in emails; the rest are extra CORS origins.
-        value: https://ekklesiaos-church.vercel.app,https://church-connect-omega.vercel.app
+        value: https://ekklesiaos-church.vercel.app
       - key: JWT_ACCESS_SECRET
         generateValue: true
       - key: JWT_REFRESH_SECRET
